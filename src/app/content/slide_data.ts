@@ -73,6 +73,7 @@ export const all_slides: Slide[] = [
                         "If you were one of these two farmers who called Dr. Rosmann, how would you like him to help?"
                     ],
                     choices: {
+                        horizontal: false,
                         options: [
                             "Help me apply for crop insurance",
                             "Give me information on how to contact FEMA for emergency financial assistance",
@@ -116,8 +117,9 @@ export const all_slides: Slide[] = [
                 paragraphs: [
                     "Look at these two glasses. The water was filled to the same distances from the top of these glasses. If someone gradually tilts both glasses at the same rate, from which glass would water start to pour out first?"
                 ],
-                image: "src/assets/slide_images/beakers.png",
+                image: "assets/slide_images/beakers.png",
                 choices: {
+                    horizontal: false,
                     options: [
                         "Narrower glass first",
                         "Wider glass first",
@@ -136,6 +138,21 @@ export const all_slides: Slide[] = [
                 ]
             }
             
+        ]
+    },
+
+    {
+        id: 3,
+        type: 'end',
+        title: '',
+        frames:[
+            {
+                id: 1,
+                type: 'end',
+                title: '',
+                formatting: 'default',
+                paragraphs: ['END OF CONTENT']
+            }
         ]
     }
 ]

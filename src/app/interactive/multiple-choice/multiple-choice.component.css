@@ -1,9 +1,9 @@
-.mc-question ul {
+ul {
     list-style: none;
     padding: 0;
   }
   
-.mc-question li {
+li {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -12,11 +12,11 @@
     transition: background-color 0.2s ease, border 0.2s ease;
 }
 
-.mc-question li:hover {
+li:hover {
     background-color: #f5f5f5;
 }
 
-.mc-question li.selected {
+li.selected {
     background-color: #c8e6c9;
     border-color: #4caf50;
 }
@@ -24,4 +24,17 @@
 .question {
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+.horizontal {
+    display: flex;
+}
+
+/* .mc-question.horizontal li {
+    margin-right: 10px;
+    margin-bottom: 0; 
+} */
+
+.vertical {
+    display: block;
 }

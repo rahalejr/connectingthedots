@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
 import { MultipleChoice } from '../../content/models';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +11,10 @@ import { CommonModule } from '@angular/common';
 })
 export class MultipleChoiceComponent {
 
+  @Input() horizontal: boolean = false;
+
   @Input() choices: MultipleChoice | undefined = {
+    horizontal: true,
     options: [
         "Help me apply for crop insurance",
         "Give me information on how to contact FEMA for emergency financial assistance",
@@ -22,13 +25,13 @@ export class MultipleChoiceComponent {
     question: "Placeholder question text"
   }
 
-  @Output() selectedOption = new EventEmitter<number>();
+  @Output() selected = new EventEmitter<number>();
 
   selectedIndex?: number;
 
   selectOption(index: number) {
     this.selectedIndex = index;
-    this.selectedOption.emit(index);
+    this.selected.emit(index);
   }
 
 

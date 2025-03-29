@@ -1,31 +1,76 @@
-<div id="container" [@fadeAnimation]="animationState" [ngSwitch]="format">
+<div id="container">
 
-    <ng-container *ngSwitchCase="'text'">
+    <h2>{{title}}</h2>
 
-        <div *ngFor="let p of content.paragraphs" class="paragraph">
-            {{p}}
-        </div>
+    <div id="content" [@fadeAnimation]="animationState" [ngSwitch]="format">
 
-        <next-button (clicked)="nextFrame()"></next-button>
+        <ng-container *ngSwitchCase="'text'">
 
-    </ng-container>
+            <div class="paragraphs">
+                <p *ngFor="let pp of content.paragraphs">
+                    {{pp}}
+                </p>
+            </div>
 
+            <div class="button">
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
 
-    <ng-container *ngSwitchCase="'mc'">
-
-        <div *ngFor="let p of content.paragraphs" class="paragraph">
-            {{p}}
-        </div>
-
-        <ng-container *ngIf="content.choices">
-            <multiple-choice [choices]="content.choices!"></multiple-choice>
         </ng-container>
 
-    </ng-container>
 
-    <ng-container *ngSwitchCase="'mc_image'">
+        <ng-container *ngSwitchCase="'mc'">
 
-    </ng-container>
+            <div class="paragraphs">
+                <p *ngFor="let pp of content.paragraphs">
+                    {{pp}}
+                </p>
+            </div>
 
+            <ng-container *ngIf="content.choices">
+                <multiple-choice [choices]="content.choices!" [horizontal]="content.choices!.horizontal" (selected)="selectOption($event)"></multiple-choice>
+            </ng-container>
+
+            <div class="button">
+                <next-button *ngIf="selected_option != -1" (clicked)="nextFrame()"></next-button>
+            </div>
+
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'mc_image'">
+
+            <div class="paragraphs">
+                <p *ngFor="let pp of content.paragraphs">
+                    {{pp}}
+                </p>
+            </div>
+
+            <div class="image_choices">
+                <img [src]="content.image">
+
+                <ng-container *ngIf="content.choices">
+                    <multiple-choice [choices]="content.choices!" [horizontal]="content.choices!.horizontal" (selected)="selectOption($event)"></multiple-choice>
+                </ng-container>
+            </div>
+
+            <div class="button">
+                <next-button *ngIf="selected_option != -1" (clicked)="nextFrame()"></next-button>
+            </div>
+
+
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'end'">
+
+            <div class="paragraphs">
+                <p *ngFor="let pp of content.paragraphs">
+                    {{pp}}
+                </p>
+            </div>
+
+        </ng-container>
+
+
+    </div>
 
 </div>

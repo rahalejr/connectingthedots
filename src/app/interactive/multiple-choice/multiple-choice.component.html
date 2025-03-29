@@ -1,7 +1,7 @@
 <div class="mc-question">
     <p *ngIf="choices!.question" class="question">{{ choices!.question }}</p>
     
-    <ul>
+    <ul [ngClass]="{'horizontal': horizontal, 'vertical': !horizontal}">
       <li *ngFor="let opt of choices!.options; let i = index"
           [ngClass]="{selected: selectedIndex === i}"
           (click)="selectOption(i)">
