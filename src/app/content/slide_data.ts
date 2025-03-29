@@ -51,7 +51,8 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '“The second call came from another farmer. She told me she was desperate, because she didn’t know how to deal with uncertainty in her farming operation. Her email said ... :"'
+                        "Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am.",
+                        "So this woman is looking to me about how to continue, and maybe even gauging whether she needs to join her brother."
                     ]
                 },
                 {
@@ -60,21 +61,11 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        "Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am.",
-                        "So this woman is looking to me about how to continue, and maybe even gauging whether she needs to join her brother."
-                    ]
-                },
-                {
-                    id: 7,
-                    type: 'text',
-                    title: '',
-                    formatting: 'default',
-                    paragraphs: [
                         '"...farmers have been calling me more and more recently... The number of calls has really increased since the beginning of March, when the flooding began.”'
                     ]
                 },
                 {
-                    id: 8,
+                    id: 7,
                     type: 'mc',
                     title: '',
                     formatting: 'default',
@@ -92,7 +83,7 @@ export const all_slides: Slide[] = [
                     }
                 },
                 {
-                    id: 9,
+                    id: 8,
                     type: 'text',
                     title: '',
                     formatting: 'default',
@@ -101,7 +92,7 @@ export const all_slides: Slide[] = [
                     ]
                 },
                 {
-                    id: 10,
+                    id: 9,
                     type: 'text',
                     title: '',
                     formatting: 'default',

@@ -1,1 +1,31 @@
-<p>slide works!</p>
+<div id="container" [@fadeAnimation]="animationState" [ngSwitch]="format">
+
+    <ng-container *ngSwitchCase="'text'">
+
+        <div *ngFor="let p of content.paragraphs" class="paragraph">
+            {{p}}
+        </div>
+
+        <next-button (clicked)="nextFrame()"></next-button>
+
+    </ng-container>
+
+
+    <ng-container *ngSwitchCase="'mc'">
+
+        <div *ngFor="let p of content.paragraphs" class="paragraph">
+            {{p}}
+        </div>
+
+        <ng-container *ngIf="content.choices">
+            <multiple-choice [choices]="content.choices!"></multiple-choice>
+        </ng-container>
+
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'mc_image'">
+
+    </ng-container>
+
+
+</div>

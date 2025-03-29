@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'next-button',
@@ -9,8 +9,10 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class NextButtonComponent {
 
-  @Output() nextClicked = new EventEmitter<void>();
+  @Input() label: string = 'Next';
 
-  onClick() {this.nextClicked.emit()}
+  @Output() clicked = new EventEmitter<void>();
+
+  onClick() {this.clicked.emit()}
 
 }
