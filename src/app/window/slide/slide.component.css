@@ -8,12 +8,13 @@ p {
 }
 
 img {
-    height: 200px;
+    height: 180px;
     width: auto;
     margin: 20px;
 }
 
 #container {
+    background-color: inherit;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -34,10 +35,20 @@ img {
 .button {
     height: 40px;
     width: 100px;
+    transition: opacity .4s ease;
 }
 
 .image_choices {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.pp_mcimage {
+    margin-bottom: -10px;
+}
+
+.hide-button {
+    opacity: 0;
+    pointer-events: none;
 }

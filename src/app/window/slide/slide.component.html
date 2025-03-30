@@ -12,7 +12,7 @@
                 </p>
             </div>
 
-            <div class="button">
+            <div [ngClass]="{'hide-button': !allow_next}" class="button">
                 <next-button (clicked)="nextFrame()"></next-button>
             </div>
 
@@ -39,7 +39,7 @@
 
         <ng-container *ngSwitchCase="'mc_image'">
 
-            <div class="paragraphs">
+            <div class="paragraphs pp_mcimage">
                 <p *ngFor="let pp of content.paragraphs">
                     {{pp}}
                 </p>

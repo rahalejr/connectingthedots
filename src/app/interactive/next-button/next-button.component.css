@@ -1,13 +1,24 @@
-#button {
+#container {
     width: 100px;
-    height: 40px;
-    background-color: lightgray;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#button {
+    width: 90px;
+    height: 30px;
+    background-color: rgb(172, 172, 172);
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    transition: background-color 0.2s ease, width .2s ease, height .2s ease, font-size .2s ease;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,4 +26,7 @@
   
 #button:hover {
     background-color: gray;
+    width: 95px;
+    height: 33px;
+    font-size: 14px;
 }

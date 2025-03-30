@@ -1,19 +1,21 @@
-
 #site {
     box-sizing: border-box;
-    padding: 10px;
+    background-color: inherit;
     position: relative;
     width: 100vw;
-    height: 100dvh;
+    height: calc(100dvh);
     overflow: hidden;
+    margin: 0;
 }
   
 #background {
+    box-sizing: border-box;
+    margin: 10px;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 20px);
+    height: calc(100%);
     object-fit: contain;
     object-position: center;
     z-index: 1;

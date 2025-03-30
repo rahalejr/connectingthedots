@@ -32,6 +32,15 @@ export class SlideComponent {
   animationState: string = '0-0';
   selected_option = -1;
 
+  allow_next = false;
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.allow_next = true;
+    }, 5000); // 5 seconds
+  }
+
+
   constructor(public navigation: NavigationService) {
     const [slide, frame] = this.navigation.getFrame();
     this.slide = slide;
@@ -45,6 +54,10 @@ export class SlideComponent {
   nextFrame(): void {
     this.navigation.nextFrame();
     this.updateContent();
+    this.allow_next = false;
+    setTimeout(() => {
+      this.allow_next = true;
+    }, 5000);
   }
 
   updateContent(): void {

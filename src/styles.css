@@ -1,9 +1,24 @@
+html body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #DFD7CD;
+}
+
 h2 {
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
+    font-size: 20px;
 }
 
 p {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+    font-size: 15px;
+}
+
+li {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400; 
+    font-size: 12px;
 }

@@ -1,4 +1,4 @@
-import { Slide, Frame, MultipleChoice } from "./models";
+import { Slide } from "./models";
 
 
 export const all_slides: Slide[] = [
