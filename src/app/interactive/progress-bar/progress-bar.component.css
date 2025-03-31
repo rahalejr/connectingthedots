@@ -1,0 +1,38 @@
+#wheel {
+    transition: opacity .5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#check {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.disappear {
+    opacity: 0;
+}
+
+.material-symbols-rounded {
+    font-size: inherit;
+    color: gray;
+}
+
+@keyframes bounce-size {
+    0% { font-size: 2px; }
+    50% { font-size: 35px; }
+    100% { font-size: 30px; }
+}
+
+.bounce {
+    display: inline-block;
+    animation: bounce-size .8s ease-out;
+}

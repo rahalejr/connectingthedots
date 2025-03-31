@@ -12,8 +12,11 @@
                 </p>
             </div>
 
-            <div [ngClass]="{'hide-button': !allow_next}" class="button">
-                <next-button (clicked)="nextFrame()"></next-button>
+            <div class="navigation">
+                <progress-bar [show]="allow_next" [progress]="timerWidth()"></progress-bar>
+                <div [ngClass]="{'hide-button': !allow_next}" class="button">
+                    <next-button (clicked)="nextFrame()"></next-button>
+                </div>
             </div>
 
         </ng-container>

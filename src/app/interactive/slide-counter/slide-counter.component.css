@@ -1,0 +1,29 @@
+p {
+    font-size: 11px;
+}
+
+#circles {
+    display: flex;
+    align-items: center;
+    margin: 0 0 10px 10px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0 3px;
+    background-color: lightgray;
+    border: solid 1px rgb(164, 161, 161);
+    transition: background-color .5s ease;
+}
+
+.current {
+    width: 13px;
+    height: 13px;
+    background-color: rgb(240, 240, 240);
+}
+
+.completed {
+    background-color: rgb(164, 161, 161);
+}

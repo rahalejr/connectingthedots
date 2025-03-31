@@ -10,6 +10,7 @@ export interface Frame {
     type: string
     title: string
     formatting: string
+    duration?: number // in milliseconds
     paragraphs?: string[]
     image?: string
     animation?: boolean

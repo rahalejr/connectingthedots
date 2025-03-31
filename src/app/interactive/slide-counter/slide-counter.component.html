@@ -1,0 +1,5 @@
+<div id="circles">
+    <p>Sections:</p>
+    <div class="circle" *ngFor="let _ of total_slides; let i = index" 
+    [ngClass]="{'current': this.nav.current_slide == i, 'completed': this.nav.current_slide > i}"></div>
+</div>

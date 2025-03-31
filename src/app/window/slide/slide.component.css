@@ -13,6 +13,11 @@ img {
     margin: 20px;
 }
 
+progress-bar {
+    position: absolute;
+    right: 0;
+}
+
 #container {
     background-color: inherit;
     box-sizing: border-box;
@@ -29,6 +34,14 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+}
+
+.navigation {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
