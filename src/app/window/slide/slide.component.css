@@ -4,7 +4,21 @@ h2 {
 
 p {
     text-align: left;
-    line-height: 2;
+    /* line-height: 2; */
+
+/* position: absolute;
+width: 600px;
+height: 195px;
+left: calc(50% - 600px/2);
+top: 0px; */
+
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 31px;
+
+    color: #6C3428;
 }
 
 img {
