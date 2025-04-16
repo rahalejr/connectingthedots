@@ -1,6 +1,6 @@
 <div id="container">
 
-    <h2>{{title}}</h2>
+    <!-- <h2>{{title}}</h2> -->
 
     <div id="content" [@fadeAnimation]="animationState" [ngSwitch]="format">
 
@@ -13,8 +13,8 @@
             </div>
 
             <div class="navigation">
-                <progress-bar [show]="allow_next" [progress]="timerWidth()"></progress-bar>
-                <div [ngClass]="{'hide-button': !allow_next}" class="button">
+                <!-- <progress-bar [show]="allow_next" [progress]="timerWidth()"></progress-bar> -->
+                <div class="button">
                     <next-button (clicked)="nextFrame()"></next-button>
                 </div>
             </div>
