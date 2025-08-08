@@ -27,7 +27,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
-    height: 70%;
+    /* height: 70%; */
     z-index: 2;
     display: flex;
     object-position: center;

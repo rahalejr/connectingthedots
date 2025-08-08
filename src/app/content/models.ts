@@ -13,8 +13,10 @@ export interface Frame {
     duration?: number // in milliseconds
     paragraphs?: string[]
     image?: string
+    background?: string
     animation?: boolean
     choices?: MultipleChoice
+
 }
 
 export interface MultipleChoice {

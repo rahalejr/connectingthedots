@@ -15,7 +15,7 @@ top: 0px; */
     font-family: 'Quicksand';
     font-style: normal;
     font-weight: 600;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 31px;
 
     color: #6C3428;
@@ -38,7 +38,7 @@ progress-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     padding: 60px 50px 70px;
 }
@@ -49,7 +49,16 @@ progress-bar {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    
 }
+
+/* .paragraph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    border: 1px solid #ccc;
+} */
 
 .navigation {
     position: relative;
