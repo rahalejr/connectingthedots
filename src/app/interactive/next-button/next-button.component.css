@@ -8,25 +8,66 @@
 }
 
 #button {
-    width: 90px;
-    height: 30px;
-    background-color: rgb(172, 172, 172);
-    color: white;
-    border: none;
-    border-radius: 4px;
+    /* width: 90px;
+    height: 30px; */
+    /* Button */
+    /* background-color: rgb(172, 172, 172); */
+    /* color: white; */
+    /* border: none; */
+    /* border-radius: 4px; */
     cursor: pointer;
-    font-size: 13px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 600;
+    /* font-size: 13px;
+    font-family: 'Roboto', sans-serif; */
+    /* font-weight: 600; */
     transition: background-color 0.2s ease, width .2s ease, height .2s ease, font-size .2s ease;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+
+    /* Auto layout */
     display: flex;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
+    padding: 10px 60px;
+    gap: 100px;
+
+    /* position: absolute; */
+    /* width: 169px;
+    height: 49px;
+    left: 216px;
+    top: 298px; */
+
+    background: #E9B384;
+    border-radius: 20px;
+    /* Next */
+
+    width: 49px;
+    height: 29px;
+
+    font-family: 'Fredericka the Great';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #000000;
+
+    /* Inside auto layout */
+    /* flex: none;
+    order: 0;
+    flex-grow: 0; */
+
 }
   
 #button:hover {
-    background-color: gray;
-    width: 95px;
+    /* background-color: gray; */
+    /* width: 95px;
     height: 33px;
-    font-size: 14px;
+    font-size: 14px; */
+    background-color: #d1a176;
+    width: 52px;
+    height: 32px;
+    font-size: 25px;
+
 }
