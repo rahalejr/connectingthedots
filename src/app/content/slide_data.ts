@@ -24,17 +24,19 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '“I only take on the most difficult and unresolvable problems that you could ever see among farm people, where depression has not been successfully treated by any kind of medication or psychiatric help. I try to figure out what to do about them, because—well, I don’t know how else to say this, except that I have a lot of experience doing this. But the two calls I got today—those just wore me out emotionally.”'
+                        '“I only take on the most difficult and unresolvable problems that you could ever see among farm people, where depression has not been successfully treated by any kind of medication or psychiatric help. I try to figure out what to do about them, because—well, I don’t know how else to say this, except that I have a lot of experience doing this. But the two calls I got today—those just wore me out emotionally.'
                     ]
                 },
                 {
                     id: 3,
-                    type: 'text',
+                    type: 'text_image',
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '“The first came from a lady whose lover ... is a large farmer. And he’s been told by creditors that he has to negotiate the sale or disposal of some of his farm assets, or they’ll shut him down. He said, I will not go to mediation or court, I’ll kill myself before I have to do that. I will lose. I can’t do this. So she called me in desperation...."'
-                    ]
+                        'The first came from a lady whose lover ... is a large farmer. And he’s been told by creditors that he has to negotiate the sale or disposal of some of his farm assets, or they’ll shut him down.',
+                        '"I will not go to mediation or court. I’ll kill myself before I have to do that. I will lose. I can’t do this." So she called me in desperation...'
+                    ],
+                    image: "assets/slide_images/beakers.png"
                 },
                 {
                     id: 4,
@@ -42,7 +44,7 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '“The second call came from another farmer. She told me she was desperate, because she didn’t know how to deal with uncertainty in her farming operation. Her email said ... :"'
+                        'The second call came from another farmer. She told me she was desperate, because she didn’t know how to deal with uncertainty in her farming operation. Her email said ... '
                     ]
                 },
                 {
@@ -51,7 +53,7 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        "Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am.",
+                        '"Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am."',
                     ]
                 },
                 {
@@ -69,7 +71,7 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '"...farmers have been calling me more and more recently... The number of calls has really increased since the beginning of March, when the flooding began.”'
+                        '...farmers have been calling me more and more recently... The number of calls has really increased since the beginning of March, when the flooding began.”'
                     ]
                 },
                 {
