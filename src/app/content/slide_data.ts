@@ -111,7 +111,8 @@ export const all_slides: Slide[] = [
                             "Connect me with other farmers who are in similar straits, so I don’t feel so alone",
                             "Help organize a protest against government inaction to protect us from such devastation"
                         ],
-                        answer: undefined
+                        answer: undefined,
+                        multiple_selection: false
                     }
                 },
                 {
@@ -157,7 +158,8 @@ export const all_slides: Slide[] = [
                         "Wider glass first",
                         "Both at the same time"
                     ],
-                    answer: 1 // typesciript is zero-indexed, so this is the second mc option
+                    answer: 1, // typesciript is zero-indexed, so this is the second mc option
+                    multiple_selection: false
                 }
             },
             {

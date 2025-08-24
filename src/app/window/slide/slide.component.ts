@@ -34,7 +34,7 @@ export class SlideComponent {
   start_time: number = Date.now();
   elapsed_time: number = 0;
   animationState: string = '0-0';
-  selected_option = -1;
+  selected_option: number[] = [];
 
   private interval: any;
 
@@ -73,7 +73,7 @@ export class SlideComponent {
     this.content = all_slides[slide].frames[frame];
     if (this.frame == 0) {this.title = all_slides[slide].title}
     this.format = this.content.type;
-    this.selected_option = -1;
+    this.selected_option = [];
     this.animationState = `${slide}-${frame}`;
   }
 
@@ -93,7 +93,7 @@ export class SlideComponent {
     }, 10);
   }
 
-  selectOption(index: number): void {this.selected_option = index}
+  selectOption(selected: number[]): void {this.selected_option = selected}
 
   timerWidth(): number {return Math.round((this.elapsed_time / this.slide_time)*100)}
 

@@ -4,21 +4,25 @@ ul {
   }
   
 li {
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 15px 10px;
+    margin: 15px 0;
+    outline: 3px solid #DFD7CD;
     border-radius: 4px;
     cursor: pointer;
     margin-bottom: 5px;
-    transition: background-color 0.2s ease, border 0.2s ease;
+    color: #DFD7CD;
+    background-color: #809c94;
+    transition: border 0.05s ease-in, color 0.05s ease-in;
 }
 
 li:hover {
-    background-color: #f5f5f5;
+    outline: 3px solid #70342c;
+    color: #70342c;
 }
 
 li.selected {
-    background-color: #c8e6c9;
-    border-color: #4caf50;
+    outline: 3px solid #70342c;
+    color: #70342c;
 }
 
 .question {

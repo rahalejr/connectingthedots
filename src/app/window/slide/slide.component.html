@@ -39,7 +39,7 @@
             </ng-container>
 
             <div class="button">
-                <next-button *ngIf="selected_option != -1" (clicked)="nextFrame()"></next-button>
+                <next-button *ngIf="selected_option != []" (clicked)="nextFrame()"></next-button>
             </div>
 
         </ng-container>
@@ -61,7 +61,7 @@
             </div>
 
             <div class="button">
-                <next-button *ngIf="selected_option != -1" (clicked)="nextFrame()"></next-button>
+                <next-button *ngIf="selected_option != []" (clicked)="nextFrame()"></next-button>
             </div>
 
 

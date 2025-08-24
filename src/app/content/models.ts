@@ -22,6 +22,7 @@ export interface Frame {
 export interface MultipleChoice {
     options: string[] | undefined
     horizontal: boolean
+    multiple_selection: boolean
     answer?: number
     question?: string
 }

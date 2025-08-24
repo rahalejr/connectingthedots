@@ -13,6 +13,8 @@ export class MultipleChoiceComponent {
 
   @Input() horizontal: boolean = false;
 
+  @Input() multiple_answers: boolean = false;
+
   @Input() choices: MultipleChoice | undefined = {
     horizontal: true,
     options: [
@@ -22,16 +24,17 @@ export class MultipleChoiceComponent {
         "Connect me with other farmers in similar straits to organize a protest against government inaction to protect us from such devastating damage to our means of livelihood."
     ],
     answer: undefined,
-    question: "Placeholder question text"
+    question: "Placeholder question text",
+    multiple_selection: false
   }
 
-  @Output() selected = new EventEmitter<number>();
+  @Output() selected = new EventEmitter<number[]>();
 
-  selectedIndex?: number;
+  selection: number[] = [];
 
   selectOption(index: number) {
-    this.selectedIndex = index;
-    this.selected.emit(index);
+    this.choices?.multiple_selection ? this.selection.push(index) : this.selection = [index];
+    this.selected.emit(this.selection);
   }
 
 

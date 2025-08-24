@@ -3,7 +3,7 @@
     
     <ul [ngClass]="{'horizontal': horizontal, 'vertical': !horizontal}">
       <li *ngFor="let opt of choices!.options; let i = index"
-          [ngClass]="{selected: selectedIndex === i}"
+          [ngClass]="{selected: selection.includes(i)}"
           (click)="selectOption(i)">
         {{opt}}
       </li>
