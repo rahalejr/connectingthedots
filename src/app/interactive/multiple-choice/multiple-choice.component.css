@@ -4,24 +4,26 @@ ul {
   }
   
 li {
-    padding: 15px 10px;
-    margin: 15px 0;
-    outline: 3px solid #DFD7CD;
+    padding: 5px 10px;
+    /* margin: 15px 0; */
+    /* outline: 3px solid #DFD7CD; */
     border-radius: 4px;
     cursor: pointer;
     margin-bottom: 5px;
     color: #DFD7CD;
-    background-color: #809c94;
+    background-color: #258d9d;
+    font-family: "Exo";
+    font-size: 25px;
     transition: border 0.05s ease-in, color 0.05s ease-in;
 }
 
 li:hover {
-    outline: 3px solid #70342c;
+    /* outline: 3px solid #70342c; */
     color: #70342c;
 }
 
 li.selected {
-    outline: 3px solid #70342c;
+    /* outline: 3px solid #70342c; */
     color: #70342c;
 }
 

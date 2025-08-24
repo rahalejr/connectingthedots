@@ -101,7 +101,7 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        "If you were one of these two farmers who called Dr. Rosmann, how would you like him to help?"
+                        "If you were one of these two farmers who called Dr. Rosmann, how would you like him to help? You may select multiple options."
                     ],
                     choices: {
                         horizontal: false,

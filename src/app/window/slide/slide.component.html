@@ -38,8 +38,8 @@
                 <multiple-choice [choices]="content.choices!" [horizontal]="content.choices!.horizontal" (selected)="selectOption($event)"></multiple-choice>
             </ng-container>
 
-            <div class="button">
-                <next-button *ngIf="selected_option != []" (clicked)="nextFrame()"></next-button>
+            <div class="button" style="display: flex; justify-content: flex-end; width: 100%; margin-right: 2rem;">
+                <next-button *ngIf="selected_option != []"  (clicked)="nextFrame()"></next-button>
             </div>
 
         </ng-container>
