@@ -14,7 +14,7 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        "In spring of 2019, historic flooding in major river systems ravaged the Midwest.",
+                        "In spring of 2019, historic flooding in major river systems ravaged the Midwest...",
                         "Dr. Mike Rosmann, serving as a therapist for farmers in Harlan, Iowa, found his work had started to become unbearable."
                     ]
                 },
@@ -24,17 +24,17 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '“I only take on the most difficult and unresolvable problems that you could ever see among farm people, where depression has not been successfully treated by any kind of medication or psychiatric help. I try to figure out what to do about them, because—well, I don’t know how else to say this, except that I have a lot of experience doing this. But the two calls I got today—those just wore me out emotionally.'
+                        '“I only take on the most difficult and unresolvable problems that you could ever see among farm people, where depression has not been successfully treated by any kind of medication or psychiatric help."' 
                     ]
                 },
                 {
                     id: 3,
-                    type: 'text_image',
+                    type: 'text',
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        'The first came from a lady whose lover ... is a large farmer. And he’s been told by creditors that he has to negotiate the sale or disposal of some of his farm assets, or they’ll shut him down.',
-                        '"I will not go to mediation or court. I’ll kill myself before I have to do that. I will lose. I can’t do this." So she called me in desperation...'
+                        '"I try to figure out what to do about them, because—well, I don’t know how else to say this, except that I have a lot of experience doing this. ',
+                        'But the two calls I got today—those just wore me out emotionally."',
                     ],
                     image: "assets/slide_images/beakers.png"
                 },
@@ -44,16 +44,19 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        'The second call came from another farmer. She told me she was desperate, because she didn’t know how to deal with uncertainty in her farming operation. Her email said ... '
-                    ]
+                        '"The first came from a lady whose lover ... is a large farmer. And he’s been told by creditors that he has to negotiate the sale or disposal of some of his farm assets, or they’ll shut him down."'
+                    ],
+                    image: "assets/slide_images/beakers.png"
                 },
                 {
                     id: 5,
-                    type: 'text',
+                    type: 'text_image',
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '"Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am."',
+                        '"He said...',
+                        'I will not go to mediation or court. I’ll kill myself before I have to do that. I will lose. I can’t do this.',
+                        'So she called me in desperation..."'
                     ]
                 },
                 {
@@ -62,7 +65,7 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        "So this woman is looking to me about how to continue, and maybe even gauging whether she needs to join her brother."
+                        '"The second call came from another farmer. She told me she was desperate, because she didn’t know how to deal with uncertainty in her farming operation. Her email said —"',
                     ]
                 },
                 {
@@ -71,11 +74,29 @@ export const all_slides: Slide[] = [
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        '...farmers have been calling me more and more recently... The number of calls has really increased since the beginning of March, when the flooding began.”'
+                        'Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am.',
                     ]
                 },
                 {
                     id: 8,
+                    type: 'text',
+                    title: '',
+                    formatting: 'default',
+                    paragraphs: [
+                        '"So this woman is looking to me about how to continue, and maybe even gauging whether she needs to join her brother."'
+                    ]
+                },
+                {
+                    id: 9,
+                    type: 'text',
+                    title: '',
+                    formatting: 'default',
+                    paragraphs: [
+                        '"Farmers have been calling me more and more recently. The number of calls has really increased since the beginning of March, when the flooding began.”'
+                    ]
+                },
+                {
+                    id: 10,
                     type: 'mc',
                     title: '',
                     formatting: 'default',
@@ -86,24 +107,25 @@ export const all_slides: Slide[] = [
                         horizontal: false,
                         options: [
                             "Help me apply for crop insurance",
-                            "Give me information on how to contact FEMA for emergency financial assistance",
-                            "Direct me to another farmer who has been hit by a similar catastrophe, so I don’t feel so alone.",
-                            "Connect me with other farmers in similar straits to organize a protest against government inaction to protect us from such devastating damage to our means of livelihood."
+                            "Tell me how to contact FEMA for emergency financial assistance",
+                            "Connect me with other farmers who are in similar straits, so I don’t feel so alone",
+                            "Help organize a protest against government inaction to protect us from such devastation"
                         ],
                         answer: undefined
                     }
                 },
                 {
-                    id: 9,
+                    id: 11,
                     type: 'text',
                     title: '',
                     formatting: 'default',
                     paragraphs: [
-                        "Can you think of any other means of addressing this issue? Why do you think it is important? Let’s pause for a moment and think about these questions.",
+                        "Can you think of any other means of addressing this issue? Why do you think it is important?",
+                        "Let’s pause for a moment and think about these questions."
                     ]
                 },
                 {
-                    id: 10,
+                    id: 9,
                     type: 'text',
                     title: '',
                     formatting: 'default',

@@ -1,5 +1,5 @@
 #container {
-    margin-top: 20px;
+    margin-top: 0px;
     width: 100px;
     height: 35px;
     display: flex;
@@ -39,21 +39,22 @@
     left: 216px;
     top: 298px; */
 
-    background: #E9B384;
-    border-radius: 20px;
+    /* background: #E9B384; */
+    background-color: #258d9d;
+    border-radius: 10px;
     /* Next */
 
     width: 49px;
     height: 29px;
 
-    font-family: 'Fredericka the Great';
+    font-family: 'Exo';
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 25px;
     line-height: 29px;
 
-    color: #000000;
-
+    /* color: #000000; */
+    color: white;
     /* Inside auto layout */
     /* flex: none;
     order: 0;
@@ -66,9 +67,39 @@
     /* width: 95px;
     height: 33px;
     font-size: 14px; */
-    background-color: #d1a176;
+    
+    background-color: #2E5C6E; 
+    /* Green
+#B5CAA0
+#4A593D
+#91AD70
+
+Yellow
+#D9CD90
+#6E552F
+#B68E55
+
+Orange
+#ECB88A
+#724938
+#CA7853
+
+Pink
+#D7C4BB
+#86473F
+#9E7A7A
+
+Blue
+#d1e3f2
+#124882
+#5285bc
+
+Purple
+#cacce9
+#211e55
+#8e8cb8 */
     width: 52px;
     height: 32px;
-    font-size: 20px;
+    font-size: 26px;
 
 }

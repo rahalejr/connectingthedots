@@ -12,13 +12,39 @@ height: 195px;
 left: calc(50% - 600px/2);
 top: 0px; */
 
-    font-family: 'Quicksand';
+    font-family: 'Exo'; 
+    /* 
+            Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family (400)
+        Aubrey&
+                family=Didact+Gothic&
+    family=Exo:ital,wght@0,100..900;1,100..900&family=
+        Josefin+Sans:ital,wght@0,100..700;1,100..700&
+            family=Jura:wght@300..700& (500)
+            family=Montserrat:ital,wght@0,100..900;1,100..900& (400)
+        family=Noto+Sans:ital,wght@0,100..900;1,100..900&
+        family=Rajdhani:wght@300;400;500;600;700&
+        family=Reem+Kufi:wght@400..700&
+        family=Revalia&
+                family=Saira:ital,wght@0,100..900;1,100..900&display=swap */
+    /* https://fonts.googleapis.com/css2?
+    family=Annie+Use+Your+Telescope& (in bubble)
+    family=Chilanka& (email)
+        family=Coming+Soon&
+        family=Edu+NSW+ACT+Foundation:wght@400..700&
+    family=Edu+QLD+Beginner:wght@400..700& (therapist)
+        family=Edu+VIC+WA+NT+Beginner:wght@400..700&
+            family=Indie+Flower& (bubble)
+            family=Klee+One& (therapist)
+            family=Nothing+You+Could+Do& (bubble)
+        family=Shadows+Into+Light+Two&
+        family=Waiting+for+the+Sunrise&display=swap */
     font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
+    font-weight: 400;
+    font-size: 25px;
     line-height: 31px;
 
-    color: #6C3428;
+    color: #2E5C6E;    
+    /* color: #6C3428; */
 }
 
 img {
@@ -40,7 +66,7 @@ progress-bar {
     align-items: center;
     /* height: 100%; */
     width: 100%;
-    padding: 60px 50px 70px;
+    padding: 60px 0px 70px;
 }
 
 #content {
