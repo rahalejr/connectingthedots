@@ -14,5 +14,103 @@
 
 .icon {
     position: absolute;
+    pointer-events: none;
+    transition: inset 1s ease, transform 1s ease;
 }
 
+/* CENTERED POSITIONS */
+
+.icon[state="state1"]:nth-child(1) {
+    top: 25%;
+    right: 69%;
+    transform: rotate(70deg);
+  }
+  
+  .icon[state="state1"]:nth-child(2) {
+    top: 54%;
+    right: 66%;
+    transform: rotate(-110deg);
+  }
+  
+  .icon[state="state1"]:nth-child(3) {
+    top: 64%;
+    right: 53%;
+    transform: rotate(-180deg);
+  }
+  
+  .icon[state="state1"]:nth-child(4) {
+    top: 62%;
+    right: 35%;
+    transform: rotate(170deg);
+  }
+  
+  .icon[state="state1"]:nth-child(5) {
+    top: 52%;
+    right: 25%; 
+    transform: rotate(210deg);
+  }
+  
+  .icon[state="state1"]:nth-child(6) {
+    top: 30%; 
+    right: 24%; 
+    transform: rotate(320deg);
+  }
+  
+  .icon[state="state1"]:nth-child(7) {
+    top: 24%; 
+    right: 35%;
+    transform: rotate(180deg);
+  }
+  
+  .icon[state="state1"]:nth-child(8) {
+    top: 22%; 
+    right: 53%;
+    transform: rotate(-120deg);
+}
+
+
+ /* BORDERING POSITIONS */
+
+.icon[state="state2"]:nth-child(1) {
+    top: 30%;
+    right: 93%;
+  }
+  
+  .icon[state="state2"]:nth-child(2) {
+    top: 84%;
+    right: 89%;
+  }
+  
+  .icon[state="state2"]:nth-child(3) {
+    top: 88%;
+    right: 45%;
+  }
+  
+  .icon[state="state2"]:nth-child(4) {
+    top: 86%;
+    right: 10%;
+  }
+  
+  .icon[state="state2"]:nth-child(5) {
+    top: 40%;
+    right: 0%; 
+  }
+  
+  .icon[state="state2"]:nth-child(6) {
+    top: 0%; 
+    right: 7%; 
+  }
+  
+  .icon[state="state2"]:nth-child(7) {
+    top: 0%; 
+    right: 40%;
+  }
+  
+  .icon[state="state2"]:nth-child(8) {
+    top: 0%; 
+    right: 75%;
+}
+
+button {
+    z-index: 100;
+}
