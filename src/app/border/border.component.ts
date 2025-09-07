@@ -1,4 +1,4 @@
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({
@@ -8,29 +8,37 @@ import { NavigationService } from '../services/navigation.service';
   templateUrl: './border.component.html',
   styleUrl: './border.component.css'
 })
-export class BorderComponent {
-  @ViewChildren('icon img', { read: ElementRef }) images!: QueryList<ElementRef>;
-  private intervalId: any;
+export class BorderComponent implements AfterViewInit {
+  @ViewChildren('iconimg', { read: ElementRef }) images!: QueryList<ElementRef>;
   state: 'state1' | 'state2' = 'state1';
 
-  ngOnInit(): void {
-    // Start the wobble effect
-    this.startWobbling();
+  ngAfterViewInit(): void {
+    console.log(this.images);
+    this.animateWobble();
   }
+
+  animateWobble(): void {
+    const elements = this.images.toArray();
+    let index = 0;
+
+    const interval = setInterval(() => {
+      if (index >= elements.length) {
+        clearInterval(interval);
+      }
+      else if (index % 2 == 0) {
+        elements[index].nativeElement.classList.add('wobble');
+      }
+      else {
+        elements[index].nativeElement.classList.add('anti-wobble');
+      }
+      index++;
+    }, 1000);}
 
   start(): void {
     this.state = this.state == 'state1' ? 'state2' : 'state1';
   }
 
-  startWobbling(): void {
-    this.intervalId = setInterval(() => {
-      this.images.forEach((img) => {
-        const randomRotation = this.getRandomRotation(-15, 15); // Random angle between -15 and 15 degrees
-        img.nativeElement.style.transform = `rotate(${randomRotation}deg)`;
-      });
-      console.log('test');
-    }, 500);
-  }
+
 
   private getRandomRotation(min: number, max: number): number {
     return Math.random() * (max - min) + min;

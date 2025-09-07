@@ -1,3 +1,16 @@
+@keyframes wobble {
+    0% {transform: rotate(0deg)}
+    50% {transform: rotate(5deg)}
+    100% {transform: rotate(0deg)}
+}
+
+@keyframes antiwobble {
+    0% {transform: rotate(0deg)}
+    50% {transform: rotate(-10deg)}
+    100% {transform: rotate(0deg)}
+}
+
+
 #background {
     box-sizing: border-box;
     left: 50%;
@@ -109,6 +122,16 @@
   .icon[state="state2"]:nth-child(8) {
     top: 0%; 
     right: 75%;
+}
+
+.wobble {
+    transition: transform 0.2s ease;
+    animation: wobble 5s ease-in-out infinite;
+}
+
+.anti-wobble {
+    transition: transform 0.2s ease;
+    animation: antiwobble 8s ease-in-out infinite;
 }
 
 button {
