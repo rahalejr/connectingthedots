@@ -1,0 +1,12 @@
+img {
+    width: 600px;
+    max-width: 40dvw;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

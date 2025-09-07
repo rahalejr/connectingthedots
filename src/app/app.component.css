@@ -1,25 +1,10 @@
 #site {
     box-sizing: border-box;
-    background-color: inherit;
-    position: relative;
-    width: 100vw;
-    height: calc(100dvh);
+    width: 100dvw;
+    height: 100dvh; 
     overflow: hidden;
     margin: 0;
 }
-  
-#background {
-    box-sizing: border-box;
-    margin: 0px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100%);
-    object-fit: contain;
-    object-position: center;
-    z-index: 1;
- }
   
 #content {
     position: absolute;
