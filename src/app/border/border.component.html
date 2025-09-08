@@ -1,28 +1,38 @@
 <div id="background">
     <div class="icon" [attr.state]="state">
-      <img #iconimg src="assets/background_images/one.png" style="height: 250px; max-height: 25dvh" alt="">
+        <img #iconimg src="assets/background_images/one.png" style="height: 250px; max-height: 25dvh" alt="">
+        <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 0}" src="assets/section_icons/one.png" style="top: 66%; right: 27%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/two.png" style="width: 170px; max-width: 17dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 1}" src="assets/section_icons/two.png" style="top: 6%; right: 57%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/three.png" style="height: 110px; max-height: 11dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 2}" src="assets/section_icons/three.png" style="top: 26%; right: 36%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/four.png" style="height: 130px; max-height: 13dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 3}" src="assets/section_icons/four.png" style="top: 8%; right: 21%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/five.png" style="height: 220px; max-height: 22dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 4}" src="assets/section_icons/five.png" style="top: 68%; right: 15%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/six.png" style="height: 120px; max-height: 12dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 5}" src="assets/section_icons/six.png" style="top: 2%; right: 5%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/seven.png" style="height: 100px; max-height: 10dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 6}" src="assets/section_icons/seven.png" style="top: 6%; right: 54%" alt="">
     </div>
     <div class="icon" [attr.state]="state">
       <img #iconimg src="assets/background_images/eight.png" style="height: 120px; max-height: 12dvh" alt="">
+      <img #section class="section" [ngClass]="{'show': navigation.current_slide >= 7}" src="assets/section_icons/eight.png" style="top: 31%; right: 31%" alt="">
     </div>
 
-    <button (click)="start()">Start</button>
+    <div id="start-button" (click)="start()" [ngClass]="{'hide': started}">Start</div>
+    <div id="next-button" (click)="next()" [ngClass]="{'show': navigation.current_slide >=0}">Next Slide</div>
+
 </div>

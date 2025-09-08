@@ -1,20 +1,25 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { NavigationService } from '../services/navigation.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'border',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './border.component.html',
   styleUrl: './border.component.css'
 })
 export class BorderComponent implements AfterViewInit {
   @ViewChildren('iconimg', { read: ElementRef }) images!: QueryList<ElementRef>;
-  state: 'state1' | 'state2' = 'state1';
+  @ViewChildren('section', { read: ElementRef }) sections!: QueryList<ElementRef>;
+  state: 'state1' | 'state2' = 'state2';
+  started = false;
+
+
+  constructor(public navigation: NavigationService) {}
 
   ngAfterViewInit(): void {
-    console.log(this.images);
-    this.animateWobble();
+    // this.animateWobble();
   }
 
   animateWobble(): void {
@@ -32,16 +37,21 @@ export class BorderComponent implements AfterViewInit {
         elements[index].nativeElement.classList.add('anti-wobble');
       }
       index++;
-    }, 1000);}
+  }, 1000);}
 
   start(): void {
     this.state = this.state == 'state1' ? 'state2' : 'state1';
+    this.images?.forEach(img => img.nativeElement.classList.remove('wobble', 'anti-wobble'));
+    this.navigation.start();
+    this.started = true;
+    setTimeout(() => {
+      this.navigation.nextSlide();
+    }, 2500);
   }
 
-
-
-  private getRandomRotation(min: number, max: number): number {
-    return Math.random() * (max - min) + min;
+  next(): void {
+    console.log('working');
+    this.navigation.nextSlide();
   }
 
 }

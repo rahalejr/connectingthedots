@@ -1,5 +1,5 @@
 img {
-    width: 600px;
+    width: 550px;
     max-width: 40dvw;
 }
 
@@ -9,4 +9,9 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: opacity 1s;
+}
+
+.hide {
+    opacity: 0;
 }

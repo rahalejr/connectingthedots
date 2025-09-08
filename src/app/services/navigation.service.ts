@@ -7,9 +7,10 @@ import { all_slides } from '../content/slide_data';
 export class NavigationService {
 
 
-  current_slide = 0;
+  current_slide = -1;
   current_frame = 0;
-  current_slide_len = this.slideLength(this.current_slide);
+  started = false;
+  current_slide_len = 0;
   total_slides = all_slides.length
 
   nextFrame(): void {
@@ -23,8 +24,15 @@ export class NavigationService {
     }
   }
 
+  nextSlide(): void {
+    this.current_slide++;
+  }
+
   // returns indices as [slide, frame]
   getFrame(): number[] {return [this.current_slide, this.current_frame]}
+
+  start() {this.started = true}
+  hasStarted(): boolean {return this.started}
 
   slideLength(slide: number): number {return all_slides[slide].frames.length}
 
