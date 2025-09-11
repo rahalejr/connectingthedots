@@ -1,25 +1,31 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NavigationService } from '../services/navigation.service';
 import { CommonModule } from '@angular/common';
+import { ConnectionComponent } from '../interactive/connection/connection.component';
 
 @Component({
   selector: 'border',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ConnectionComponent],
   templateUrl: './border.component.html',
   styleUrl: './border.component.css'
 })
 export class BorderComponent implements AfterViewInit {
   @ViewChildren('iconimg', { read: ElementRef }) images!: QueryList<ElementRef>;
   @ViewChildren('section', { read: ElementRef }) sections!: QueryList<ElementRef>;
-  state: 'state1' | 'state2' = 'state2';
+  @ViewChild('conn1') conn1!: ConnectionComponent;
+  @ViewChild('background', { read: ElementRef }) bg!: ElementRef;
+  sections_array: ElementRef[] = [];
+  state: 'state1' | 'state2' = 'state1';
   started = false;
 
 
   constructor(public navigation: NavigationService) {}
 
+
   ngAfterViewInit(): void {
     // this.animateWobble();
+    this.sections_array = this.sections.toArray();
   }
 
   animateWobble(): void {
@@ -50,7 +56,10 @@ export class BorderComponent implements AfterViewInit {
   }
 
   next(): void {
-    console.log('working');
+    this.conn1.from = this.sections_array[0];
+    this.conn1.to = this.sections_array[2];
+    this.conn1.container = this.bg;
+    this.conn1.updateLine();
     this.navigation.nextSlide();
   }
 

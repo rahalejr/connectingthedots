@@ -1,6 +1,17 @@
+@keyframes bounce {
+    0% {width: 550px}
+    25% {width: 555px}
+    50% {width: 560px}
+    75% {width: 555px}
+    100% {width: 550px}
+
+}
+
+
 img {
-    width: 550px;
+    width: 530px;
     max-width: 40dvw;
+    /* animation: bounce 3s infinite; */
 }
 
 .container {

@@ -1,0 +1,11 @@
+
+<svg class="overlay">
+    <circle *ngFor="let dot of dots; let i = index"
+            [attr.cx]="dot.x"
+            [attr.cy]="dot.y"
+            r="3"
+            fill="black"
+            [ngClass]="{'reveal': i <= current_dot}">
+    </circle>
+</svg>
+  
