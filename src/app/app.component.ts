@@ -6,6 +6,7 @@ import { LandingComponent } from './landing/landing.component';
 import { BorderComponent } from './border/border.component';
 import { ConnectionComponent } from './interactive/connection/connection.component';
 import { ProgressBarComponent } from './interactive/progress-bar/progress-bar.component';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -15,5 +16,8 @@ import { ProgressBarComponent } from './interactive/progress-bar/progress-bar.co
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'connectingthedots';
+  title = 'Connecting The Dots';
+
+  constructor(public navigation: NavigationService) {}
+  
 }

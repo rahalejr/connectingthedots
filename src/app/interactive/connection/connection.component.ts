@@ -1,5 +1,5 @@
-import { Component, Input, ElementRef, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, ElementRef, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'connection',
@@ -14,6 +14,8 @@ export class ConnectionComponent {
   @Input() to: ElementRef | undefined;
   @Input() container: ElementRef | undefined;
 
+  audio : HTMLAudioElement | undefined;
+
   spacingPx = 30;
 
   dots: { x: number; y: number }[] = [];
@@ -21,6 +23,15 @@ export class ConnectionComponent {
 
   p1 = { x: 0, y: 0 };
   p2 = { x: 0, y: 0 };
+
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      console.log('yeah');
+      this.audio = new Audio('assets/sound/pop.mp3');
+      this.audio.load();
+    }
+  }
 
 
   @HostListener('window:resize')
@@ -80,12 +91,16 @@ export class ConnectionComponent {
       let i = 0;
       const interval = setInterval(() => {
         this.current_dot = i;
+        if (this.audio) {
+          this.audio.currentTime = 0; 
+          this.audio.play();
+        }
         i++;
         if (i > this.dots.length) {
           clearInterval(interval);
           resolve();
         }
-      }, 100);
+      }, 107);
     });
   }
 

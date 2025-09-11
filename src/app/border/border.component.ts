@@ -35,7 +35,7 @@ export class BorderComponent implements AfterViewInit {
     let index = 0;
 
     const interval = setInterval(() => {
-      if (index >= elements.length) {
+      if (this.started || index >= elements.length) {
         clearInterval(interval);
       }
       else if (index % 2 == 0) {
