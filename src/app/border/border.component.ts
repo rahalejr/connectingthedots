@@ -13,9 +13,10 @@ import { ConnectionComponent } from '../interactive/connection/connection.compon
 export class BorderComponent implements AfterViewInit {
   @ViewChildren('iconimg', { read: ElementRef }) images!: QueryList<ElementRef>;
   @ViewChildren('section', { read: ElementRef }) sections!: QueryList<ElementRef>;
-  @ViewChild('conn1') conn1!: ConnectionComponent;
+  @ViewChildren(ConnectionComponent) connections!: QueryList<ConnectionComponent>;
   @ViewChild('background', { read: ElementRef }) bg!: ElementRef;
   sections_array: ElementRef[] = [];
+  connections_array: ConnectionComponent[] = [];
   state: 'state1' | 'state2' = 'state1';
   started = false;
 
@@ -24,8 +25,9 @@ export class BorderComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    // this.animateWobble();
+    this.animateWobble();
     this.sections_array = this.sections.toArray();
+    this.connections_array = this.connections.toArray();
   }
 
   animateWobble(): void {
@@ -56,11 +58,15 @@ export class BorderComponent implements AfterViewInit {
   }
 
   next(): void {
-    this.conn1.from = this.sections_array[0];
-    this.conn1.to = this.sections_array[2];
-    this.conn1.container = this.bg;
-    this.conn1.updateLine();
-    this.navigation.nextSlide();
+    let slide = this.navigation.current_slide;
+    let current = this.connections_array[slide];
+    current.from = this.sections_array[slide];
+    current.to = this.sections_array[slide+1];
+    current.container = this.bg;
+
+    current.updateLine().then(() => {
+      this.navigation.nextSlide();
+    });
   }
 
 }

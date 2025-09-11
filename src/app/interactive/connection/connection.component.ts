@@ -14,7 +14,7 @@ export class ConnectionComponent {
   @Input() to: ElementRef | undefined;
   @Input() container: ElementRef | undefined;
 
-  spacingPx = 20;
+  spacingPx = 30;
 
   dots: { x: number; y: number }[] = [];
   current_dot = -1;
@@ -42,7 +42,7 @@ export class ConnectionComponent {
 
     const count = Math.floor(distance / this.spacingPx);
 
-    for (let i = 0; i <= count; i++) {
+    for (let i = 1; i <= count-1; i++) {
       const distAlong = i * this.spacingPx;
       const t = Math.min(1, distAlong / distance);
       const x = this.p1.x + dx * t;
@@ -52,35 +52,41 @@ export class ConnectionComponent {
   }
 
 
-  updateLine() {
-    if (!this.from || !this.to || !this.container) {
-      console.log(this.from, this.to, this.container);
-      return
-    }
-
-    const c = this.container.nativeElement.getBoundingClientRect();
-    const r1 = this.from.nativeElement.getBoundingClientRect();
-    const r2 = this.to.nativeElement.getBoundingClientRect();
-
-    // convert viewport coords -> container coords
-    this.p1 = { x: r1.left + r1.width / 2 - c.left, y: r1.top + r1.height / 2 - c.top };
-    this.p2 = { x: r2.left + r2.width / 2 - c.left, y: r2.top + r2.height / 2 - c.top };
-
-    console.log(r1, r2);
-
-    this.buildDots();
-    if (this.current_dot < 0) {
-      this.animateDots();
-    }
+  updateLine(): Promise<void> {
+    return new Promise((resolve) => {
+      if (!this.from || !this.to || !this.container) {
+        resolve();
+        return;
+      }
+  
+      const c = this.container.nativeElement.getBoundingClientRect();
+      const r1 = this.from.nativeElement.getBoundingClientRect();
+      const r2 = this.to.nativeElement.getBoundingClientRect();
+  
+      this.p1 = { x: r1.left + r1.width / 2 - c.left, y: r1.top + r1.height / 2 - c.top };
+      this.p2 = { x: r2.left + r2.width / 2 - c.left, y: r2.top + r2.height / 2 - c.top };
+  
+      this.buildDots();
+      if (this.current_dot < 0) {
+        this.animateDots().then(() => resolve());
+      } else {
+        resolve();
+      }
+    });
   }
 
-  animateDots() {
-    let i = 0;
-    const interval = setInterval(() => {
-      this.current_dot = i;
-      i++;
-      if (i > this.dots.length) clearInterval(interval);
-    }, 50);
+  animateDots(): Promise<void> {
+    return new Promise((resolve) => {
+      let i = 0;
+      const interval = setInterval(() => {
+        this.current_dot = i;
+        i++;
+        if (i > this.dots.length) {
+          clearInterval(interval);
+          resolve();
+        }
+      }, 100);
+    });
   }
 
 }
