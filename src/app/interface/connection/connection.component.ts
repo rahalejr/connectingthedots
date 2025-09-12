@@ -14,7 +14,11 @@ export class ConnectionComponent {
   @Input() to: ElementRef | undefined;
   @Input() container: ElementRef | undefined;
 
-  audio : HTMLAudioElement | undefined;
+  open = true;
+
+  pop : HTMLAudioElement | undefined;
+  tick: HTMLAudioElement | undefined;
+  pew!: HTMLAudioElement;
 
   spacingPx = 30;
 
@@ -27,9 +31,14 @@ export class ConnectionComponent {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
-      console.log('yeah');
-      this.audio = new Audio('assets/sound/pop.mp3');
-      this.audio.load();
+      this.pop = new Audio('assets/sound/pop.mp3');
+      this.tick = new Audio('assets/sound/tick.m4a');
+      this.pew = new Audio('assets/sound/pew.m4a');
+      this.pop.load();
+      this.tick.load();
+      this.pew.load();
+      this.pew.loop = true;
+      this.pop.volume = 1;
     }
   }
 
@@ -91,16 +100,23 @@ export class ConnectionComponent {
       let i = 0;
       const interval = setInterval(() => {
         this.current_dot = i;
-        if (this.audio) {
-          this.audio.currentTime = 0; 
-          this.audio.play();
-        }
         i++;
         if (i > this.dots.length) {
+          // this.pew.pause();
+          // this.pew.currentTime = 0;
+
+          if (this.pop) {
+            this.pop.currentTime = 0; 
+            this.pop.play();
+          }
           clearInterval(interval);
           resolve();
         }
-      }, 107);
+        if (this.open) {
+          // this.pew.play();
+          this.open = false;
+        }
+      }, 120);
     });
   }
 

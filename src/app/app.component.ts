@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SlidesComponent } from './window/slides/slides.component';
-import { LandingComponent } from './landing/landing.component';
-import { BorderComponent } from './border/border.component';
-import { ConnectionComponent } from './interactive/connection/connection.component';
-import { ProgressBarComponent } from './interactive/progress-bar/progress-bar.component';
+import { LandingComponent } from './window/landing/landing.component';
+import { BorderComponent } from './window/border/border.component';
+import { ConnectionComponent } from './interface/connection/connection.component';
+import { ProgressBarComponent } from './interface/progress-bar/progress-bar.component';
+import { HoseComponent } from './interactive/hose/hose.component';
 import { NavigationService } from './services/navigation.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent, ProgressBarComponent, ConnectionComponent],
+  imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent, 
+    ProgressBarComponent, ConnectionComponent, HoseComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -19,5 +21,5 @@ export class AppComponent {
   title = 'Connecting The Dots';
 
   constructor(public navigation: NavigationService) {}
-  
+
 }

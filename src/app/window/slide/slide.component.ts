@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { NavigationService } from '../../services/navigation.service';
-import { NextButtonComponent } from '../../interactive/next-button/next-button.component';
-import { ProgressBarComponent } from '../../interactive/progress-bar/progress-bar.component';
+import { NextButtonComponent } from '../../interface/next-button/next-button.component';
+import { ProgressBarComponent } from '../../interface/progress-bar/progress-bar.component';
 import { all_slides } from '../../content/slide_data';
 import { Frame } from '../../content/models';
 import { CommonModule } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { MultipleChoiceComponent } from '../../interactive/multiple-choice/multiple-choice.component';
+import { MultipleChoiceComponent } from '../../interface/multiple-choice/multiple-choice.component';
 
 @Component({
   selector: 'slide',

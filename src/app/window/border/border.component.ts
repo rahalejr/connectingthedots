@@ -1,7 +1,7 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { NavigationService } from '../services/navigation.service';
+import { NavigationService } from '../../services/navigation.service';
 import { CommonModule } from '@angular/common';
-import { ConnectionComponent } from '../interactive/connection/connection.component';
+import { ConnectionComponent } from '../../interface/connection/connection.component';
 
 @Component({
   selector: 'border',
@@ -25,7 +25,7 @@ export class BorderComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.animateWobble();
+    // this.animateWobble();
     this.sections_array = this.sections.toArray();
     this.connections_array = this.connections.toArray();
   }

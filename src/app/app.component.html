@@ -2,7 +2,8 @@
 
   <border></border>
   <div id="content">
-    <landing></landing>
+    <landing *ngIf="navigation.current_slide == -1"></landing>
+    <hose *ngIf="navigation.current_slide >= 0"></hose>
   </div>
 
 </div>
