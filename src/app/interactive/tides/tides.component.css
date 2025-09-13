@@ -1,0 +1,19 @@
+@keyframes rotate{
+    from{transform: rotate(85deg)}
+    to{transform: rotate(445deg)}
+}
+
+ellipse {
+    animation: rotate 15s infinite;
+    animation-timing-function: linear;
+}
+
+#globe {
+    animation: rotate 3s infinite;
+    animation-timing-function: linear;
+}
+
+#moon {
+    animation: rotate 15s infinite;
+    animation-timing-function: linear;
+}
