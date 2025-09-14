@@ -30,7 +30,7 @@ export class BorderComponent implements AfterViewInit {
     this.connections_array = this.connections.toArray();
   }
 
-  animateWobble(): void {
+  animate_wobble(): void {
     const elements = this.images.toArray();
     let index = 0;
 

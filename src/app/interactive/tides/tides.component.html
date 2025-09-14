@@ -1,26 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="90%" viewBox="-75 -50 150 100" preserveAspectRatio="xMidYMid meet">
+<div id="wrapper" (click)="toggle_zoom()">
 
-    <path id="moon-orbit" d="M -50,0 a 50,40 0 1,1 100,0 a 50,40 0 1,1 -100,0" fill="none"/>
-    <path id="earth-orbit" d="M 5,0 a 5,5 0 1,1 -10,0 a 5,5 0 1,1 10,0" fill="none"/>
-    <path id="false-orbit" d="M 7,0 a 7,7 0 1,1 -14,0 a 7,7 0 1,1 14,0" fill="none"/>
+    <svg id="frame" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-75 -50 150 100" preserveAspectRatio="xMidYMid meet">
 
-    <g>
-        <image id="moon" x="-4" y="-4" width="8" height="8" href="assets/slide_images/moon.png"/>
-        <animateMotion dur="15s" repeatCount="indefinite">
-            <mpath href="#moon-orbit"/>
-        </animateMotion>
-    </g>
+        <path id="moon-orbit" d="M -50,0 a 50,40 0 1,1 100,0 a 50,40 0 1,1 -100,0" fill="none"/>
+        <path id="earth-orbit" d="M 5,0 a 5,5 0 1,1 -10,0 a 5,5 0 1,1 10,0" fill="none"/>
+        <path id="false-orbit" d="M 7,0 a 7,7 0 1,1 -14,0 a 7,7 0 1,1 14,0" fill="none"/>
+    
+        <g>
+            <image id="moon" x="-4" y="-4" width="8" height="8" href="assets/slide_images/moon.png"/>
+            <animateMotion dur="15s" repeatCount="indefinite">
+                <mpath href="#moon-orbit"/>
+            </animateMotion>
+        </g>
+    
+        <ellipse cx="0" cy="0" rx="10" ry="12.5" fill="deepskyblue">
+            <animateMotion dur="15s" repeatCount="indefinite">
+                <mpath href="#earth-orbit"/>
+            </animateMotion>
+        </ellipse>
+    
+        <g>
+            <image id="globe" x="-10" y="-10" width="20" height="20" href="assets/slide_images/globe.svg"/>
+            <animateMotion dur="15s" repeatCount="indefinite" rotate="auto">
+                <mpath href="#earth-orbit"/>
+            </animateMotion>
+        </g>
+    </svg>
+    
 
-    <ellipse cx="0" cy="0" rx="10" ry="13" fill="blue">
-        <animateMotion dur="15s" repeatCount="indefinite">
-            <mpath href="#earth-orbit"/>
-        </animateMotion>
-    </ellipse>
-
-    <g>
-        <image id="globe" x="-10" y="-10" width="20" height="20" href="assets/slide_images/globe.svg"/>
-        <animateMotion dur="15s" repeatCount="indefinite" rotate="auto">
-            <mpath href="#earth-orbit"/>
-        </animateMotion>
-    </g>
-</svg>
+</div>
