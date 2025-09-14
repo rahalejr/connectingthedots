@@ -1,3 +1,9 @@
+:root {
+    --text: #DFD7CD;
+    --content: #2E5C6E;
+    --background: #bddcdf;
+}
+
 html body {
     margin: 0;
     padding: 0;

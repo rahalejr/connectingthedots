@@ -1,7 +1,6 @@
 <div id="site">
-
-  <border></border>
   <div id="content">
+    <border></border>
     <landing *ngIf="navigation.current_slide == -1"></landing>
     <tides *ngIf="navigation.current_slide >= 0"></tides>
   </div>
