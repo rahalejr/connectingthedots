@@ -1,6 +1,7 @@
 import { Component, ElementRef, Output, output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArrowComponent } from '../../interface/arrow/arrow.component';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'tides',
@@ -22,6 +23,17 @@ export class TidesComponent {
 
   @Output() complete = false;
 
+  constructor(private nav: NavigationService) {}
+
+  ngOnInit() {
+    // this.nav.refresh_animations.subscribe(() => this.restart_animations())
+    this.nav.refresh_animations.subscribe(() => {
+      // this.restart_animations();
+      console.log('triggered');
+    })
+
+  }
+
   ngAfterViewInit() {
     this.wrapper = document.getElementById('wrapper');
     this.frame   = document.getElementById('frame');
@@ -33,7 +45,8 @@ export class TidesComponent {
     this.tide_width.nativeElement.beginElement();
     this.tide_height.nativeElement.beginElement();
     this.tide_shift.nativeElement.beginElement();
-    this.earth_shift.nativeElement.beginElement();
+    // this.earth_shift.nativeElement.beginElement();
+    
     // if (this.wrapper && this.frame) {
     //   if (!this.wrapper.classList.contains('zoom')) {
     //     this.wrapper.classList.add('zoom');
@@ -48,8 +61,11 @@ export class TidesComponent {
     // return;
   }
 
-  reset_animation(el: HTMLElement) {
-    el.classList.add('reset');
+  restart_animations() {
+    this.tide_width?.nativeElement.beginElement();
+    this.tide_height?.nativeElement.beginElement();
+    this.tide_shift?.nativeElement.beginElement();
+    this.earth_shift?.nativeElement.beginElement();
   }
 
 }

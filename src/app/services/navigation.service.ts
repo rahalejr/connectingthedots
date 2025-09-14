@@ -1,10 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
 import { all_slides } from '../content/slide_data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
+
+  refresh_animations!: Observable<boolean>;
+  hidden!: boolean;
+
+
+  constructor(private ngZone: NgZone) {
+    if (typeof document !== 'undefined') {
+      this.hidden = document.hidden;
+      this.refresh_animations = this.view_tracker();
+    }
+  }
+  
+  private view_tracker(): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      const handler = () => this.ngZone.run(() => {
+        if (this.hidden != document.hidden && !document.hidden) {observer.next(true);}
+        this.hidden = document.hidden;
+      });
+      document.addEventListener('visibilitychange', handler);
+      return () => document.removeEventListener('visibilitychange', handler);
+    });
+  }
 
 
   current_slide = -1;
