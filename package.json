@@ -11,6 +11,10 @@
     "aws-deploy": "aws s3 sync dist/connectingthedots/browser s3://connecting-the-dots"
   },
   "private": true,
+  "browser": {
+    "fs": false,
+    "path": false
+  },
   "dependencies": {
     "@angular/animations": "^17.0.0",
     "@angular/common": "^17.0.0",

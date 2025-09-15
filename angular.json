@@ -23,8 +23,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              { "glob": "**/*", "input": "node_modules/liquidfun-wasm/dist/", "output": "assets/liquidfun/" }
-            ],
+              {
+                "glob": "Box2D*.{wasm,js,mem}",
+                "input": "node_modules/liquidfun-wasm/dist/umd",
+                "output": "assets/liquidfun"
+                }
+              ],
             "styles": [
               "src/styles.css"
             ],

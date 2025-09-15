@@ -40,13 +40,12 @@ export class TidesComponent {
   }
 
   toggle_zoom() {
-    console.log('innit');
     this.stage++;
     this.tide_width.nativeElement.beginElement();
     this.tide_height.nativeElement.beginElement();
     this.tide_shift.nativeElement.beginElement();
     // this.earth_shift.nativeElement.beginElement();
-    
+
     // if (this.wrapper && this.frame) {
     //   if (!this.wrapper.classList.contains('zoom')) {
     //     this.wrapper.classList.add('zoom');

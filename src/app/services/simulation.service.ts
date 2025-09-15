@@ -1,9 +1,10 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import Box2DFactory from '../../vendor/liquidfun-browser'; // <-- the wrapper
 
 @Injectable({ providedIn: 'root' })
 export class SimulationService {
-private modulePromise: Promise<any> | null = null;
+private modulePromise!: Promise<any>; // definite assignment
 
 constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -13,16 +14,11 @@ return Promise.reject(new Error('LiquidFun can only be loaded in the browser'));
 }
 
 if (!this.modulePromise) {
-  this.modulePromise = (async () => {
-    // @ts-ignore package d.ts is not an ES module; dynamic import is fine
-    const pkg = await import('liquidfun-wasm');
-    const init: any = (pkg as any).default ?? pkg;
-    return init({
-      locateFile: (file: string) => `assets/liquidfun/es/${file}`
-    });
-  })();
+  this.modulePromise = Box2DFactory({
+    locateFile: (f: string) =>
+      new URL(`assets/liquidfun/${f}`, document.baseURI).toString()
+  }) as unknown as Promise<any>;
 }
-
 return this.modulePromise;
 }
 }
