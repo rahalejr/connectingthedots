@@ -56,15 +56,21 @@ arrow {
 }
 
 #top-text {
-    width: 20%;
-    height: 15%;
-    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 50%;
+    border: 2px solid darkgrey;
 }
 
 #bottom-text {
-    width: 20%;
-    height: 15%;
-    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 50%;
+    border: 2px solid darkgrey;
 }
 
 
@@ -75,7 +81,7 @@ arrow {
 }
 
 #earth {
-    transition: transform 1s ease;
+    transition: transform 2s ease;
 }
 
 #earth.shift {
@@ -97,9 +103,8 @@ arrow {
     transform: scale(1.6) translateX(-10%) !important;
 }
 
-#frame.rotate-frame {
+#frame.rotate {
     animation-play-state: paused;
-    transform: rotate()
 }
 
 #frame.reset {

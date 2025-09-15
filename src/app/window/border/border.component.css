@@ -172,8 +172,8 @@
     pointer-events: none;
     cursor: pointer;
     opacity: 0;
-    animation: fadein 1s ease-in forwards;
-    animation-delay: 2s; 
+    animation: fadein .1s ease-in forwards;
+    /* animation-delay: 2s;  */
 }
 
 #next-button {

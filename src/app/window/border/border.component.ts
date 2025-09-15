@@ -54,7 +54,7 @@ export class BorderComponent implements AfterViewInit {
     this.started = true;
     setTimeout(() => {
       this.navigation.nextSlide();
-    }, 2500);
+    }, 250);
   }
 
   next(): void {

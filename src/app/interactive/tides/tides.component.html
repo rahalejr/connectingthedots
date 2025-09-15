@@ -10,6 +10,19 @@
          a 35,33.4 0 1,1 0,-66.8" 
       fill="none"/>
 
+      <path id="trace" 
+      d="M 0,-35 
+         a 35,33.4 0 1,1 0,66.8 
+         a 35,33.4 0 0,1 -35,-33.4" 
+      fill="none" stroke="var(--content)"
+      stroke-width="1" stroke-dasharray="3 6"/>
+
+      <path id="projection"
+        d="M 0,-35 Q -15,-35 -35,1.6 "
+        fill="none"
+        stroke="black"
+      />
+
 
         <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"> <path d="M0,0 L6,3 L0,6 Z" fill="black"/> </marker>
 
@@ -29,14 +42,14 @@
         <path id="false-orbit" d="M 7,0 a 7,7 0 1,1 -14,0 a 7,7 0 1,1 14,0" fill="none"/>
     
         <g>
-            <image id="moon" x="-4" y="-4" width="8" height="8" href="assets/slide_images/moon.png"/>
-            <animateMotion dur="10s" repeatCount="indefinite" startOffset="405">
+            <image id="moon" x="-4" y="-4" width="8" height="8" href="assets/slide_images/moon.svg"/>
+            <animateMotion #animMoon dur="10s" repeatCount="indefinite" startOffset="405" begin=".01s">
                 <mpath href="#moon-orbit"/>
             </animateMotion>
         </g>
     
         <ellipse id="ocean" cx="0" cy="0" rx="11.5" ry="11.5" fill="deepskyblue">
-            <animateMotion dur="10s" repeatCount="indefinite">
+            <animateMotion dur="10s" repeatCount="indefinite" begin=".01s">
                 <mpath href="#earth-orbit"/>
             </animateMotion>
             <animate #animWidth
@@ -60,11 +73,18 @@
             dur="1s"
             fill="freeze"
             begin="indefinite" />
+            <animate #animRevert
+            attributeName="cx"
+            from="-2"
+            to="0"
+            dur="1s"
+            fill="freeze"
+            begin="indefinite" />
         </ellipse>
     
-        <g id="earth" [ngClass]="{'shift': stage % 2 == 1}">
+        <g id="earth" [ngClass]="{'shift': stage == 2}">
             <image id="globe" x="-10" y="-10" width="20" height="20" href="assets/slide_images/globe.svg"/>
-            <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+            <animateMotion dur="10s" repeatCount="indefinite" begin=".01s" rotate="auto">
                 <mpath href="#earth-orbit"/>
             </animateMotion>
         </g>
@@ -74,7 +94,7 @@
 </div>
 
 <div id="dialogue">
-    <div id="top-text"></div>
-    <div id="bottom-text"></div>
-    <arrow (clicked)="toggle_zoom()"></arrow>
+    <!-- <div id="top-text"></div>
+    <div id="bottom-text"></div> -->
+    <arrow (clicked)="advance()"></arrow>
 </div>

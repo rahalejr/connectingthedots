@@ -15,7 +15,8 @@ export class TidesComponent {
   @ViewChild('animWidth') tide_width!: ElementRef<SVGAnimateElement>;
   @ViewChild('animHeight') tide_height!: ElementRef<SVGAnimateElement>;
   @ViewChild('animShift') tide_shift!: ElementRef<SVGAnimateElement>;
-  @ViewChild('animShiftEarth') earth_shift!: ElementRef<SVGAnimateElement>;
+  @ViewChild('animRevert') tide_revert!: ElementRef<SVGAnimateElement>;
+  @ViewChild('animMoon') moon_orbit!: ElementRef<SVGAnimateElement>;
 
   wrapper!: HTMLElement | null;
   frame!: HTMLElement | null;
@@ -37,6 +38,32 @@ export class TidesComponent {
   ngAfterViewInit() {
     this.wrapper = document.getElementById('wrapper');
     this.frame   = document.getElementById('frame');
+    window.addEventListener("load", () => {
+      const svg = document.querySelector("#frame") as SVGSVGElement;
+      if (svg) {
+        svg.style.display = "none";
+        requestAnimationFrame(() => {
+          svg.style.display = "block";
+        });
+      }
+    });
+  }
+
+  advance() {
+    this.stage++;
+    if (this.stage == 1) {
+      this.tide_width.nativeElement.beginElement();
+      this.tide_height.nativeElement.beginElement();
+      this.tide_shift.nativeElement.beginElement();
+    }
+    else if (this.stage == 2) {
+    }
+    else if (this.stage == 3) {
+      this.wrapper?.classList.remove('zoom');
+      this.frame?.classList.add('rotate');
+      this.tide_revert.nativeElement.beginElement();
+    }
+
   }
 
   toggle_zoom() {
@@ -44,7 +71,7 @@ export class TidesComponent {
     this.tide_width.nativeElement.beginElement();
     this.tide_height.nativeElement.beginElement();
     this.tide_shift.nativeElement.beginElement();
-    // this.earth_shift.nativeElement.beginElement();
+    this.tide_revert.nativeElement.beginElement();
 
     // if (this.wrapper && this.frame) {
     //   if (!this.wrapper.classList.contains('zoom')) {
@@ -64,7 +91,6 @@ export class TidesComponent {
     this.tide_width?.nativeElement.beginElement();
     this.tide_height?.nativeElement.beginElement();
     this.tide_shift?.nativeElement.beginElement();
-    this.earth_shift?.nativeElement.beginElement();
   }
 
 }
