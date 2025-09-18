@@ -1,0 +1,9 @@
+#arrow {
+    width: 80px;
+    height: 50px;
+    max-width: 6.4vw;
+    max-height: 4vw;
+    background-color: var(--content);
+    border-radius: 5px;
+    cursor: pointer;
+}

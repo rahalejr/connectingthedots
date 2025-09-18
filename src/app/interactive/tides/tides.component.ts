@@ -2,11 +2,12 @@ import { Component, ElementRef, Output, output, ViewChild } from '@angular/core'
 import { CommonModule } from '@angular/common';
 import { ArrowComponent } from '../../interface/arrow/arrow.component';
 import { NavigationService } from '../../services/navigation.service';
+import { DragDirective } from '../../directives/drag.directive';
 
 @Component({
   selector: 'tides',
   standalone: true,
-  imports: [CommonModule, ArrowComponent],
+  imports: [CommonModule, ArrowComponent, DragDirective],
   templateUrl: './tides.component.html',
   styleUrl: './tides.component.css'
 })
@@ -21,6 +22,7 @@ export class TidesComponent {
   wrapper!: HTMLElement | null;
   frame!: HTMLElement | null;
   stage = 0;
+  drag_point = -35;
 
   @Output() complete = false;
 
@@ -91,6 +93,11 @@ export class TidesComponent {
     this.tide_width?.nativeElement.beginElement();
     this.tide_height?.nativeElement.beginElement();
     this.tide_shift?.nativeElement.beginElement();
+  }
+
+  update_curve(val: number) {
+    console.log('yeah');
+    // this.drag_point = val;
   }
 
 }
