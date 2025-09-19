@@ -25,7 +25,7 @@ export class BorderComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    // this.animateWobble();
+    this.animate_wobble();
     this.sections_array = this.sections.toArray();
     this.connections_array = this.connections.toArray();
   }
@@ -49,12 +49,12 @@ export class BorderComponent implements AfterViewInit {
 
   start(): void {
     this.state = this.state == 'state1' ? 'state2' : 'state1';
-    this.images?.forEach(img => img.nativeElement.classList.remove('wobble', 'anti-wobble'));
     this.navigation.start();
     this.started = true;
     setTimeout(() => {
+      this.images?.forEach(img => img.nativeElement.classList.remove('wobble', 'anti-wobble'));
       this.navigation.nextSlide();
-    }, 250);
+    }, 500);
   }
 
   next(): void {
