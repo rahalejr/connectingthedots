@@ -18,10 +18,10 @@
       stroke-width="1" stroke-dasharray="3 6"/>
 
       <!-- <circle [attr.cx]="drag_point" cy="-33" r="1" fill="red"/> -->
-      <circle cx="-35" cy="-25" r="1" fill="green"/>
-      <circle cx="-35" cy="0" r="1" fill="blue"/>
+      <!-- <circle cx="-35" cy="-25" r="1" fill="green"/> -->
+      <!-- <circle cx="-35" cy="0" r="1" fill="blue"/> -->
 
-      <path id="projection" [ngClass]="{'reveal': stage==4}"
+      <path id="projection" [ngClass]="{'reveal': start_drag}"
         d="M -10,-33 Q -35,-25 -35,0"
         fill="none"
         stroke="black"
@@ -86,7 +86,7 @@
             begin="indefinite" />
         </ellipse>
     
-        <g id="earth" [ngClass]="{'shift': stage == 2}">
+        <g id="earth" [ngClass]="{'shift': earth_shift}">
             <image #earth id="globe" x="-10" y="-10" width="20" height="20" href="assets/slide_images/globe.svg"/>
             <animateMotion dur="10s" repeatCount="indefinite" begin=".05s" rotate="auto">
                 <mpath href="#earth-orbit"/>
@@ -94,6 +94,18 @@
         </g>
     </svg>
     
+    <div id="drag-button" *ngIf="start_drag" 
+        [style.left.px]="drag_position.x"
+        [style.top.px]="drag_position.y"
+        drag
+        [svg]="frame_el"
+        [range]="[-35,35]"
+        direction="x"
+        [axis_constant]="-33"
+        (coordinate)="update_coord($event)"
+        (pixels)="update_pixels($event)">
+        <img src="assets/ui/double-arrow.svg" alt="">
+    </div>
 
 </div>
 
@@ -101,16 +113,4 @@
     <!-- <div id="top-text"></div>
     <div id="bottom-text"></div> -->
     <arrow (clicked)="advance()" [style.opacity]="button_opacity"></arrow>
-</div>
-
-<div id="drag-button" *ngIf="start_drag" [style.left.px]="drag_position.x"
-[style.top.px]="drag_position.y"
-     drag
-     [svg]="frame_el"
-     [range]="[-35,35]"
-     direction="x"
-     [axis_constant]="-33"
-     (coordinate)="update_coord($event)"
-     (pixels)="update_pixels($event)">
-    <img src="assets/ui/double-arrow.svg" alt="">
 </div>

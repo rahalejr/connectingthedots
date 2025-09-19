@@ -31,6 +31,7 @@ export class TidesComponent {
   drag_position: {x: number, y: number} = {x: 0, y: 0};
   stop_rotation = false;
   button_opacity = 1;
+  earth_shift = false;
 
   @Output() complete = false;
 
@@ -67,10 +68,12 @@ export class TidesComponent {
       this.tide_shift.nativeElement.beginElement();
     }
     else if (this.stage == 2) {
+      this.earth_shift = true;
     }
     else if (this.stage == 3) {
       this.button_opacity = 0;
       this.track_cycle().then(() => {
+        this.earth_shift = false;
         this.wrapper?.classList.remove('zoom');
         this.stop_rotation = true;
         this.tide_revert.nativeElement.beginElement(); 
@@ -122,7 +125,7 @@ export class TidesComponent {
   }
 
   update_coord(val: number) {
-    console.log(val);
+    return
   }
 
   update_pixels(vals: {x: number, y: number}) {
@@ -136,9 +139,7 @@ export class TidesComponent {
       const tracker = setInterval(() => {
         if (this.frame_el) {
           const angle = this.getRotation(this.frame_el.nativeElement);
-          console.log(angle);
           if (angle < 182 && angle > 178) {
-            console.log('reached 0');
             clearInterval(tracker);
             resolve();
           }

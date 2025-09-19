@@ -45,46 +45,68 @@ export class DragDirective {
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(e: MouseEvent) {
-    if (!this.dragging || !this.svg) return;
-
-    if (this.svg instanceof SVGSVGElement) {
-      const pt = this.svg.createSVGPoint();
-      pt.x = e.clientX;
-      pt.y = e.clientY;
-      const ctm = this.svg.getScreenCTM();
-      if (!ctm) return;
-      const svgCoords = pt.matrixTransform(ctm.inverse());
+  if (!this.dragging || !this.svg) return;
   
-      let val: number;
-      let fixedX: number;
-      let fixedY: number;
+  const svgEl = this.svg instanceof ElementRef ? this.svg.nativeElement : this.svg;
+  if (!(svgEl instanceof SVGSVGElement)) return;
   
-      if (this.direction === 'x') {
-        val = Math.min(Math.max(svgCoords.x, this.range[0]), this.range[1]);
-        fixedX = val;
-        fixedY = this.axis_constant;
-      } else {
-        val = Math.min(Math.max(-svgCoords.y, this.range[0]), this.range[1]);
-        fixedX = this.axis_constant;
-        fixedY = val;
-      }
+  const ctm = svgEl.getScreenCTM();
+  if (!ctm) return;
   
-      this.coordinate.emit(val);
+  // client -> svg
+  const svgPt = new DOMPoint(e.clientX, e.clientY).matrixTransform(ctm.inverse());
   
-      const fixedPt = new DOMPoint(fixedX, fixedY).matrixTransform(ctm);
-      this.pixels.emit({x: fixedPt.x, y: fixedPt.y});
-    }
+  let val: number;
+  let fixedX: number;
+  let fixedY: number;
+  
+  if (this.direction === 'x') {
+  val = Math.min(Math.max(svgPt.x, this.range[0]), this.range[1]);
+  fixedX = val;
+  fixedY = this.axis_constant;
+  } else {
+  val = Math.min(Math.max(-svgPt.y, this.range[0]), this.range[1]);
+  fixedX = this.axis_constant;
+  fixedY = val;
+  }
+  
+  this.coordinate.emit(val);
+  
+  // svg -> viewport
+  const screenPt = new DOMPoint(fixedX, fixedY).matrixTransform(ctm);
+  
+  // viewport -> offsetParent (wrapper)
+  const host = this.el.nativeElement as HTMLElement;
+  const parent = (host.offsetParent as HTMLElement) ?? document.body;
+  const parentRect = parent.getBoundingClientRect();
+  
+  this.pixels.emit({
+  x: screenPt.x - parentRect.left,
+  y: screenPt.y - parentRect.top
+  });
   }
 
   svgToClient(x: number, y: number) {
-    if (this.svg instanceof SVGSVGElement) {
-      const ctm = this.svg.getScreenCTM();
-      if (!ctm) return null;
-      const pt = new DOMPoint(x, y);
-      const res = pt.matrixTransform(ctm);
-      return { x: res.x, y: res.y };
+    const svgEl = this.svg instanceof ElementRef ? this.svg.nativeElement : this.svg;
+    if (!(svgEl instanceof SVGSVGElement)) return null;
+    
+    const ctm = svgEl.getScreenCTM();
+    if (!ctm) return null;
+    
+    // svg -> viewport
+    const screen = new DOMPoint(x, y).matrixTransform(ctm);
+    
+    // viewport -> offsetParent
+    const host = this.el.nativeElement as HTMLElement;
+    const parent = (host.offsetParent as HTMLElement) ?? document.body;
+    const parentRect = parent.getBoundingClientRect();
+    
+    // If you’re not using CSS translate(-50%,-50%) on the handle,
+    // subtract half host size here.
+    return {
+    x: screen.x - parentRect.left,
+    y: screen.y - parentRect.top
+    };
     }
-    return {x:0, y:0}
-  }
 
 }
