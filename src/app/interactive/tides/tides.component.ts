@@ -29,8 +29,10 @@ export class TidesComponent {
   drag_point = -35;
   start_drag = false;
   drag_position: {x: number, y: number} = {x: 0, y: 0};
+  projection_path = "M -35,-33 Q -35,-25 -35,0"
   stop_rotation = false;
   button_opacity = 1;
+  window_opacity = 0;
   earth_shift = false;
 
   @Output() complete = false;
@@ -43,6 +45,9 @@ export class TidesComponent {
       // this.restart_animations();
       console.log('triggered');
     })
+    setTimeout(() => {
+      this.window_opacity = 1;
+    }, 2000);
 
   }
 
@@ -125,7 +130,7 @@ export class TidesComponent {
   }
 
   update_coord(val: number) {
-    return
+    this.projection_path = `M ${val},-33 Q -35,-25 -35,0`;
   }
 
   update_pixels(vals: {x: number, y: number}) {

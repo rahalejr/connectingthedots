@@ -30,7 +30,7 @@ export class NavigationService {
   }
 
 
-  current_slide = 1;
+  current_slide = -1;
   current_frame = 0;
   started = false;
   current_slide_len = 0;

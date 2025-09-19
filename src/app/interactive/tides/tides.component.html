@@ -1,4 +1,4 @@
-<div id="wrapper" class="zoom">
+<div id="wrapper" [style.opacity]="window_opacity" class="zoom">
 
     <svg #svg_frame id="frame" [ngClass]="{'rotate': stop_rotation}" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-75 -50 150 100" preserveAspectRatio="xMidYMid meet">
 
@@ -10,26 +10,32 @@
          a 35,33.4 0 1,1 0,-66.8" 
       fill="none"/>
 
-      <path id="trace" [ngClass]="{'reveal': stage==4}" 
+      <path id="trace" [ngClass]="{'reveal': start_drag}" 
       d="M 0,-35 
          a 35,33.4 0 1,1 0,66.8 
          a 35,33.4 0 0,1 -35,-33.4" 
       fill="none" stroke="var(--content)"
       stroke-width="1" stroke-dasharray="3 6"/>
 
-      <!-- <circle [attr.cx]="drag_point" cy="-33" r="1" fill="red"/> -->
-      <!-- <circle cx="-35" cy="-25" r="1" fill="green"/> -->
-      <!-- <circle cx="-35" cy="0" r="1" fill="blue"/> -->
+      <!-- <circle [attr.cx]="drag_point" cy="-33" r="1" fill="red"/>
+      <circle cx="-65" cy="-33" r="1" fill="green"/>
+      <circle cx="35" cy="-33" r="1" fill="blue"/> -->
 
-      <path id="projection" [ngClass]="{'reveal': start_drag}"
-        d="M -10,-33 Q -35,-25 -35,0"
+      <path id="projection" [ngClass]="{'reveal': start_drag}" [attr.d]="projection_path"
         fill="none"
-        stroke="black"
+        stroke="var(--content)"
       />
 
 
-        <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth"> <path d="M0,0 L6,3 L0,6 Z" fill="black"/> </marker>
-
+      <marker id="arrow-start"
+      viewBox="0 0 10 10"
+      markerWidth="3"
+      markerHeight="3"
+      refX="0" refY="5"
+      orient="auto"
+      markerUnits="strokeWidth">
+    <path d="M0,5 L10,0 L10,10 Z" fill="var(--content)"/>
+    </marker>
           
         <!-- <path d=" M -35,0 A 35,33.4 0 1 0 0 -33.4"
         fill="none"
@@ -99,7 +105,7 @@
         [style.top.px]="drag_position.y"
         drag
         [svg]="frame_el"
-        [range]="[-35,35]"
+        [range]="[-60,-10]"
         direction="x"
         [axis_constant]="-33"
         (coordinate)="update_coord($event)"
@@ -109,7 +115,7 @@
 
 </div>
 
-<div id="dialogue">
+<div id="dialogue" [style.opacity]="window_opacity">
     <!-- <div id="top-text"></div>
     <div id="bottom-text"></div> -->
     <arrow (clicked)="advance()" [style.opacity]="button_opacity"></arrow>

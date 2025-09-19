@@ -6,6 +6,7 @@ import { Directive, ElementRef, EventEmitter, HostListener, Input, Output } from
 })
 export class DragDirective {
   @Input() range: number[] = [0, 100];
+  @Input() initial: number = -35; 
   @Input() svg!: ElementRef;
   @Input() direction: 'x' | 'y' = 'x';
   @Input() axis_constant = 0;
@@ -14,20 +15,16 @@ export class DragDirective {
   @Output() pixels = new EventEmitter<{x: number, y: number}>();
 
   private dragging = false;
-  private default = 50;
 
   constructor(private el: ElementRef<HTMLElement>) {}
 
   ngAfterViewInit() {
     this.svg = this.svg.nativeElement;
-    const initCoords = this.direction == 'x' ? this.svgToClient(this.default, this.axis_constant) : this.svgToClient(this.axis_constant, this.default);
+  
+    const initCoords = this.direction == 'x' ? this.svgToClient(this.initial, this.axis_constant) : this.svgToClient(this.axis_constant, this.initial);
     if (initCoords) {
         this.pixels.emit({x:initCoords.x, y:initCoords.y});
     }
-  }
-
-  ngOnInit() {
-    this.default = (this.range[0] + this.range[1]) / 2;
   }
 
   @HostListener('mousedown', ['$event'])
