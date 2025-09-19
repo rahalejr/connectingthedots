@@ -25,10 +25,28 @@ arrow {
     right: 0;
     margin: 10%;
     z-index: 2000 !important;
+    transition: opacity .5s;
 }
 
-#drag-point {
+#drag-button {
     z-index: 1000 !important;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    outline: 2px solid var(--content);
+    border: 2px solid var(--background);
+    background-color: var(--content);
+    border-radius: 50%;
+}
+
+#drag-button img {
+    width: 30px;
+    color: var(--light);
 }
 
 #frame {

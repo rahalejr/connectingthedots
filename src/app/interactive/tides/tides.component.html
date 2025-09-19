@@ -1,6 +1,6 @@
 <div id="wrapper" class="zoom">
 
-    <svg id="frame" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-75 -50 150 100" preserveAspectRatio="xMidYMid meet">
+    <svg #svg_frame id="frame" [ngClass]="{'rotate': stop_rotation}" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-75 -50 150 100" preserveAspectRatio="xMidYMid meet">
 
         <!-- <path id="moon-orbit" d="M -35,0 a 35,33.4 0 1,1 70,0 a 35,33.4 0 1,1 -70,0" fill="none" stroke="black" /> -->
 
@@ -46,13 +46,13 @@
         <path id="false-orbit" d="M 7,0 a 7,7 0 1,1 -14,0 a 7,7 0 1,1 14,0" fill="none"/>
     
         <g>
-            <image id="moon" x="-4" y="-4" width="8" height="8" href="assets/slide_images/moon.svg"/>
+            <image #moon id="moon" x="-4" y="-4" width="8" height="8" href="assets/slide_images/moon.svg"/>
             <animateMotion #animMoon dur="10s" repeatCount="indefinite" startOffset="405" begin=".01s">
                 <mpath href="#moon-orbit"/>
             </animateMotion>
         </g>
     
-        <ellipse id="ocean" cx="0" cy="0" rx="11.5" ry="11.5" fill="deepskyblue">
+        <ellipse #ocean id="ocean" cx="0" cy="0" rx="11.5" ry="11.5" fill="deepskyblue">
             <animateMotion dur="10s" repeatCount="indefinite" begin=".01s">
                 <mpath href="#earth-orbit"/>
             </animateMotion>
@@ -87,8 +87,8 @@
         </ellipse>
     
         <g id="earth" [ngClass]="{'shift': stage == 2}">
-            <image id="globe" x="-10" y="-10" width="20" height="20" href="assets/slide_images/globe.svg"/>
-            <animateMotion dur="10s" repeatCount="indefinite" begin=".01s" rotate="auto">
+            <image #earth id="globe" x="-10" y="-10" width="20" height="20" href="assets/slide_images/globe.svg"/>
+            <animateMotion dur="10s" repeatCount="indefinite" begin=".05s" rotate="auto">
                 <mpath href="#earth-orbit"/>
             </animateMotion>
         </g>
@@ -100,9 +100,17 @@
 <div id="dialogue">
     <!-- <div id="top-text"></div>
     <div id="bottom-text"></div> -->
-    <arrow (clicked)="advance()"></arrow>
+    <arrow (clicked)="advance()" [style.opacity]="button_opacity"></arrow>
 </div>
 
-<div id="drag-button">
+<div id="drag-button" *ngIf="start_drag" [style.left.px]="drag_position.x"
+[style.top.px]="drag_position.y"
+     drag
+     [svg]="frame_el"
+     [range]="[-35,35]"
+     direction="x"
+     [axis_constant]="-33"
+     (coordinate)="update_coord($event)"
+     (pixels)="update_pixels($event)">
     <img src="assets/ui/double-arrow.svg" alt="">
 </div>
