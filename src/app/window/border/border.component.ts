@@ -49,12 +49,13 @@ export class BorderComponent implements AfterViewInit {
 
   start(): void {
     this.state = this.state == 'state1' ? 'state2' : 'state1';
+    this.images?.forEach(img => img.nativeElement.style.animationPlayState = 'paused');
     this.navigation.start();
     this.started = true;
     setTimeout(() => {
-      this.images?.forEach(img => img.nativeElement.classList.remove('wobble', 'anti-wobble'));
-      this.navigation.nextSlide();
-    }, 500);
+      this.images?.forEach(img => img.nativeElement.classList.add('reset'));
+      setTimeout(()=> {this.navigation.nextSlide()}, 1700);
+    }, 300);
   }
 
   next(): void {

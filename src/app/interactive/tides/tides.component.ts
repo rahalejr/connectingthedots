@@ -47,7 +47,7 @@ export class TidesComponent {
     })
     setTimeout(() => {
       this.window_opacity = 1;
-    }, 2000);
+    }, 500);
 
   }
 
@@ -123,6 +123,7 @@ export class TidesComponent {
     this.ocean_el.nativeElement.style.animation = 'none';
   }
 
+  // need to fix
   restart_animations() {
     this.tide_width?.nativeElement.beginElement();
     this.tide_height?.nativeElement.beginElement();

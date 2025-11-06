@@ -33,6 +33,10 @@
     height: 100%;
 }
 
+#iconimg {
+  transition: transform 0.2s ease;
+}
+
 .icon {
     position: absolute;
     pointer-events: none;
@@ -145,13 +149,15 @@
 }
 
 .wobble {
-    transition: transform 0.2s ease;
     animation: wobble 5s ease-in-out infinite;
 }
 
 .anti-wobble {
-    transition: transform 0.2s ease;
     animation: antiwobble 8s ease-in-out infinite;
+}
+
+#iconimg.reset {
+  transform: rotate(0deg) !important;
 }
 
 #start-button {
