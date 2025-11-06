@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { ConnectionComponent } from '../../interface/connection/connection.component';
 
 @Component({
-  selector: 'border',
-  standalone: true,
-  imports: [CommonModule, ConnectionComponent],
-  templateUrl: './border.component.html',
-  styleUrl: './border.component.css'
+    selector: 'border',
+    imports: [CommonModule, ConnectionComponent],
+    templateUrl: './border.component.html',
+    styleUrl: './border.component.css'
 })
 export class BorderComponent implements AfterViewInit {
   @ViewChildren('iconimg', { read: ElementRef }) images!: QueryList<ElementRef>;

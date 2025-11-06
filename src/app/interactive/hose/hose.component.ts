@@ -4,11 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../services/simulation.service';
 
 @Component({
-  selector: 'hose',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './hose.component.html',
-  styleUrl: './hose.component.css'
+    selector: 'hose',
+    imports: [CommonModule],
+    templateUrl: './hose.component.html',
+    styleUrl: './hose.component.css'
 })
 export class HoseComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cv', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;

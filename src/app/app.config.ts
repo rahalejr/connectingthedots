@@ -1,10 +1,17 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts'; // ✅ add this
 
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideClientHydration(), provideAnimations()]
+  providers: [
+    provideRouter(routes),
+    provideClientHydration(),
+    provideAnimations(),
+    provideCharts(withDefaultRegisterables()),
+  ]
 };
+

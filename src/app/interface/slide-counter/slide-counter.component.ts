@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation.service';
 
 @Component({
-  selector: 'slide-counter',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './slide-counter.component.html',
-  styleUrl: './slide-counter.component.css'
+    selector: 'slide-counter',
+    imports: [CommonModule],
+    templateUrl: './slide-counter.component.html',
+    styleUrl: './slide-counter.component.css'
 })
 export class SlideCounterComponent {
 

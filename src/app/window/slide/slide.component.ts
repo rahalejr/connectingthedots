@@ -9,19 +9,18 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { MultipleChoiceComponent } from '../../interface/multiple-choice/multiple-choice.component';
 
 @Component({
-  selector: 'slide',
-  standalone: true,
-  imports: [CommonModule, NextButtonComponent, MultipleChoiceComponent, ProgressBarComponent],
-  templateUrl: './slide.component.html',
-  styleUrl: './slide.component.css',
-  animations: [
-    trigger('fadeAnimation', [
-      transition('* <=> *', [
-        style({ opacity: 0 }),
-        animate('0.5s ease-in-out', style({ opacity: 1 }))
-      ])
-    ]),
-  ]
+    selector: 'slide',
+    imports: [CommonModule, NextButtonComponent, MultipleChoiceComponent, ProgressBarComponent],
+    templateUrl: './slide.component.html',
+    styleUrl: './slide.component.css',
+    animations: [
+        trigger('fadeAnimation', [
+            transition('* <=> *', [
+                style({ opacity: 0 }),
+                animate('0.5s ease-in-out', style({ opacity: 1 }))
+            ])
+        ]),
+    ]
 })
 export class SlideComponent {
 

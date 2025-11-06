@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'next-button',
-  standalone: true,
-  imports: [],
-  templateUrl: './next-button.component.html',
-  styleUrl: './next-button.component.css'
+    selector: 'next-button',
+    imports: [],
+    templateUrl: './next-button.component.html',
+    styleUrl: './next-button.component.css'
 })
 export class NextButtonComponent {
 

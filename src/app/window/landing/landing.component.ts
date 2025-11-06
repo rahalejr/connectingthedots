@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation.service';
 
 @Component({
-  selector: 'landing',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './landing.component.html',
-  styleUrl: './landing.component.css'
+    selector: 'landing',
+    imports: [CommonModule],
+    templateUrl: './landing.component.html',
+    styleUrl: './landing.component.css'
 })
 export class LandingComponent {
 

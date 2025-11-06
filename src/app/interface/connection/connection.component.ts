@@ -2,11 +2,10 @@ import { Component, Input, ElementRef, HostListener, Inject, PLATFORM_ID } from 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'connection',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './connection.component.html',
-  styleUrl: './connection.component.css'
+    selector: 'connection',
+    imports: [CommonModule],
+    templateUrl: './connection.component.html',
+    styleUrl: './connection.component.css'
 })
 export class ConnectionComponent {
 

@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'progress-bar',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './progress-bar.component.html',
-  styleUrl: './progress-bar.component.css'
+    selector: 'progress-bar',
+    imports: [CommonModule],
+    templateUrl: './progress-bar.component.html',
+    styleUrl: './progress-bar.component.css'
 })
 export class ProgressBarComponent implements OnChanges {
 

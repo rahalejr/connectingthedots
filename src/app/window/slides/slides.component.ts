@@ -5,11 +5,10 @@ import { ProgressBarComponent } from '../../interface/progress-bar/progress-bar.
 import { NavigationService } from '../../services/navigation.service';
 
 @Component({
-  selector: 'slides',
-  standalone: true,
-  imports: [SlideComponent, SlideCounterComponent, ProgressBarComponent],
-  templateUrl: './slides.component.html',
-  styleUrl: './slides.component.css'
+    selector: 'slides',
+    imports: [SlideComponent, SlideCounterComponent, ProgressBarComponent],
+    templateUrl: './slides.component.html',
+    styleUrl: './slides.component.css'
 })
 export class SlidesComponent {
 

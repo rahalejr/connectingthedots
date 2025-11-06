@@ -5,11 +5,10 @@ import { NavigationService } from '../../services/navigation.service';
 import { DragDirective } from '../../directives/drag.directive';
 
 @Component({
-  selector: 'tides',
-  standalone: true,
-  imports: [CommonModule, ArrowComponent, DragDirective],
-  templateUrl: './tides.component.html',
-  styleUrl: './tides.component.css'
+    selector: 'tides',
+    imports: [CommonModule, ArrowComponent, DragDirective],
+    templateUrl: './tides.component.html',
+    styleUrl: './tides.component.css'
 })
 export class TidesComponent {
 

@@ -11,12 +11,11 @@ import { TidesComponent } from './interactive/tides/tides.component';
 import { NavigationService } from './services/navigation.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent, 
-    ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent,
+        ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'Connecting The Dots';

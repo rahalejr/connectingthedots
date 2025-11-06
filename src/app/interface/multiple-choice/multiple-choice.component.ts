@@ -3,11 +3,10 @@ import { MultipleChoice } from '../../content/models';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'multiple-choice',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './multiple-choice.component.html',
-  styleUrl: './multiple-choice.component.css'
+    selector: 'multiple-choice',
+    imports: [CommonModule],
+    templateUrl: './multiple-choice.component.html',
+    styleUrl: './multiple-choice.component.css'
 })
 export class MultipleChoiceComponent {
 
