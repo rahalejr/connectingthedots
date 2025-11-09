@@ -4,6 +4,10 @@
         [type]="'line'"
         [data]="chartData"
         [options]="chartOptions">
-</canvas>
+        </canvas>
     </div>
+    <button (click)="addLine('human', 'red')">Human</button>
+    <button (click)="addLine('solar', 'blue')">Solar</button>
+    <button (click)="addLine('global', 'green')">Global</button>
+    <button (click)="addLine('volcanic', 'orange')">Volcanic</button>
 </div>

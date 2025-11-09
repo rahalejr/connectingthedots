@@ -2,8 +2,8 @@
   <div id="content">
     <border></border>
     <landing *ngIf="navigation.current_slide == -1"></landing>
-    <tides *ngIf="navigation.current_slide >= 0"></tides>
-    <!-- <chart *ngIf="navigation.current_slide >= 0"></chart> -->
+    <!-- <tides *ngIf="navigation.current_slide >= 0"></tides> -->
+    <chart *ngIf="navigation.current_slide >= 0"></chart>
     <!-- <hose *ngIf="navigation.current_slide >= 0"></hose> -->
   </div>
 

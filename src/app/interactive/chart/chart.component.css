@@ -12,8 +12,12 @@
     height: 60%;
 }
 
+button {
+    z-index: 1000;
+}
+
 canvas {
     display: block;
     width: 100%;
     height: 100%;
-  }
+}
