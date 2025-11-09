@@ -79,7 +79,7 @@ export class ChartComponent {
       label: name,
       data,
       borderColor: color,
-      borderWidth: 3,
+      borderWidth: 2,
       pointRadius: 0,
       pointHoverRadius: 0
     };
@@ -95,4 +95,36 @@ export class ChartComponent {
     this.chartData = { datasets: [...this.chartData.datasets] };
     this.chart?.update();
   }
+
+  change_range(toMin: number, toMax: number, duration = 800) {
+    const chart = this.chart?.chart;                 // ng2-charts -> underlying Chart.js instance
+    if (!chart) return;
+  
+    const yScale = chart.scales['y'];               // <-- use the runtime scale, not config.options
+    if (!yScale) return;
+  
+    const fromMin = (yScale.options as any).min ?? -1;
+    const fromMax = (yScale.options as any).max ??  1;
+  
+    const start = performance.now();
+  
+    const step = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      // smoothstep easing
+      const ease = t * t * (3 - 2 * t);
+  
+      (yScale.options as any).min = fromMin + (toMin - fromMin) * ease;
+      (yScale.options as any).max = fromMax + (toMax - fromMax) * ease;
+  
+      // Re-render WITHOUT restarting element animations
+      chart.update('none');
+  
+      if (t < 1) requestAnimationFrame(step);
+    };
+  
+    requestAnimationFrame(step);
+  }
+  
+  
+  
 }
