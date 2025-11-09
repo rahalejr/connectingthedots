@@ -9,11 +9,12 @@ import { ProgressBarComponent } from './interface/progress-bar/progress-bar.comp
 import { HoseComponent } from './interactive/hose/hose.component';
 import { TidesComponent } from './interactive/tides/tides.component';
 import { NavigationService } from './services/navigation.service';
+import { ChartComponent } from './interactive/chart/chart.component';
 
 @Component({
     selector: 'app-root',
     imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent,
-        ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent],
+        ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent, ChartComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

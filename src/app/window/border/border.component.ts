@@ -24,7 +24,7 @@ export class BorderComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.animate_wobble();
+    // this.animate_wobble();
     this.sections_array = this.sections.toArray();
     this.connections_array = this.connections.toArray();
   }

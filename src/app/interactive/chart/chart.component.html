@@ -1,1 +1,9 @@
-<p>chart works!</p>
+<div id="container" *ngIf="isBrowser">
+    <div id="chart">
+        <canvas baseChart
+        [type]="'line'"
+        [data]="chartData"
+        [options]="chartOptions">
+</canvas>
+    </div>
+</div>
