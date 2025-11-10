@@ -10,6 +10,20 @@ import { NavigationService } from '../../services/navigation.service';
 })
 export class LandingComponent {
 
+  started = false;
+
   constructor(public navigation: NavigationService) {}
+
+  ngOnInit() {
+    this.navigation.started$.subscribe(value => {
+      this.started = value;
+    })
+  }
+
+  start(): void {
+    this.navigation.start();
+  }
+
+  
 
 }

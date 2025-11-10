@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NavigationService } from '../../services/navigation.service';
 import { CommonModule } from '@angular/common';
 import { ConnectionComponent } from '../../interface/connection/connection.component';
@@ -21,6 +21,19 @@ export class BorderComponent implements AfterViewInit {
 
 
   constructor(public navigation: NavigationService) {}
+
+  ngOnInit() {
+    this.navigation.started$.subscribe(value => {
+      this.started = value;
+      console.log('subbed');
+      this.state = this.state == 'state1' ? 'state2' : 'state1';
+      this.images?.forEach(img => img.nativeElement.style.animationPlayState = 'paused');
+      setTimeout(() => {
+        this.images?.forEach(img => img.nativeElement.classList.add('reset'));
+        setTimeout(()=> {this.navigation.nextSlide()}, 1700);
+      }, 300);
+    });
+  }
 
 
   ngAfterViewInit(): void {
@@ -46,16 +59,6 @@ export class BorderComponent implements AfterViewInit {
       index++;
   }, 1000);}
 
-  start(): void {
-    this.state = this.state == 'state1' ? 'state2' : 'state1';
-    this.images?.forEach(img => img.nativeElement.style.animationPlayState = 'paused');
-    this.navigation.start();
-    this.started = true;
-    setTimeout(() => {
-      this.images?.forEach(img => img.nativeElement.classList.add('reset'));
-      setTimeout(()=> {this.navigation.nextSlide()}, 1700);
-    }, 300);
-  }
 
   next(): void {
     let slide = this.navigation.current_slide;

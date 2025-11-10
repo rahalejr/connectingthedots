@@ -10,11 +10,13 @@ import { HoseComponent } from './interactive/hose/hose.component';
 import { TidesComponent } from './interactive/tides/tides.component';
 import { NavigationService } from './services/navigation.service';
 import { ChartComponent } from './interactive/chart/chart.component';
+import { FarmersComponent } from './modules/farmers/farmers.component';
 
 @Component({
     selector: 'app-root',
     imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent,
-        ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent, ChartComponent],
+        ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent, ChartComponent,
+        FarmersComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

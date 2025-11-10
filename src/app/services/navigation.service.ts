@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { all_slides } from '../content/slide_data';
 
 @Injectable({
@@ -34,7 +34,8 @@ export class NavigationService {
 
   current_slide = -1;
   current_frame = 0;
-  started = false;
+  private started = new Subject<boolean>();
+  started$ = this.started.asObservable();
   current_slide_len = 0;
   total_slides = all_slides.length
 
@@ -63,8 +64,9 @@ export class NavigationService {
   // returns indices as [slide, frame]
   getFrame(): number[] {return [this.current_slide, this.current_frame]}
 
-  start() {this.started = true}
-  hasStarted(): boolean {return this.started}
+  start() {
+    this.started.next(true);
+  }
 
   slideLength(slide: number): number {return all_slides[slide].frames.length}
 
