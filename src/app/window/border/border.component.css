@@ -183,8 +183,8 @@
 }
 
 #next-button {
-    color: white;
-    background-color: #2E5C6E;
+    color: var(--white);
+    background-color: var(--light);
     position: absolute;
     display: flex;
     align-items: center;
@@ -201,6 +201,11 @@
     opacity: 0;
     transition: opacity 2s ease;
 }
+
+#next-button:hover {
+  background-color: var(--content);
+}
+
 
 .hide {
     opacity: 0 !important;

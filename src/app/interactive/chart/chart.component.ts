@@ -97,10 +97,10 @@ export class ChartComponent {
   }
 
   change_range(toMin: number, toMax: number, duration = 800) {
-    const chart = this.chart?.chart;                 // ng2-charts -> underlying Chart.js instance
+    const chart = this.chart?.chart
     if (!chart) return;
   
-    const yScale = chart.scales['y'];               // <-- use the runtime scale, not config.options
+    const yScale = chart.scales['y'];
     if (!yScale) return;
   
     const fromMin = (yScale.options as any).min ?? -1;
@@ -110,13 +110,10 @@ export class ChartComponent {
   
     const step = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
-      // smoothstep easing
       const ease = t * t * (3 - 2 * t);
   
       (yScale.options as any).min = fromMin + (toMin - fromMin) * ease;
       (yScale.options as any).max = fromMax + (toMax - fromMax) * ease;
-  
-      // Re-render WITHOUT restarting element animations
       chart.update('none');
   
       if (t < 1) requestAnimationFrame(step);

@@ -1,14 +1,63 @@
 :root {
+    --white: #DFD7CD;
     --light: #DFD7CD;
     --content: #2E5C6E;
     --background: #bddcdf;
 }
 
+.farmers {
+  --background: #BDDCDF;
+  --content: #258D9D;
+  --light: #258D9D;
+}
+
+.beakers {
+    --background: #CACCE9;
+    --content: #211E55;
+    --light: #8E8CB8;
+}
+
+.hose {
+    --background: #D9CD90;
+    --content: #6E552F;
+    --light: #B68E55;
+}
+
+.tides {
+    --background: #ECB88A;
+    --content: #724938;
+    --light: #CA7853;
+}
+
+.orbit {
+    --background: #D1E3F2;
+    --content: #124882;
+    --light: #5285BC;
+}
+
+.prediction {
+    --background: #CACCE9;
+    --content: #211E55;
+    --light: #8E8CB8;
+}
+
+.matching {
+    --background: #D7C4BB;
+    --content: #86473F;
+    --light: #9E7A7A;
+}
+  
+
 html body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #bddcdf;
+    background-color: var(--background);
+    transition: background-color 2s ease, color 2s ease;
+}
+
+div p {
+    transition: background-color 2s ease, color 2s ease;
 }
 
 h2 {

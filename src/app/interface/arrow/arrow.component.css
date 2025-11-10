@@ -9,6 +9,8 @@
     background-color: var(--content);
     border-radius: 5px;
     cursor: pointer;
+    background-color: var(--light);
+    color: white;
 }
 
 img {

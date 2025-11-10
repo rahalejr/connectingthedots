@@ -7,6 +7,8 @@ import { all_slides } from '../content/slide_data';
 })
 export class NavigationService {
 
+  slides: string[] = ['farmers', 'tides', 'orbit', 'prediction']
+
   refresh_animations!: Observable<boolean>;
   hidden!: boolean;
 
@@ -39,6 +41,7 @@ export class NavigationService {
   nextFrame(): void {
     if (this.current_slide_len - 1 == this.current_frame){
       this.current_slide = this.current_slide + 1;
+      this.set_theme(this.current_slide);
       this.current_frame = 0;
       this.current_slide_len = this.slideLength(this.current_slide);
     }
@@ -49,6 +52,12 @@ export class NavigationService {
 
   nextSlide(): void {
     this.current_slide++;
+    this.set_theme(this.current_slide);
+  }
+
+  set_theme(slide: number) {
+    document.body.className = '';
+    document.body.classList.toggle(this.slides[slide]);
   }
 
   // returns indices as [slide, frame]
