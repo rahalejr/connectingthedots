@@ -16,7 +16,7 @@ import { NgSwitch, NgSwitchCase } from '@angular/common';
     trigger('fadeAnimation', [
       transition('* <=> *', [
         style({ opacity: 0 }),
-        animate('0.5s ease-in-out', style({ opacity: 1 }))
+        animate('1.5s ease-in-out', style({ opacity: 1 }))
       ])
     ]),
   ]

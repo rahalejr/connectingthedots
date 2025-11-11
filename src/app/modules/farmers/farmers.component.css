@@ -1,8 +1,76 @@
 #container {
     width: 100%;
     height: 100%;
+    z-index: 4000;
+}
+
+#content {
+    width: 100%;
+    height: 100%;
     display: flex;
+    position: relative;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 4000;
+}
+
+p {
+    font-family: "Exo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--content);
+    font-size: 23px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+img {
+    position: absolute;
+}
+
+.text-a {
+    top: 20%;
+    width: 60%;
+}
+
+.img-a {
+    bottom: 30%;
+    width: 40%;
+}
+
+.text-b {
+    top: 20%;
+    left: 20%;
+    width: 45%;
+}
+
+.img-b {
+    bottom: 20%;
+    right: 15%;
+    width: 30%;
+}
+
+.text-c {
+    top: 35%;
+    width: 75%;
+}
+
+.p-c {
+    font-family: "Edu QLD Beginner", cursive;
+    font-weight: 200;
+    white-space: pre-wrap;
+}
+
+.text-d {
+    top: 20%;
+    width: 60%;
 }

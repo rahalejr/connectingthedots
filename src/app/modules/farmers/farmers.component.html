@@ -2,20 +2,33 @@
     <div id="content" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
 
         <ng-container *ngSwitchCase="'a'">
-        <h2>Home View</h2>
-        <next-button (clicked)="nextFrame()"></next-button>
+        <div class="text text-a">
+            <p>{{frame_object['text']}}</p>
+            <next-button (clicked)="nextFrame()"></next-button>
+        </div>
+        <img src="assets/slide_images/farmers/flood.png" class="img img-a">
         </ng-container>
     
         <ng-container *ngSwitchCase="'b'">
-        <h2>Settings View</h2>
+            <div class="text text-b">
+                <p>{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+            <img src="assets/slide_images/farmers/therapist.png" class="img img-b">
         </ng-container>
     
         <ng-container *ngSwitchCase="'c'">
-        <h2>Profile View</h2>
+            <div class="text text-c">
+                <p class="p-c">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
         </ng-container>
     
         <ng-container *ngSwitchCase="'d'">
-        <h2>Default View</h2>
+            <div class="text text-d">
+                <p class="p-c">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
         </ng-container>
     
     </div>

@@ -16,7 +16,9 @@ export const farmers_data = [
         'template': 'c'
     },
     {
-        'text': `“I try to figure out what to do about them, because—well, I don’t know how else to say this, except that I have a lot of experience doing this.\n\nBut the two calls I got today—those just wore me out emotionally.”`,
+        'text': `“I try to figure out what to do about them, because—well, I don’t know how else to say this, except that I have a lot of experience doing this. 
+        
+    "But the two calls I got today—those just wore me out emotionally.”`,
         'template': 'd'
     },
     {
