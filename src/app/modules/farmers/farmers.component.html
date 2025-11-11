@@ -1,21 +1,23 @@
-<div [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
+<div id="container">
+    <div id="content" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
 
-    <ng-container *ngSwitchCase="'a'">
-      <h2>Home View</h2>
-      <next-button (clicked)="nextFrame()"></next-button>
-    </ng-container>
-  
-    <ng-container *ngSwitchCase="'b'">
-      <h2>Settings View</h2>
-    </ng-container>
-  
-    <ng-container *ngSwitchCase="'c'">
-      <h2>Profile View</h2>
-    </ng-container>
-  
-    <ng-container *ngSwitchCase="'d'">
-      <h2>Default View</h2>
-    </ng-container>
-  
-  </div>
+        <ng-container *ngSwitchCase="'a'">
+        <h2>Home View</h2>
+        <next-button (clicked)="nextFrame()"></next-button>
+        </ng-container>
+    
+        <ng-container *ngSwitchCase="'b'">
+        <h2>Settings View</h2>
+        </ng-container>
+    
+        <ng-container *ngSwitchCase="'c'">
+        <h2>Profile View</h2>
+        </ng-container>
+    
+        <ng-container *ngSwitchCase="'d'">
+        <h2>Default View</h2>
+        </ng-container>
+    
+    </div>
+</div>
   

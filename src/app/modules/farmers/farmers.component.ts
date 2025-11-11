@@ -34,4 +34,11 @@ export class FarmersComponent extends SlideComponent {
     this.frame_object = this.all_frames[this.frame];
   }
 
+  override nextFrame(): void {
+    console.log('ping');
+    this.navigation.nextFrame();
+    this.frame += 1;
+    this.updateContent();
+  }
+
 }
