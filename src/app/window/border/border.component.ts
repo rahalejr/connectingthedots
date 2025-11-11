@@ -33,6 +33,19 @@ export class BorderComponent implements AfterViewInit {
         setTimeout(()=> {this.navigation.nextSlide()}, 1700);
       }, 300);
     });
+
+    this.navigation.current_slide$.subscribe(value => {
+      console.log(value);
+      let slide = value;
+      let current = this.connections_array[slide-1];
+      current.from = this.sections_array[slide-1];
+      current.to = this.sections_array[slide];
+      current.container = this.bg;
+      current.updateLine();
+      // current.updateLine().then(() => {
+      //   this.navigation.nextSlide();
+      // });
+    })
   }
 
 
@@ -58,18 +71,5 @@ export class BorderComponent implements AfterViewInit {
       }
       index++;
   }, 1000);}
-
-
-  next(): void {
-    let slide = this.navigation.current_slide;
-    let current = this.connections_array[slide];
-    current.from = this.sections_array[slide];
-    current.to = this.sections_array[slide+1];
-    current.container = this.bg;
-
-    current.updateLine().then(() => {
-      this.navigation.nextSlide();
-    });
-  }
 
 }

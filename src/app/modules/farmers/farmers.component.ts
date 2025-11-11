@@ -26,6 +26,7 @@ export class FarmersComponent extends SlideComponent {
   constructor(navigation: NavigationService) {
     super(navigation);
     this.all_frames = farmers_data;
+    this.navigation.set_slide(this.all_frames);
     this.frame_object = this.all_frames[this.frame];
   }
 

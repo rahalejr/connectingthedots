@@ -32,18 +32,18 @@ export class NavigationService {
 
 
   current_slide = -1;
+  private slide_sub = new Subject<number>();
+  current_slide$ = this.slide_sub.asObservable();
   current_frame = 0;
+  slide_object: {}[] = [];
   private started = new Subject<boolean>();
   started$ = this.started.asObservable();
-  current_slide_len = 0;
   total_slides = 10;
 
   nextFrame(): void {
-    if (this.current_slide_len - 1 == this.current_frame){
-      this.current_slide = this.current_slide + 1;
-      this.set_theme(this.current_slide);
+    if (this.slide_object.length - 1 == this.current_frame){
+      this.nextSlide();
       this.current_frame = 0;
-      this.current_slide_len = this.slideLength(this.current_slide);
     }
     else {
       this.current_frame = this.current_frame + 1
@@ -51,7 +51,9 @@ export class NavigationService {
   }
 
   nextSlide(): void {
+    console.log('shit piss');
     this.current_slide++;
+    this.slide_sub.next(this.current_slide)
     this.set_theme(this.current_slide);
   }
 
@@ -60,14 +62,17 @@ export class NavigationService {
     document.body.classList.toggle(this.slides[slide]);
   }
 
-  // returns indices as [slide, frame]
+  set_slide(obj: {}[]) {
+    this.slide_object = obj;
+  }
+
   getFrame(): number[] {return [this.current_slide, this.current_frame]}
 
   start() {
     this.started.next(true);
   }
 
-  slideLength(slide: number): number {return 1}
+  slideLength(slide: number): number {return this.slide_object.length}
 
 
   // Timer logic
