@@ -1,7 +1,7 @@
 #container {
     margin-top: 0px;
-    width: 70px;
-    height: 35px;
+    display: inline-block;
+    white-space: nowrap;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 40px;
+    padding: 5px 25px;
     background-color: var(--light);
     border-radius: 7px;
 

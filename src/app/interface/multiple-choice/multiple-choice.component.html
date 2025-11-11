@@ -1,11 +1,9 @@
-<div class="mc-question">
-    <p *ngIf="choices!.question" class="question">{{ choices!.question }}</p>
-    
-    <ul [ngClass]="{'horizontal': horizontal, 'vertical': !horizontal}">
-      <li *ngFor="let opt of choices!.options; let i = index"
-          [ngClass]="{selected: selection.includes(i)}"
-          (click)="selectOption(i)">
-        {{opt}}
-      </li>
-    </ul>
+<div class="mc-question" *ngIf="choices as c">
+  <ul [ngClass]="{'horizontal': c.horizontal, 'vertical': !c.horizontal}">
+    <li *ngFor="let opt of c.options; let i = index"
+        [ngClass]="{selected: selection.includes(i)}"
+        (click)="selectOption(i)">
+      {{ opt }}
+    </li>
+  </ul>
 </div>

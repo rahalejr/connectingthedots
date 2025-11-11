@@ -9,20 +9,22 @@ li {
     cursor: pointer;
     margin-bottom: 5px;
     color: var(--white);
-    background-color: var(--light);
+    background-color: var(--extra-light);
     font-family: "Exo";
-    font-size: 25px;
+    font-size: 23px;
     transition: border 0.05s ease-in, color 0.05s ease-in;
+    border: 2px solid var(--extra-light);
 }
 
 li:hover {
     /* outline: 3px solid #70342c; */
-    color: #70342c;
+    border:  2px solid var(--dark);
 }
 
 li.selected {
     /* outline: 3px solid #70342c; */
-    color: #70342c;
+    background-color: var(--dark);
+    border:  2px solid var(--dark);
 }
 
 .question {

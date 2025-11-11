@@ -10,22 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MultipleChoiceComponent {
 
-  @Input() horizontal: boolean = false;
-
-  @Input() multiple_answers: boolean = false;
-
-  @Input() choices: MultipleChoice | undefined = {
-    horizontal: true,
-    options: [
-        "Help me apply for crop insurance",
-        "Give me information on how to contact FEMA for emergency financial assistance",
-        "Direct me to another farmer who has been hit by a similar catastrophe, so I don’t feel so alone.",
-        "Connect me with other farmers in similar straits to organize a protest against government inaction to protect us from such devastating damage to our means of livelihood."
-    ],
-    answer: undefined,
-    question: "Placeholder question text",
-    multiple_selection: false
-  }
+  @Input() choices!: MultipleChoice
 
   @Output() selected = new EventEmitter<number[]>();
 

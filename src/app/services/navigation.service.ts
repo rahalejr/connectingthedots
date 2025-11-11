@@ -1,6 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { all_slides } from '../content/slide_data';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +36,7 @@ export class NavigationService {
   private started = new Subject<boolean>();
   started$ = this.started.asObservable();
   current_slide_len = 0;
-  total_slides = all_slides.length
+  total_slides = 10;
 
   nextFrame(): void {
     if (this.current_slide_len - 1 == this.current_frame){
@@ -68,7 +67,7 @@ export class NavigationService {
     this.started.next(true);
   }
 
-  slideLength(slide: number): number {return all_slides[slide].frames.length}
+  slideLength(slide: number): number {return 1}
 
 
   // Timer logic

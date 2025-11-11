@@ -25,6 +25,12 @@ p {
     margin-bottom: 30px;
 }
 
+.edu {
+    font-family: "Edu QLD Beginner", cursive;
+    font-weight: 200;
+    white-space: pre-wrap;
+}
+
 .text {
     position: absolute;
     display: flex;
@@ -43,7 +49,7 @@ img {
 }
 
 .img-a {
-    bottom: 30%;
+    bottom: 20%;
     width: 40%;
 }
 
@@ -55,8 +61,8 @@ img {
 
 .img-b {
     bottom: 20%;
-    right: 15%;
-    width: 30%;
+    right: 17%;
+    width: 25%;
 }
 
 .text-c {
@@ -64,13 +70,105 @@ img {
     width: 75%;
 }
 
-.p-c {
-    font-family: "Edu QLD Beginner", cursive;
-    font-weight: 200;
-    white-space: pre-wrap;
-}
-
 .text-d {
     top: 20%;
     width: 60%;
 }
+
+
+.img-e {
+    width: 13%;
+    right: 25%;
+}
+
+.chilanka {
+    font-family: "Chilanka", cursive;
+}
+
+.annie {
+    font-family: "Annie Use Your Telescope", cursive;
+}
+
+.text-f {
+    width: 50%;
+    height: 50%;
+}
+
+.bubble {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bubble p {
+    max-width: 55%;
+    padding-bottom: 5%;
+}
+
+.bubble img {
+    position: absolute;
+    width: 75%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+}
+
+.cap-top {
+    align-self: flex-start;
+}
+
+.cap-bottom {
+    align-self: flex-end;
+}
+
+.text-g {
+    top: 20%;
+    right: 20%;
+    width: 35%;
+}
+
+.img-g {
+    width: 17%;
+    top: 55%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.text-h {
+    width: 50%;
+    top: 25%;
+    line-height: 40px;
+}
+
+.text-i {
+    top: 20%;
+    width: 50%;
+}
+
+.text-j {
+    top: 20%;
+    left: 20%;
+    width: 35%;
+}
+
+.text-k {
+    width: 60%;
+}
+
+.img-j {
+    width: 25%;
+    bottom: 30%;
+    right: 17%;
+}
+
+multiple-choice {
+    width: 95%;
+}
+
+.newline{
+    white-space: pre-line;
+}
+

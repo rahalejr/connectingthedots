@@ -18,19 +18,91 @@
         </ng-container>
     
         <ng-container *ngSwitchCase="'c'">
-            <div class="text text-c">
-                <p class="p-c">{{frame_object['text']}}</p>
+            <div class="text text-c newline">
+                <p class="edu">{{frame_object['text']}}</p>
                 <next-button (clicked)="nextFrame()"></next-button>
             </div>
         </ng-container>
     
         <ng-container *ngSwitchCase="'d'">
             <div class="text text-d">
-                <p class="p-c">{{frame_object['text']}}</p>
+                <p class="edu">{{frame_object['text']}}</p>
                 <next-button (clicked)="nextFrame()"></next-button>
             </div>
         </ng-container>
+
+        <ng-container *ngSwitchCase="'e'">
+            <div class="text text-b">
+                <p class="edu">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+            <img src="assets/slide_images/farmers/no_money.png" class="img img-e">
+        </ng-container>
     
+        <ng-container *ngSwitchCase="'f'">
+            <div class="text text-f">
+                <p class="cap-top edu">{{frame_object['texts'][0]}}</p>
+                <div class="bubble">
+                    <p class="annie">{{frame_object['texts'][1]}}</p>
+                    <img src="assets/slide_images/farmers/bubble.png" class="img img-f">
+                </div>
+                <p class="cap-bottom edu">{{frame_object['texts'][2]}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'g'">
+            <div class="text text-g">
+                <p class="edu">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+            <img src="assets/slide_images/farmers/phone_call.png" class="img img-g">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'h'">
+            <div class="text text-h">
+                <p class="chilanka">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'i'">
+            <div class="text text-i">
+                <p class="edu">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'j'">
+            <div class="text text-j">
+                <p class="edu">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+            <img src="assets/slide_images/farmers/flood_bubble.png" class="img img-j">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'k'">
+            <div class="text text-k">
+                <p>{{frame_object['text']}}</p>
+                <multiple-choice [choices]="frame_object['multiple_choice']"></multiple-choice>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'l'">
+            <div class="text text-a newline">
+                <p>{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'m'">
+            <div class="text text-a">
+                <p>{{frame_object['text']}}</p>
+                <next-button [label]="'lets play a game to connect the dots'" (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
     </div>
 </div>
   

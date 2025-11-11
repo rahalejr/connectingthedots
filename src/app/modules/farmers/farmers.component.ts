@@ -16,7 +16,7 @@ import { NgSwitch, NgSwitchCase } from '@angular/common';
     trigger('fadeAnimation', [
       transition('* <=> *', [
         style({ opacity: 0 }),
-        animate('1.5s ease-in-out', style({ opacity: 1 }))
+        animate('.8s ease-in-out', style({ opacity: 1 }))
       ])
     ]),
   ]
@@ -32,10 +32,10 @@ export class FarmersComponent extends SlideComponent {
 
   updateContent(): void {
     this.frame_object = this.all_frames[this.frame];
+    console.log(this.frame_object);
   }
 
   override nextFrame(): void {
-    console.log('ping');
     this.navigation.nextFrame();
     this.frame += 1;
     this.updateContent();
