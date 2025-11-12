@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,8 @@ export class NavigationService {
   private slide_sub = new Subject<number>();
   current_slide$ = this.slide_sub.asObservable();
   current_frame = 0;
+  private frame_sub = new BehaviorSubject<number>(0);
+  current_frame$ = this.frame_sub.asObservable(); 
   slide_object: {}[] = [];
   private started = new Subject<boolean>();
   started$ = this.started.asObservable();
@@ -46,14 +48,17 @@ export class NavigationService {
       this.current_frame = 0;
     }
     else {
-      this.current_frame = this.current_frame + 1
+      this.current_frame = this.current_frame + 1;
+      this.frame_sub.next(this.current_frame);
     }
   }
 
   nextSlide(): void {
-    console.log('shit piss');
+    console.log('triggered');
     this.current_slide++;
-    this.slide_sub.next(this.current_slide)
+    this.current_frame = 0;
+    this.frame_sub.next(this.current_frame);
+    this.slide_sub.next(this.current_slide);
     this.set_theme(this.current_slide);
   }
 

@@ -1,0 +1,71 @@
+#container {
+    width: 100%;
+    height: 100%;
+    z-index: 4000;
+}
+
+#content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nested {
+    display: flex;
+    justify-content: space-around;
+    max-width: 80%;
+}
+
+p {
+    margin-bottom: 30px;
+}
+
+.edu {
+    font-family: "Edu QLD Beginner", cursive;
+    font-weight: 200;
+    white-space: pre-wrap;
+}
+
+.text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+img {
+    position: absolute;
+}
+
+video {
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.a-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-left: 5%;
+}
+
+.a-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+    margin-left: 10%;
+    height: 90%;
+    justify-content: space-between;
+}
+
+next-button {
+    width: 100px;
+}

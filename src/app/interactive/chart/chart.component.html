@@ -6,9 +6,11 @@
         [options]="chartOptions">
         </canvas>
     </div>
-    <button (click)="addLine('human', 'red')">Human</button>
-    <button (click)="addLine('solar', 'blue')">Solar</button>
-    <button (click)="change_range(0, .3)">zoom</button>
-    <button (click)="change_range(-1, 1)">reset</button>
+    <div id="lines">
+        <div class="line" (click)="addLine('human', 'red')">Human</div>
+        <div class="line" (click)="addLine('solar', 'blue')">Solar</div>
+        <button (click)="change_range(0, .3)">zoom</button>
+        <button (click)="change_range(-1, 1)">reset</button>
+    </div>
     <!-- <button (click)="addLine('volcanic', 'orange')">Volcanic</button> -->
 </div>

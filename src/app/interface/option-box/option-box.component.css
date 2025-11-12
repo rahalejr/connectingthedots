@@ -1,0 +1,34 @@
+input {
+    color: var(--content);
+    background-color: var(--white);
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    transition: .2s background-color;
+    font-family: "Exo", sans-serif;
+    font-size: 23px;
+    margin: 5px;
+    width: 35px;
+    text-align: center;
+}
+
+input:hover {
+    background-color: white;
+}
+
+#option {
+    color: var(--content);
+    font-family: "Exo", sans-serif;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    margin: 0;
+}

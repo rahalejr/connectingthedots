@@ -2,10 +2,15 @@
   <div id="content">
     <border></border>
     <landing *ngIf="navigation.current_slide == -1"></landing>
-    <tides *ngIf="navigation.current_slide == 1"></tides>
     <!-- <chart *ngIf="navigation.current_slide >= 0"></chart> -->
     <!-- <hose *ngIf="navigation.current_slide >= 0"></hose> -->
-    <farmers *ngIf="navigation.current_slide == 0"></farmers>
+    <farmers *ngIf="navigation.current_slide == 1"></farmers>
+    <ng-container *ngIf="navigation.current_slide == 0">
+
+      <tides-text *ngIf="current_frame < 3"></tides-text>
+      <tides *ngIf="current_frame >= 3"></tides>
+    
+    </ng-container>
   </div>
 
 </div>

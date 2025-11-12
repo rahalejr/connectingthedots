@@ -35,13 +35,14 @@ export class BorderComponent implements AfterViewInit {
     });
 
     this.navigation.current_slide$.subscribe(value => {
-      console.log(value);
       let slide = value;
-      let current = this.connections_array[slide-1];
-      current.from = this.sections_array[slide-1];
-      current.to = this.sections_array[slide];
-      current.container = this.bg;
-      current.updateLine();
+      if (slide > 0) {
+        let current = this.connections_array[slide-1];
+        current.from = this.sections_array[slide-1];
+        current.to = this.sections_array[slide];
+        current.container = this.bg;
+        current.updateLine();
+      }
       // current.updateLine().then(() => {
       //   this.navigation.nextSlide();
       // });
