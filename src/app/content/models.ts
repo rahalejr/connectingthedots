@@ -5,6 +5,12 @@ export interface Slide {
     frames: Frame[]
 }
 
+export interface TideCap {
+    texts: string[],
+    stage: number,
+    template: string
+}
+
 export interface Frame {
     id: number
     type: string

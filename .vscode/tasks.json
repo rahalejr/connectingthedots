@@ -7,6 +7,13 @@
       "command": "source ~/.zshrc && ng serve",
       "isBackground": true,
       "problemMatcher": "$tsc"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "npm: start",
+      "detail": "ng serve"
     }
   ]
 }

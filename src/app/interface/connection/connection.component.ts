@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Input, ElementRef, HostListener, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
@@ -28,11 +28,11 @@ export class ConnectionComponent {
   p2 = { x: 0, y: 0 };
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private cd: ChangeDetectorRef) {
     if (isPlatformBrowser(this.platformId)) {
       this.pop = new Audio('assets/sound/pop.mp3');
       this.tick = new Audio('assets/sound/tick.m4a');
-      this.pew = new Audio('assets/sound/pew.m4a');
+      this.pew = new Audio('assets/sound/OH MY GOD.mp3');
       this.pop.load();
       this.tick.load();
       this.pew.load();
@@ -99,6 +99,7 @@ export class ConnectionComponent {
       let i = 0;
       const interval = setInterval(() => {
         this.current_dot = i;
+        this.cd.detectChanges();
         i++;
         if (i > this.dots.length) {
           // this.pew.pause();
@@ -112,7 +113,7 @@ export class ConnectionComponent {
           resolve();
         }
         if (this.open) {
-          // this.pew.play();
+          this.pew.play();
           this.open = false;
         }
       }, 120);

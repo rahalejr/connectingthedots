@@ -4,7 +4,7 @@
 
         <!-- <path id="moon-orbit" d="M -35,0 a 35,33.4 0 1,1 70,0 a 35,33.4 0 1,1 -70,0" fill="none" stroke="black" /> -->
 
-        <path id="moon-orbit" 
+    <path id="moon-orbit" 
       d="M 0,-35 
          a 35,33.4 0 1,1 0,66.8 
          a 35,33.4 0 1,1 0,-66.8" 
@@ -116,7 +116,11 @@
 </div>
 
 <div id="dialogue" [style.opacity]="window_opacity">
-    <!-- <div id="top-text"></div>
-    <div id="bottom-text"></div> -->
-    <arrow (clicked)="advance()" [style.opacity]="button_opacity"></arrow>
+    <div id="top-text" [@fadeAnimation]="current_frame">
+        <p>{{frame_object.texts[0]}}</p>
+    </div>
+    <div id="bottom-text" [style.opacity]="bottom_text" [@fadeAnimation]="current_frame">
+        <p>{{frame_object.texts[1]}}</p>
+    </div>
+    <arrow (clicked)="nextFrame()" [style.opacity]="button_opacity"></arrow>
 </div>

@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { NavigationService } from '../services/navigation.service';
 
 export abstract class SlideComponent {
@@ -7,6 +8,7 @@ export abstract class SlideComponent {
   frame: number = 0;
   frame_object: Record<string, any> = {}; 
   title = '';
+  private subscriptions = new Subscription();
 
   constructor(public navigation: NavigationService) {
     const [slide, frame] = this.navigation.getFrame();
@@ -18,9 +20,9 @@ export abstract class SlideComponent {
     this.navigation.nextFrame();
     this.frame += 1;
     this.updateContent();
-    console.log('ping');
   }
 
   abstract updateContent(): void;
+
 
 }

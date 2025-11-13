@@ -6,20 +6,14 @@ import { tides_data } from '../../content/slide_data';
 import { NavigationService } from '../../services/navigation.service';
 import { SlideComponent } from '../slide.component';
 import { OptionBoxComponent } from '../../interface/option-box/option-box.component';
+import { fadeAnimation } from '../../interface/animations';
 
 @Component({
   selector: 'tides-text',
   imports: [NgSwitch, NextButtonComponent, OptionBoxComponent, CommonModule],
   templateUrl: './tides-text.component.html',
   styleUrl: './tides-text.component.css',
-  animations: [
-    trigger('fadeAnimation', [
-      transition('* <=> *', [
-        style({ opacity: 0 }),
-        animate('.8s ease-in-out', style({ opacity: 1 }))
-      ])
-    ]),
-  ]
+  animations: [fadeAnimation]
 })
 export class TidesTextComponent extends SlideComponent {
 
@@ -28,6 +22,10 @@ export class TidesTextComponent extends SlideComponent {
     this.all_frames = tides_data;
     this.navigation.set_slide(this.all_frames);
     this.frame_object = this.all_frames[this.frame];
+  }
+
+  ngOnInit() {
+    this.navigation.set_slide(this.all_frames);
   }
 
 

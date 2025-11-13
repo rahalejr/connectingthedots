@@ -33,6 +33,8 @@ export class NavigationService {
 
   current_slide = -1;
   private slide_sub = new Subject<number>();
+  private next_slide = new Subject<number>();
+  next_slide$ = this.next_slide.asObservable();
   current_slide$ = this.slide_sub.asObservable();
   current_frame = 0;
   private frame_sub = new BehaviorSubject<number>(0);
@@ -54,8 +56,12 @@ export class NavigationService {
   }
 
   nextSlide(): void {
-    console.log('triggered');
+    this.next_slide.next(this.current_slide + 1);
+  }
+
+  slideTransition(): void {
     this.current_slide++;
+    console.log(this.current_slide);
     this.current_frame = 0;
     this.frame_sub.next(this.current_frame);
     this.slide_sub.next(this.current_slide);

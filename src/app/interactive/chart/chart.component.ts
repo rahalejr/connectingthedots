@@ -72,7 +72,7 @@ export class ChartComponent {
     }
   };
 
-  addLine(name: 'human' | 'volcanic' | 'solar' | 'global', color = 'black') {
+  addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color = 'black') {
     const data = this.dataSetsMap[name];
 
     const ds = {

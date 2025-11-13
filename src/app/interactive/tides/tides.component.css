@@ -63,7 +63,8 @@ arrow {
 
 #wrapper {
     transition: transform 1s ease, opacity 1s ease;
-    transform: scale(1) translateX(-15%);
+    transform: scale(1);
+    position: relative;
     width: 100%;
     height: 100%;
     z-index: 10;
@@ -105,20 +106,22 @@ arrow {
 
 #top-text {
     display: flex;
+    padding: 40px;
+    box-sizing: border-box;
     justify-content: center;
     align-items: center;
     width: 60%;
     height: 50%;
-    border: 2px solid darkgrey;
 }
 
 #bottom-text {
     display: flex;
+    box-sizing: border-box;
+    padding: 40px;
     justify-content: center;
     align-items: center;
     width: 60%;
     height: 50%;
-    border: 2px solid darkgrey;
 }
 
 
@@ -158,4 +161,3 @@ arrow {
 #frame.reset {
     animation: reset 10s infinite reverse !important;
 }
-

@@ -6,22 +6,18 @@ import { farmers_data } from '../../content/slide_data';
 import { NextButtonComponent } from '../../interface/next-button/next-button.component';
 import { MultipleChoiceComponent } from '../../interface/multiple-choice/multiple-choice.component';
 import { NgSwitch, NgSwitchCase } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { fadeAnimation } from '../../interface/animations';
 
 @Component({
   selector: 'farmers',
   imports: [NextButtonComponent, MultipleChoiceComponent, NgSwitch, NgSwitchCase],
   templateUrl: './farmers.component.html',
   styleUrl: './farmers.component.css',
-  animations: [
-    trigger('fadeAnimation', [
-      transition('* <=> *', [
-        style({ opacity: 0 }),
-        animate('.8s ease-in-out', style({ opacity: 1 }))
-      ])
-    ]),
-  ]
+  animations: [fadeAnimation]
 })
 export class FarmersComponent extends SlideComponent {
+
 
   constructor(navigation: NavigationService) {
     super(navigation);
@@ -38,5 +34,6 @@ export class FarmersComponent extends SlideComponent {
     this.frame += 1;
     this.updateContent();
   }
+
 
 }

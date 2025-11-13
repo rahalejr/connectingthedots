@@ -2,7 +2,6 @@
     <div id="content" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
 
         <ng-container *ngSwitchCase="'a'">
-
             <div class="nested">
                 <div class="a-left">
                     <p>{{frame_object['text']}}</p>
@@ -10,12 +9,27 @@
                 </div>
                 <div class="a-right">
                     <video [muted]="true" loop autoplay>
-                        <source src="assets/slide_images/tides/bay_of_fundy.mp4" type="video/mp4" />Your browser does not support the video tag.
+                        <source src="assets/slide_images/tides/halls_harbour.mp4" type="video/mp4" />Your browser does not support the video tag.
                     </video>
                     <next-button (clicked)="nextFrame()"></next-button>
                 </div>
             </div>
-
         </ng-container>
+
+        <ng-container *ngSwitchCase="'b'">
+            <div class="nested-b">
+                <p>{{frame_object['text']}}</p>
+                <img class="image-b" src="assets/slide_images/tides/lighthouse.png" alt="">
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'c'">
+            <div class="nested-c">
+                <p class="newline">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
+
     </div>
 </div>

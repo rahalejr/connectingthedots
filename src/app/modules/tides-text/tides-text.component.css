@@ -38,10 +38,6 @@ p {
     align-items: center;
 }
 
-img {
-    position: absolute;
-}
-
 video {
     width: 100%;
     margin-bottom: 5%;
@@ -67,5 +63,34 @@ video {
 }
 
 next-button {
+    margin-top: 10px;
     width: 100px;
+}
+
+.nested-b {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 100%;
+}
+
+.image-b {
+    width: 50%;
+    transform: translateX(10%);
+    margin-bottom: 20px;
+}
+
+.nested-c {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70%;
+    width: 45%;
+}
+
+.newline{
+    white-space: pre-line;
 }

@@ -4,13 +4,9 @@
     <landing *ngIf="navigation.current_slide == -1"></landing>
     <!-- <chart *ngIf="navigation.current_slide >= 0"></chart> -->
     <!-- <hose *ngIf="navigation.current_slide >= 0"></hose> -->
-    <farmers *ngIf="navigation.current_slide == 1"></farmers>
-    <ng-container *ngIf="navigation.current_slide == 0">
-
-      <tides-text *ngIf="current_frame < 3"></tides-text>
-      <tides *ngIf="current_frame >= 3"></tides>
-    
-    </ng-container>
+    <farmers *ngIf="navigation.current_slide == 0"></farmers>
+    <tides-text *ngIf="navigation.current_slide == 1"></tides-text>
+    <!-- <tides *ngIf="navigation.current_slide == 1"></tides> -->
   </div>
 
 </div>

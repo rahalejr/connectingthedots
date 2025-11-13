@@ -1,14 +1,19 @@
-import { Component, ElementRef, Output, output, viewChild, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Output, output, viewChild, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArrowComponent } from '../../interface/arrow/arrow.component';
 import { NavigationService } from '../../services/navigation.service';
 import { DragDirective } from '../../directives/drag.directive';
+import { Subscription } from 'rxjs';
+import { tides_text } from '../../content/slide_data';
+import { fadeAnimation } from '../../interface/animations';
+import { TideCap } from '../../content/models';
 
 @Component({
     selector: 'tides',
     imports: [CommonModule, ArrowComponent, DragDirective],
     templateUrl: './tides.component.html',
-    styleUrl: './tides.component.css'
+    styleUrl: './tides.component.css',
+    animations: [fadeAnimation]
 })
 export class TidesComponent {
 
@@ -25,6 +30,13 @@ export class TidesComponent {
 
   wrapper!: HTMLElement | null;
   stage = 0;
+  current_frame = 0;
+  frame_object: TideCap = {
+    texts: [''],
+    stage: 0,
+    template: 'z'
+  };
+  bottom_text = false;
   drag_point = -35;
   start_drag = false;
   drag_position: {x: number, y: number} = {x: 0, y: 0};
@@ -33,20 +45,23 @@ export class TidesComponent {
   button_opacity = 1;
   window_opacity = 0;
   earth_shift = false;
+  private subscriptions = new Subscription();
 
-  @Output() complete = false;
-
-  constructor(private nav: NavigationService) {}
+  constructor(private nav: NavigationService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.nav.set_slide(tides_text);
     // this.nav.refresh_animations.subscribe(() => this.restart_animations())
     this.nav.refresh_animations.subscribe(() => {
       // this.restart_animations();
-      console.log('triggered');
     })
     setTimeout(() => {
       this.window_opacity = 1;
     }, 500);
+
+    console.log(this.current_frame);
+    this.frame_object = tides_text[this.current_frame];
+
 
   }
 
@@ -62,6 +77,22 @@ export class TidesComponent {
         });
       }
     });
+  }
+
+  nextFrame() {
+    this.nav.nextFrame();
+  
+    const newFrameIndex = this.current_frame + 1;
+    const newFrameObject = tides_text[newFrameIndex];
+  
+    this.frame_object = newFrameObject;
+    this.bottom_text = newFrameObject.texts.length > 1
+  
+    this.current_frame = newFrameIndex;
+  
+    if (newFrameObject.stage > this.stage) {
+      this.advance();
+    }
   }
 
   advance() {

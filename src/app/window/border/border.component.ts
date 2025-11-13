@@ -23,18 +23,8 @@ export class BorderComponent implements AfterViewInit {
   constructor(public navigation: NavigationService) {}
 
   ngOnInit() {
-    this.navigation.started$.subscribe(value => {
-      this.started = value;
-      console.log('subbed');
-      this.state = this.state == 'state1' ? 'state2' : 'state1';
-      this.images?.forEach(img => img.nativeElement.style.animationPlayState = 'paused');
-      setTimeout(() => {
-        this.images?.forEach(img => img.nativeElement.classList.add('reset'));
-        setTimeout(()=> {this.navigation.nextSlide()}, 1700);
-      }, 300);
-    });
 
-    this.navigation.current_slide$.subscribe(value => {
+    this.navigation.next_slide$.subscribe(value => {
       let slide = value;
       if (slide > 0) {
         let current = this.connections_array[slide-1];
@@ -42,11 +32,33 @@ export class BorderComponent implements AfterViewInit {
         current.to = this.sections_array[slide];
         current.container = this.bg;
         current.updateLine();
+        console.log('inside');
       }
+      console.log('second');
+      setTimeout(()=> {this.navigation.slideTransition()}, 1700);
+    })
+
+    this.navigation.started$.subscribe(value => {
+      this.started = value;
+      this.state = this.state == 'state1' ? 'state2' : 'state1';
+      this.images?.forEach(img => img.nativeElement.style.animationPlayState = 'paused');
+      this.navigation.nextSlide();
+      console.log('first');
+    });
+
+    // this.navigation.current_slide$.subscribe(value => {
+    //   let slide = value;
+    //   if (slide > 0) {
+    //     let current = this.connections_array[slide-1];
+    //     current.from = this.sections_array[slide-1];
+    //     current.to = this.sections_array[slide];
+    //     current.container = this.bg;
+    //     current.updateLine();
+    //   }
       // current.updateLine().then(() => {
       //   this.navigation.nextSlide();
       // });
-    })
+    // })
   }
 
 

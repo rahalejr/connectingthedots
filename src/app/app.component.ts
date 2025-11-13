@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { SlidesComponent } from './window/slides/slides.component';
 import { LandingComponent } from './window/landing/landing.component';
 import { BorderComponent } from './window/border/border.component';
 import { ConnectionComponent } from './interface/connection/connection.component';
@@ -15,7 +14,7 @@ import { TidesTextComponent } from './modules/tides-text/tides-text.component';
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, SlidesComponent, LandingComponent, BorderComponent,
+    imports: [CommonModule, RouterOutlet, LandingComponent, BorderComponent,
         ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent, ChartComponent,
         FarmersComponent, TidesTextComponent],
     templateUrl: './app.component.html',

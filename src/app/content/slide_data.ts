@@ -1,3 +1,5 @@
+import { TideCap } from "./models"
+
 export const farmers_data = [
     {
         'text': 'In spring of 2019, historic flooding in major river systems ravaged the Midwest…',
@@ -82,7 +84,7 @@ export const farmers_data = [
 
 export const tides_data = [
     {
-        'text': 'Gravitational force from the moon causes ocean tides. How many high tides and low tides a coast experience a day?',
+        'text': 'Gravitational force from the moon causes ocean tides. How many high tides and low tides does a coast experience a day?',
         'input_box': {
             options: [
                 'Number of high tides per day:',
@@ -99,54 +101,105 @@ export const tides_data = [
     {
         'text': `There are 2 high tides and 2 low tides a day.
 
-Guess what? This time, Newton’s universal law of gravitation explains why! Let’s think through this together with open-mindedness! 
-        `,
+Guess what? This time, Newton’s universal law of gravitation explains why! Let’s think through this together with open-mindedness!`,
         'template': 'c'
+    }
+]
+
+export const tides_text: TideCap[] = [{
+        texts: ['Imagine you are looking down at the rotating Earth from above the North Pole.'],
+        template: 'd',
+        stage: 0
     },
     {
-        'texts': ['Imagine you are looking down at the rotating Earth from above the North Pole.'],
-        'template': 'd'
+        texts: ['The moon orbits Earth about once a month.', 'As Earth spins on its axis once each day, it is daytime for the side facing the Sun, and nighttime for the side turned away.'],
+        template: 'd',
+        stage: 0
     },
     {
-        'texts': ['The moon orbits Earth about once a month.', 'As Earth spins on its axis once each day, it is daytime for the side facing the Sun, and nighttime for the side turned away.'],
-        'template': 'd'
+        texts: ['As Earth rotates a full circle each day, a different part of our planet in turn comes closest to the moon.'],
+        template: 'd',
+        stage: 0
     },
     {
-        'texts': ['As Earth rotates a full circle each day, a different part of our planet in turn comes closest to the moon.'],
-        'template': 'd'
+        texts: ['By Newton’s law, the closer two bodies are, the stronger the gravitational pull between them.'],
+        template: 'd',
+        stage: 0
     },
     {
-        'texts': ['By Newton’s law, the closer two bodies are, the stronger the gravitational pull between them.'],
-        'template': 'd'
+        texts: ['So the part of the ocean nearest to the moon is pulled the most, resulting in a bulge.'],
+        template: 'd',
+        stage: 1
     },
     {
-        'texts': ['So the part of the ocean nearest to the moon is pulled the most, resulting in a bulge.'],
-        'template': 'd'
+        texts: ['The natural intuition is that water drained into the bulge causes a low tide on other side of the earth.'],
+        template: 'd',
+        stage: 1
     },
     {
-        'texts': ['The natural intuition is that water drained into the bulge causes a low tide on other side of the earth.'],
-        'template': 'd'
+        texts: ['But that’s a common mistake—caused by assuming that Earth’s rigid core is stationary, since we can’t feel it moving in our daily life.'],
+        template: 'd',
+        stage: 1
     },
     {
-        'texts': ['But that’s a common mistake—caused by assuming that Earth’s rigid core is stationary, since we can’t feel it moving in our daily life.'],
-        'template': 'd'
+        texts: ['In fact, the entire earth is floating in space!'],
+        template: 'd',
+        stage: 1
     },
     {
-        'texts': ['In fact, the entire earth is floating in space!'],
-        'template': 'd'
+        texts: ['The core is pulled toward the moon too.', 'The ocean on the far side is pulled the least, so it’s left behind the most, creating another bulge'],
+        template: 'd',
+        stage: 2
     },
     {
-        'texts': ['The core is pulled toward the moon too.', 'The ocean on the far side is pulled the least, so it’s left behind the most, creating another bulge'],
-        'template': 'd'
+        texts: ['So, as your part of the coast rotates into these two bulges of water — once each day — you experience a high tide.'],
+        template: 'd',
+        stage: 2
     },
     {
-        'texts': ['So, as your part of the coast rotates into these two bulges of water — once each day — you experience a high tide.'],
-        'template': 'd'
-    },
-    {
-        'texts': ['Conversely, as your part rotates into an area between the two bulges, because water is drained away from you, you experience a low tide.'],
-        'template': 'd'
+        texts: ['Conversely, as your part rotates into an area between the two bulges, because water is drained away from you, you experience a low tide.'],
+        template: 'd',
+        stage: 2
     },
 
 ]
 
+export const orbit_text = [
+    {
+        template: 'a',
+        texts: [
+            'By the way, what if the same gravitational pull that causes the tides were to shut off? What path do you think our moon would take?',
+            'Click the double-arrow to adjust the path.',
+        ],
+        stage: 3
+    },
+    {
+        template: 'a',
+        texts: [
+            "The Moon's path would be completely straight, at an angle tangential to the Moon's usual orbit!",
+            "This path seems awfully similar to the water shooting out of a coiled garden hose, doesn’t it?"
+        ],
+        stage: 4
+    },
+    {
+        template: 'b',
+        texts: ["Water shoots straight out at the end of the coiled garden hose, once its path isn't forced to curve inside the hose, following Newton's First Law of Motion: Things continue their motion unless an external force acts on it."],
+        stage: 5
+    },
+    {
+        template: 'b',
+        texts: ['The Moon and water in the garden hose obey the same laws, laws that hold across the universe.'],
+        stage: 5
+    },
+    {
+        template: 'b',
+        texts: ["Earth's massive pull on the Moon is what keeps it in orbit. This pull is what keeps the moon close to Earth, as we see it crossing our night sky every night!"],
+        stage: 5
+    },
+    {
+        template: 'c',
+        texts: ["So the Moon’s orbit is connected to how water behaves in everyone’s garden. Would you like to connect more dots in the next challenge?"],
+        stage: 5
+    },
+    
+]
