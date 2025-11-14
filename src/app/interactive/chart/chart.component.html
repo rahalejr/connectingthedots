@@ -7,12 +7,10 @@
         </canvas>
     </div>
     <div id="lines">
-        <div class="line" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0])">{{reveal ? names[0] : colors[0]}}</div>
-        <div class="line" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1])">{{reveal ? names[1] : colors[1]}}</div>
-        <div class="line" [style.background-color]="colors[2]" (click)="addLine('human', colors[2])">{{reveal ? names[2] : colors[2]}}</div>
-        <div class="line" [style.background-color]="colors[3]" (click)="addLine('global', colors[3])">{{reveal ? names[3] : colors[3]}}</div>
-        <button (click)="change_range(0, .3)">zoom</button>
-        <button (click)="change_range(-1, 1)">reset</button>
+        <div class="line" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0], 0)">{{reveal ? names[0] : colors[0]}}</div>
+        <div class="line" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1], 1)">{{reveal ? names[1] : colors[1]}}</div>
+        <div class="line" [style.background-color]="colors[2]" (click)="addLine('human', colors[2], 2)">{{reveal ? names[2] : colors[2]}}</div>
+        <div class="line" [style.background-color]="colors[3]" (click)="addLine('global', colors[3], 3)">{{reveal ? names[3] : colors[3]}}</div>
     </div>
     <!-- <button (click)="addLine('volcanic', 'orange')">Volcanic</button> -->
 </div>

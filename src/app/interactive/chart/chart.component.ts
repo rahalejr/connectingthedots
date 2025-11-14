@@ -19,7 +19,7 @@ export class ChartComponent {
 
   names = ['solar', 'volcanic', 'human', 'other']
   colors = ['orange', 'blue', 'red', 'green']
-  scales = [[-.15, .15], [-.15, .15], [-1, 1], [1, 1]]
+  scales = [[-.15, .15], [-.15, .15], [-1, 1], [-1, 1]]
 
   dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, global };
 
@@ -92,7 +92,8 @@ export class ChartComponent {
         max: 1,
         ticks: {
           maxTicksLimit: 4,
-          font: { size: 14 }
+          font: { size: 14 },
+          callback: v => Number(v).toFixed(1)
         }
       }
     }
@@ -102,7 +103,10 @@ export class ChartComponent {
     return this.chartData.datasets.some(ds => ds.label == name);
   }
 
-  addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color = 'black', scales = [-1, 1]) {
+  addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color: string, index: number) {
+    
+    this.change_range(this.scales[index]);
+    
     const data = this.dataSetsMap[name];
 
     const ds = {
@@ -126,7 +130,7 @@ export class ChartComponent {
     this.chart?.update();
   }
 
-  change_range(toMin: number, toMax: number, duration = 800) {
+  change_range(range: number[], duration = 800) {
     const chart = this.chart?.chart
     if (!chart) return;
   
@@ -142,8 +146,8 @@ export class ChartComponent {
       const t = Math.min((now - start) / duration, 1);
       const ease = t * t * (3 - 2 * t);
   
-      (yScale.options as any).min = fromMin + (toMin - fromMin) * ease;
-      (yScale.options as any).max = fromMax + (toMax - fromMax) * ease;
+      (yScale.options as any).min = fromMin + (range[0] - fromMin) * ease;
+      (yScale.options as any).max = fromMax + (range[1] - fromMax) * ease;
       chart.update('none');
   
       if (t < 1) requestAnimationFrame(step);
