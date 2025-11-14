@@ -15,6 +15,11 @@ export class ChartComponent {
 
   totalDuration = 2000;
   isBrowser = false;
+  reveal = false;
+
+  names = ['solar', 'volcanic', 'human', 'other']
+  colors = ['orange', 'blue', 'red', 'green']
+  scales = [[-.15, .15], [-.15, .15], [-1, 1], [1, 1]]
 
   dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, global };
 
@@ -56,23 +61,48 @@ export class ChartComponent {
     maintainAspectRatio: false,
     animation: this.animation as any,
     interaction: { intersect: false },
-    plugins: { legend: { display: true } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: items => {
+            const x = items[0].parsed.x as number;
+            return String(Math.round(x));
+          },
+          label: item => {
+            const y = item.parsed.y as number;
+            return `${item.dataset.label}: ${y.toFixed(2)}`;
+          }
+        }
+      }
+    },
     scales: {
       x: {
         type: 'linear',
         min: 1870,
         max: 2010,
-        ticks: { maxTicksLimit: 6, font: { size: 14 } }
+        ticks: {
+          callback: v => String(v),
+          stepSize: 20,
+          font: { size: 14 }
+        }
       },
       y: {
         min: -1,
         max: 1,
-        ticks: { maxTicksLimit: 4, font: { size: 14 } }
+        ticks: {
+          maxTicksLimit: 4,
+          font: { size: 14 }
+        }
       }
     }
   };
 
-  addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color = 'black') {
+  initialized(name: string): boolean {
+    return this.chartData.datasets.some(ds => ds.label == name);
+  }
+
+  addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color = 'black', scales = [-1, 1]) {
     const data = this.dataSetsMap[name];
 
     const ds = {

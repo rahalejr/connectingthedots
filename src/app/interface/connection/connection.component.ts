@@ -1,5 +1,6 @@
 import { Component, Input, ElementRef, HostListener, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
     selector: 'connection',
@@ -23,12 +24,13 @@ export class ConnectionComponent {
 
   dots: { x: number; y: number }[] = [];
   current_dot = -1;
+  time_interval = 120;
 
   p1 = { x: 0, y: 0 };
   p2 = { x: 0, y: 0 };
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private cd: ChangeDetectorRef) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private cd: ChangeDetectorRef, private nav: NavigationService) {
     if (isPlatformBrowser(this.platformId)) {
       this.pop = new Audio('assets/sound/pop.mp3');
       this.tick = new Audio('assets/sound/tick.m4a');
@@ -60,6 +62,7 @@ export class ConnectionComponent {
     if (distance < 1) return;
 
     const count = Math.floor(distance / this.spacingPx);
+    this.nav.setDelay(count * this.time_interval);
 
     for (let i = 1; i <= count-1; i++) {
       const distAlong = i * this.spacingPx;
@@ -94,6 +97,12 @@ export class ConnectionComponent {
     });
   }
 
+  playPew() {
+    const pew = new Audio('assets/sound/OH MY GOD.mp3');
+    pew.volume = 1;
+    pew.play();
+  }
+
   animateDots(): Promise<void> {
     return new Promise((resolve) => {
       let i = 0;
@@ -112,11 +121,14 @@ export class ConnectionComponent {
           clearInterval(interval);
           resolve();
         }
-        if (this.open) {
-          this.pew.play();
-          this.open = false;
+        else {
+          // this.playPew(); 
         }
-      }, 120);
+        if (this.open) {
+          this.open = false;
+          this.playPew();
+        }
+      }, this.time_interval);
     });
   }
 

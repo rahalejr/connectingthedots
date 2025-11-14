@@ -44,6 +44,12 @@ export class NavigationService {
   started$ = this.started.asObservable();
   total_slides = 10;
 
+  slide_delay = 1500;
+
+  setDelay(delay: number) {
+    this.slide_delay = delay;
+  }
+
   nextFrame(): void {
     if (this.slide_object.length - 1 == this.current_frame){
       this.nextSlide();

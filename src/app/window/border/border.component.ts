@@ -32,10 +32,8 @@ export class BorderComponent implements AfterViewInit {
         current.to = this.sections_array[slide];
         current.container = this.bg;
         current.updateLine();
-        console.log('inside');
       }
-      console.log('second');
-      setTimeout(()=> {this.navigation.slideTransition()}, 1700);
+      setTimeout(()=> {this.navigation.slideTransition()}, this.navigation.slide_delay);
     })
 
     this.navigation.started$.subscribe(value => {
