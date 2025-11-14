@@ -17,9 +17,22 @@ export class ChartComponent {
   isBrowser = false;
   reveal = false;
 
-  names = ['solar', 'volcanic', 'human', 'other']
-  colors = ['orange', 'blue', 'red', 'green']
-  scales = [[-.15, .15], [-.15, .15], [-1, 1], [-1, 1]]
+  initialized = [false, false, false, false];
+  names = ['solar', 'volcanic', 'human', 'global'];
+  colors = ['orange', 'blue', 'red', 'green'];
+  scales = [[-.25, .25], [-.25, .25], [-1, 1], [-1, 1]]
+  current_scale = [-1, 1];
+
+  colors_rgb: Record<string, string> = {
+    'solar': '195,203,113',
+    'volcanic': '174,90,65',
+    'human': '27,133,184',
+    'global': '85,158,131'
+  };
+
+  rgba(name: string, alpha: number) {
+    return `rgba(${this.colors_rgb[name]}, ${alpha})`;
+  }
 
   dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, global };
 
@@ -63,18 +76,19 @@ export class ChartComponent {
     interaction: { intersect: false },
     plugins: {
       legend: { display: false },
-      tooltip: {
-        callbacks: {
-          title: items => {
-            const x = items[0].parsed.x as number;
-            return String(Math.round(x));
-          },
-          label: item => {
-            const y = item.parsed.y as number;
-            return `${item.dataset.label}: ${y.toFixed(2)}`;
-          }
-        }
-      }
+      tooltip: { enabled: false }
+      // tooltip: {
+      //   callbacks: {
+      //     title: items => {
+      //       const x = items[0].parsed.x as number;
+      //       return String(Math.round(x));
+      //     },
+      //     label: item => {
+      //       const y = item.parsed.y as number;
+      //       return `${item.dataset.label}: ${y.toFixed(2)}`;
+      //     }
+      //   }
+      // }
     },
     scales: {
       x: {
@@ -83,7 +97,7 @@ export class ChartComponent {
         max: 2010,
         ticks: {
           callback: v => String(v),
-          stepSize: 20,
+          stepSize: 30,
           font: { size: 14 }
         }
       },
@@ -99,20 +113,22 @@ export class ChartComponent {
     }
   };
 
-  initialized(name: string): boolean {
-    return this.chartData.datasets.some(ds => ds.label == name);
-  }
-
   addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color: string, index: number) {
     
-    this.change_range(this.scales[index]);
+    if(this.current_scale != this.scales[index]) {this.change_range(this.scales[index])}
+
+    if (this.initialized[index]) {
+      this.select_line(name, index)
+      this.to_front(name);
+      return;
+    }
     
     const data = this.dataSetsMap[name];
 
     const ds = {
       label: name,
       data,
-      borderColor: color,
+      borderColor: this.rgba(name, 1),
       borderWidth: 2,
       pointRadius: 0,
       pointHoverRadius: 0
@@ -120,14 +136,11 @@ export class ChartComponent {
 
     this.chartData = { datasets: [...this.chartData.datasets, ds] };
     this.chart?.update();
-  }
-
-  setLineColor(name: string, color: string) {
-    const ds = this.chartData.datasets.find(d => d.label === name);
-    if (!ds) return;
-    (ds as any).borderColor = color;
-    this.chartData = { datasets: [...this.chartData.datasets] };
-    this.chart?.update();
+    this.initialized[index] = true;
+    setTimeout(() => {
+      this.change_range(this.scales[index]);
+    }, this.totalDuration)
+    this.select_line(name, index);
   }
 
   change_range(range: number[], duration = 800) {
@@ -155,7 +168,30 @@ export class ChartComponent {
   
     requestAnimationFrame(step);
   }
+
+  select_line(name: string, index: number) {
+    for (const ds of this.chartData.datasets) {
+      const is_target = ds.label == name;
+
+      let opacity_other = .2;
+      let opacity_target = 1;
+
+      (ds as any).borderColor = is_target ? this.rgba(ds.label as string, 1) : this.rgba(ds.label as string, .3);
+      (ds as any).borderWidth = is_target ? 4 : 2;
+    }
+    this.chartData = { datasets: [...this.chartData.datasets] };
+    this.chart?.update();
+  }
   
+  to_front(name: string) {
+    const dsIndex = this.chartData.datasets.findIndex(d => d.label === name);
+    if (dsIndex === -1) return;
   
+    const ds = this.chartData.datasets[dsIndex];
+    this.chartData.datasets.splice(dsIndex, 1);
+    this.chartData.datasets.push(ds);
+    this.chartData = { datasets: [...this.chartData.datasets] };
+    this.chart?.update();
+  }
   
 }
