@@ -8,8 +8,8 @@ function parse(path) {
     .slice(1) // skip header row
     .map(line => {
       const parts = line.split(",").map(s => s.replace(/"/g, "").trim());
-      const x = Number(parts[1]); // second column
-      const y = Number(parts[2]); // third column
+      const x = Number(parts[0]);
+      const y = Number(parts[1]);
       return { x, y };
     })
     .filter(p => !isNaN(p.x) && !isNaN(p.y));
@@ -19,6 +19,7 @@ const human = parse("human.csv");
 const volcanic = parse("volcanic.csv");
 const solar = parse("solar.csv");
 const global = parse("global.csv");
+const noise = parse("noise.csv");
 
 const rough_left = parse("rough_left.csv");
 const rough_right = parse("rough_right.csv")
@@ -30,6 +31,7 @@ const output = `
 export const human = ${JSON.stringify(human, null, 2)};
 export const volcanic = ${JSON.stringify(volcanic, null, 2)};
 export const solar = ${JSON.stringify(solar, null, 2)};
+export const noise = ${JSON.stringify(noise, null, 2)}
 export const global = ${JSON.stringify(global, null, 2)};
 export const rough_left = ${JSON.stringify(rough_left, null, 2)};
 export const rough_right = ${JSON.stringify(rough_right, null, 2)};

@@ -19,7 +19,7 @@ export class ChartComponent {
 
   initialized = [false, false, false, false];
   names = ['solar', 'volcanic', 'human', 'global'];
-  colors = ['orange', 'blue', 'red', 'green'];
+  colors = ['rgba(195,203,113,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)'];
   scales = [[-.25, .25], [-.25, .25], [-1, 1], [-1, 1]]
   current_scale = [-1, 1];
 
@@ -114,8 +114,8 @@ export class ChartComponent {
   };
 
   addLine(name: 'human' | 'volcanic' | 'solar' | 'global' | 'left_smooth' | 'right_smooth', color: string, index: number) {
-    
-    if(this.current_scale != this.scales[index]) {this.change_range(this.scales[index])}
+
+    this.change_range(this.scales[index]);
 
     if (this.initialized[index]) {
       this.select_line(name, index)
@@ -123,35 +123,33 @@ export class ChartComponent {
       return;
     }
     
-    const data = this.dataSetsMap[name];
-
-    const ds = {
-      label: name,
-      data,
-      borderColor: this.rgba(name, 1),
-      borderWidth: 2,
-      pointRadius: 0,
-      pointHoverRadius: 0
-    };
-
-    this.chartData = { datasets: [...this.chartData.datasets, ds] };
-    this.chart?.update();
-    this.initialized[index] = true;
     setTimeout(() => {
-      this.change_range(this.scales[index]);
-    }, this.totalDuration)
+      const data = this.dataSetsMap[name];
+
+      const ds = {
+        label: name,
+        data,
+        borderColor: this.rgba(name, 1),
+        borderWidth: 2,
+        pointRadius: 0,
+        pointHoverRadius: 0
+      };
+      this.initialized[index] = true;
+      (this.chartData.datasets as any).push(ds);
+      this.chart?.update();
+    }, 800)
     this.select_line(name, index);
   }
 
   change_range(range: number[], duration = 800) {
+    if (range == this.current_scale) return;
     const chart = this.chart?.chart
     if (!chart) return;
   
     const yScale = chart.scales['y'];
     if (!yScale) return;
-  
-    const fromMin = (yScale.options as any).min ?? -1;
-    const fromMax = (yScale.options as any).max ??  1;
+
+    let old_range = this.current_scale;
   
     const start = performance.now();
   
@@ -159,27 +157,24 @@ export class ChartComponent {
       const t = Math.min((now - start) / duration, 1);
       const ease = t * t * (3 - 2 * t);
   
-      (yScale.options as any).min = fromMin + (range[0] - fromMin) * ease;
-      (yScale.options as any).max = fromMax + (range[1] - fromMax) * ease;
+      (yScale.options as any).min = old_range[0] + (range[0] - old_range[0]) * ease;
+      (yScale.options as any).max = old_range[1] + (range[1] - old_range[1]) * ease;
       chart.update('none');
   
       if (t < 1) requestAnimationFrame(step);
     };
   
     requestAnimationFrame(step);
+    this.current_scale = range;
   }
 
   select_line(name: string, index: number) {
     for (const ds of this.chartData.datasets) {
       const is_target = ds.label == name;
 
-      let opacity_other = .2;
-      let opacity_target = 1;
-
       (ds as any).borderColor = is_target ? this.rgba(ds.label as string, 1) : this.rgba(ds.label as string, .3);
       (ds as any).borderWidth = is_target ? 4 : 2;
     }
-    this.chartData = { datasets: [...this.chartData.datasets] };
     this.chart?.update();
   }
   
@@ -190,7 +185,6 @@ export class ChartComponent {
     const ds = this.chartData.datasets[dsIndex];
     this.chartData.datasets.splice(dsIndex, 1);
     this.chartData.datasets.push(ds);
-    this.chartData = { datasets: [...this.chartData.datasets] };
     this.chart?.update();
   }
   
