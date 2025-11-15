@@ -53,7 +53,7 @@ export class SliderComponent {
     const oldValue = this.value;
     this.value = percent;
   
-    const step = 5;
+    const step = 1;
     const oldSnap = Math.floor(oldValue / step);
     const newSnap = Math.floor(percent / step);
   

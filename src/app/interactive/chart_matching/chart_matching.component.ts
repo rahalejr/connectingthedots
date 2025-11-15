@@ -24,6 +24,12 @@ export class ChartMatchingComponent {
   colors = ['rgba(27,133,184,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)'];
   scales = [[-1, 1], [-1, 1]]
   current_scale = [-1, 1];
+  projection = smooth_right.map(p => ({...p}));
+
+  ngAfterViewInit() {
+    this.addLine('smooth_left', this.colors[0], 0, true);
+    this.addLine('smooth_right', this.colors[1], 1)
+  }
 
   colors_rgb: Record<string, string> = {
     'smooth_left': '27,133,184',
@@ -160,21 +166,20 @@ export class ChartMatchingComponent {
   }
 
   update_projection(value = 0) {
-    console.log(value);
     const factor = this.slider_conversion(value);
-    console.log(factor);
-    return
     const i = this.chartData.datasets.findIndex(ds => ds.label == 'smooth_right');
-    const old = this.dataSetsMap['smooth_right'];
+    const old = this.projection;
     const modified = this.subtract_vector(old, factor);
-    this.chartData.datasets[i].data = modified;
-    this.chart?.update();
+    const target = this.chartData.datasets[i].data as any[];
+    for (let j = 0; j < target.length; j++) {
+      target[j].y = modified[j].y;
+    }
+    this.chart?.update('none');
   }
 
   subtract_vector(data: {x:number; y:number}[], factor = 0) {
 
     let vector = Array.from({ length: data.length + 1 }, (_, x) => (.0001*Math.pow(x, 2))*factor)
-    console.log(vector);
     
     return data.map((p, i) => ({
       x: p.x,
@@ -182,7 +187,10 @@ export class ChartMatchingComponent {
     }));
   }
 
-  slider_conversion(v: number): number {return ((v / 100) * 6) + 1}
+  slider_conversion(v: number): number {
+    const bounded = ((v / 100) * 6) + 1;
+    return Math.round(bounded * 100) / 100;
+  }
   
   
 
