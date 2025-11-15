@@ -1,0 +1,15 @@
+<div id="container" *ngIf="isBrowser">
+    <div id="chart">
+        <canvas baseChart
+        [type]="'line'"
+        [data]="chartData"
+        [options]="chartOptions">
+        </canvas>
+    </div>
+    <div id="lines">
+        <!-- <div class="line" [style.background-color]="colors[0]" (click)="addLine('smooth_left', colors[0], 0, true)">{{reveal ? 'solar' : 'one'}}</div>
+        <div class="line" [style.background-color]="colors[1]" (click)="addLine('smooth_right', colors[1], 1)">{{reveal ? 'volcanic' : 'two'}}</div> -->
+        <slider (valueChange)="update_projection($event)"></slider>
+        <!-- <div class="line" [style.background-color]="colors[2]" (click)="update_projection(7)">{{reveal ? 'volcanic' : 'two'}}</div> -->
+    </div>
+</div>

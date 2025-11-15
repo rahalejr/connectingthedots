@@ -2,30 +2,32 @@ import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartOptions, ChartData } from 'chart.js';
 import { isPlatformBrowser, NgIf } from '@angular/common';
-import { human, volcanic, solar, noise } from '../../data/climate_data.js';
+import { smooth_left, smooth_right, rough_left} from '../../data/climate_data.js';
+import { SliderComponent } from '../../interface/slider/slider.component.js';
 
 @Component({
-  selector: 'chart',
-  imports: [BaseChartDirective, NgIf],
-  templateUrl: './chart.component.html',
-  styleUrl: './chart.component.css'
+  selector: 'chart-matching',
+  imports: [BaseChartDirective, NgIf, SliderComponent],
+  templateUrl: './chart_matching.component.html',
+  styleUrl: './chart_matching.component.css'
 })
-export class ChartComponent {
+export class ChartMatchingComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   totalDuration = 2000;
   isBrowser = false;
   reveal = false;
+  slider_val = 3;
 
   initialized = [false, false, false, false];
-  names = ['solar', 'volcanic', 'human', 'noise'];
-  colors = ['rgba(195,203,113,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)'];
-  scales = [[-.25, .25], [-.25, .25], [-1, 1], [-.5, .5]]
+  names = ['smooth_left', 'smooth_right'];
+  colors = ['rgba(27,133,184,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)'];
+  scales = [[-1, 1], [-1, 1]]
   current_scale = [-1, 1];
 
   colors_rgb: Record<string, string> = {
-    'solar': '195,203,113',
-    'volcanic': '174,90,65',
+    'smooth_left': '27,133,184',
+    'smooth_right': '174,90,65',
     'human': '27,133,184',
     'noise': '85,158,131'
   };
@@ -34,7 +36,7 @@ export class ChartComponent {
     return `rgba(${this.colors_rgb[name]}, ${alpha})`;
   }
 
-  dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, noise };
+  dataSetsMap: Record<string, {x:number;y:number}[]> = { smooth_left, smooth_right };
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -93,11 +95,11 @@ export class ChartComponent {
     scales: {
       x: {
         type: 'linear',
-        min: 1870,
-        max: 2010,
+        min: 1880,
+        max: 2020,
         ticks: {
           callback: v => String(v),
-          stepSize: 30,
+          stepSize: 35,
           font: { size: 14 }
         }
       },
@@ -113,13 +115,11 @@ export class ChartComponent {
     }
   };
 
-  addLine(name: 'human' | 'volcanic' | 'solar' | 'noise' | 'left_smooth' | 'right_smooth', color: string, index: number) {
-
-    this.change_range(this.scales[index]);
+  addLine(name: string, color: string, index: number, init=false) {
 
     if (this.initialized[index]) {
-      this.select_line(name, index)
-      this.to_front(name);
+      // this.select_line(name, index)
+      // this.to_front(name);
       return;
     }
     
@@ -131,61 +131,60 @@ export class ChartComponent {
         label: name,
         data,
         borderColor: this.rgba(name, 1),
-        borderWidth: 2,
+        borderWidth: 3,
         pointRadius: 0,
         pointHoverRadius: 0
       };
       this.initialized[index] = true;
       (this.chartData.datasets as any).push(ds);
+
+      if (init) {
+        const points_ds = {
+          label: name + '_points',
+          data: rough_left,
+          type: 'line',
+          showLine: false,
+          pointRadius: 2,
+          pointHoverRadius: 3,
+          borderWidth: 0,
+          borderColor: 'gray',
+          pointBackgroundColor: 'gray'
+        };
+  
+        (this.chartData.datasets as any).push(points_ds);
+      }
+
       this.chart?.update();
-      this.select_line(name, index);
+      // this.select_line(name, index);
     }, 800)
   }
 
-  change_range(range: number[], duration = 800) {
-    if (range == this.current_scale) return;
-    const chart = this.chart?.chart
-    if (!chart) return;
-  
-    const yScale = chart.scales['y'];
-    if (!yScale) return;
-
-    let old_range = this.current_scale;
-  
-    const start = performance.now();
-  
-    const step = (now: number) => {
-      const t = Math.min((now - start) / duration, 1);
-      const ease = t * t * (3 - 2 * t);
-  
-      (yScale.options as any).min = old_range[0] + (range[0] - old_range[0]) * ease;
-      (yScale.options as any).max = old_range[1] + (range[1] - old_range[1]) * ease;
-      chart.update('none');
-  
-      if (t < 1) requestAnimationFrame(step);
-    };
-    this.current_scale = range;
-    requestAnimationFrame(step);
-  }
-
-  select_line(name: string, index: number) {
-    for (const ds of this.chartData.datasets) {
-      const is_target = ds.label == name;
-
-      (ds as any).borderColor = is_target ? this.rgba(ds.label as string, 1) : this.rgba(ds.label as string, .3);
-      (ds as any).borderWidth = is_target ? 3 : 2;
-    }
+  update_projection(value = 0) {
+    console.log(value);
+    const factor = this.slider_conversion(value);
+    console.log(factor);
+    return
+    const i = this.chartData.datasets.findIndex(ds => ds.label == 'smooth_right');
+    const old = this.dataSetsMap['smooth_right'];
+    const modified = this.subtract_vector(old, factor);
+    this.chartData.datasets[i].data = modified;
     this.chart?.update();
   }
-  
-  to_front(name: string) {
-    const dsIndex = this.chartData.datasets.findIndex(d => d.label === name);
-    if (dsIndex === -1) return;
-  
-    const ds = this.chartData.datasets[dsIndex];
-    this.chartData.datasets.splice(dsIndex, 1);
-    this.chartData.datasets.push(ds);
-    this.chart?.update();
+
+  subtract_vector(data: {x:number; y:number}[], factor = 0) {
+
+    let vector = Array.from({ length: data.length + 1 }, (_, x) => (.0001*Math.pow(x, 2))*factor)
+    console.log(vector);
+    
+    return data.map((p, i) => ({
+      x: p.x,
+      y: p.y - vector[i]
+    }));
   }
+
+  slider_conversion(v: number): number {return ((v / 100) * 6) + 1}
+  
+  
+
   
 }

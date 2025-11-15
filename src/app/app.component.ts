@@ -11,12 +11,13 @@ import { NavigationService } from './services/navigation.service';
 import { ChartComponent } from './interactive/chart/chart.component';
 import { FarmersComponent } from './modules/farmers/farmers.component';
 import { TidesTextComponent } from './modules/tides-text/tides-text.component';
+import { ChartMatchingComponent } from './interactive/chart_matching/chart_matching.component';
 
 @Component({
     selector: 'app-root',
     imports: [CommonModule, RouterOutlet, LandingComponent, BorderComponent,
         ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent, ChartComponent,
-        FarmersComponent, TidesTextComponent],
+        FarmersComponent, TidesTextComponent, ChartMatchingComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

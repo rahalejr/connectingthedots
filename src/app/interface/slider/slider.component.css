@@ -1,9 +1,23 @@
-#arrow {
-    width: 80px;
-    height: 50px;
-    max-width: 6.4vw;
-    max-height: 4vw;
-    background-color: var(--content);
-    border-radius: 5px;
+.slider-container {
+    position: relative;
+    width: 5px;
+    max-width: 1vw;
+    height: 100%;
+    background: var(--content);
+    border-radius: 8px;
     cursor: pointer;
-}
+    user-select: none;
+  }
+  
+  .slider-handle {
+    position: absolute;
+    left: 50%;
+    box-sizing: border;
+    transform: translate(-50%, 50%);
+    width: 28px;
+    height: 28px;
+    background: var(--white);
+    border-radius: 50%;
+    border: 2px solid var(--content);
+  }
+  

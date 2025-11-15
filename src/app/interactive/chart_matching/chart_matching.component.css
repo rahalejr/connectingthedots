@@ -1,0 +1,39 @@
+@import "primeicons/primeicons.css";
+
+#container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s;
+}
+
+#chart {
+    width: 70%;
+    height: 60%;
+}
+
+button {
+    z-index: 1000;
+}
+
+canvas {
+    display: block;
+}
+
+slider {
+    width: 5px;
+    height: 100%;
+
+}
+
+#lines {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    aspect-ratio: 1 / 3.5;
+    height: 350px;
+    max-height: 40vh;
+}

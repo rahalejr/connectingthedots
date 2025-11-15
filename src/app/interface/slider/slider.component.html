@@ -1,1 +1,13 @@
-<p>slider works!</p>
+<div class="slider-container"
+     #track
+     (mousedown)="onTrackClick($event)"
+     (touchstart)="onTrackClick($event)">
+
+  <div class="slider-handle"
+       #handle
+       [style.bottom.%]="value"
+       (mousedown)="startDrag($event)"
+       (touchstart)="startDrag($event)">
+  </div>
+
+</div>
