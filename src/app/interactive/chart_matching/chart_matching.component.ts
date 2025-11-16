@@ -272,7 +272,7 @@ export class ChartMatchingComponent {
   }
 
   slider_conversion(v: number): number {
-    const bounded = ((v / 100) * 6) + 1;
+    const bounded = (v / 100) * 7;
     return Math.round(bounded * 100) / 100;
   }
 

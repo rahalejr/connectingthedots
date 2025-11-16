@@ -27,6 +27,16 @@
         marker-end="url(#arrow-end)"
       />
 
+      <path id="projection-actual" [ngClass]="{'reveal': stage==5}"
+        [attr.d]="projection_path"
+        fill="none"
+        stroke="var(--content)"
+        stroke-dasharray="3 6"
+        marker-end="url(#arrow-end)"
+      />
+
+
+
 
     <marker id="arrow-start"
       viewBox="0 0 10 10"
@@ -134,6 +144,6 @@
     <div id="bottom-text" [style.opacity]="bottom_text" [@fadeAnimation]="current_frame">
         <p>{{frame_object.texts[1]}}</p>
     </div>
-    <next-button (clicked)="nextFrame()" [show]="button_opacity"></next-button>
-    <!-- <loading></loading> -->
+    <next-button (clicked)="nextFrame()" [show]="button_opacity && !loading"></next-button>
+    <loading [show]="loading"></loading>
 </div>

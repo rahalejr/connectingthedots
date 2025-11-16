@@ -1,14 +1,33 @@
-/* HTML: <div class="loader"></div> */
 .loader {
-    width: 15px;
+    opacity: 1;
+    width: 17px;
     aspect-ratio: 1;
+    border-radius: 50%;
     background: var(--content);
     color: var(--content);
+    display: grid;
+    animation: l22-0 2s infinite linear;
+  }
+  .loader:before,
+  .loader:after {
+    content: "";
+    grid-area: 1/1;
+    margin: 15%;
     border-radius: 50%;
-    animation: l6 .7s infinite linear alternate;
+    background: inherit;
+    transform: rotate(0deg) translate(150%);
+    animation: l22 2s infinite;
   }
-  @keyframes l6 {
-      0%  {box-shadow: 15px 0,-25px 0}
-      50% {box-shadow: 15px 0,-15px 0}
-      100%{box-shadow: 25px 0,-15px 0}
+  .loader:after {
+    animation-delay: -.5s
   }
+  @keyframes l22-0 {
+    100% {transform: rotate(1turn)}
+  }
+  @keyframes l22 {
+    100% {transform: rotate(1turn) translate(150%)}
+  }
+  
+.hide {
+    opacity: 0 !important;
+}

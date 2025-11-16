@@ -94,6 +94,10 @@ loading {
     opacity: 0;
     transition: opacity 1s ease;
 }
+#projection-actual {
+    opacity: 0;
+    transition: opacity 1s ease;
+}
 
 #projection.reveal {
     opacity: 1;

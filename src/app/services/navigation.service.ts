@@ -67,7 +67,6 @@ export class NavigationService {
 
   slideTransition(): void {
     this.current_slide++;
-    console.log(this.current_slide);
     this.current_frame = 0;
     this.frame_sub.next(this.current_frame);
     this.slide_sub.next(this.current_slide);

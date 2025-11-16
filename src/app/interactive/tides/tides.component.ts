@@ -40,6 +40,7 @@ export class TidesComponent {
   bottom_text = false;
   drag_point = -35;
   start_drag = false;
+  loading = false;
   drag_position: {x: number, y: number} = {x: 0, y: 0};
   projection_path = "M -35,-33 Q -35,-25 -35,0"
   stop_rotation = false;
@@ -81,6 +82,7 @@ export class TidesComponent {
   }
 
   nextFrame() {
+    this.button_opacity = false;
 
     let newFrameIndex = this.current_frame + 1;
     if (!this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == tides_text.length) {
@@ -101,6 +103,8 @@ export class TidesComponent {
     if (newFrameObject.stage > this.stage) {
       this.advance();
     }
+
+    setTimeout(() => this.button_opacity = true, 1500)
   }
 
   advance() {
@@ -114,13 +118,16 @@ export class TidesComponent {
       this.earth_shift = true;
     }
     else if (this.stage == 3) {
+      this.loading = true;
       this.button_opacity = false;
       this.track_cycle().then(() => {
+        this.loading = false;
         this.earth_shift = false;
         this.wrapper?.classList.remove('zoom');
         this.stop_rotation = true;
         this.tide_revert.nativeElement.beginElement(); 
         this.button_opacity = true;
+        this.earth_el.nativeElement.style.animationDuration = "0.5s";
       });
     }
     else if (this.stage == 4) {
@@ -130,6 +137,9 @@ export class TidesComponent {
         this.start_drag = true;
         this.update_coord();
       });
+    }
+    else if (this.stage == 5) {
+      this.start_drag = false;
     }
 
   }
@@ -170,6 +180,7 @@ export class TidesComponent {
   }
 
   update_coord(val: number = -35) {
+    this.drag_point = val;
     this.projection_path = `M -35,0 Q -35,-25 ${val},-33`;
     // this.projection_path = `M${val},-33 Q -35,-25 -35,0;
   }
