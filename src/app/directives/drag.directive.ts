@@ -50,7 +50,6 @@ export class DragDirective {
   const ctm = svgEl.getScreenCTM();
   if (!ctm) return;
   
-  // client -> svg
   const svgPt = new DOMPoint(e.clientX, e.clientY).matrixTransform(ctm.inverse());
   
   let val: number;
@@ -66,13 +65,10 @@ export class DragDirective {
   fixedX = this.axis_constant;
   fixedY = val;
   }
-  
   this.coordinate.emit(val);
   
-  // svg -> viewport
   const screenPt = new DOMPoint(fixedX, fixedY).matrixTransform(ctm);
-  
-  // viewport -> offsetParent (wrapper)
+
   const host = this.el.nativeElement as HTMLElement;
   const parent = (host.offsetParent as HTMLElement) ?? document.body;
   const parentRect = parent.getBoundingClientRect();
@@ -90,16 +86,12 @@ export class DragDirective {
     const ctm = svgEl.getScreenCTM();
     if (!ctm) return null;
     
-    // svg -> viewport
     const screen = new DOMPoint(x, y).matrixTransform(ctm);
     
-    // viewport -> offsetParent
     const host = this.el.nativeElement as HTMLElement;
     const parent = (host.offsetParent as HTMLElement) ?? document.body;
     const parentRect = parent.getBoundingClientRect();
     
-    // If you’re not using CSS translate(-50%,-50%) on the handle,
-    // subtract half host size here.
     return {
     x: screen.x - parentRect.left,
     y: screen.y - parentRect.top

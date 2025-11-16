@@ -128,6 +128,7 @@ export class TidesComponent {
         this.frame_el.nativeElement.pauseAnimations();
         this.stop_rotations();
         this.start_drag = true;
+        this.update_coord();
       });
     }
 
@@ -168,8 +169,9 @@ export class TidesComponent {
     this.tide_shift?.nativeElement.beginElement();
   }
 
-  update_coord(val: number) {
-    this.projection_path = `M ${val},-33 Q -35,-25 -35,0`;
+  update_coord(val: number = -35) {
+    this.projection_path = `M -35,0 Q -35,-25 ${val},-33`;
+    // this.projection_path = `M${val},-33 Q -35,-25 -35,0;
   }
 
   update_pixels(vals: {x: number, y: number}) {
