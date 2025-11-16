@@ -1,15 +1,21 @@
 <div id="container" *ngIf="isBrowser">
-    <div id="chart">
-        <canvas baseChart
-        [type]="'line'"
-        [data]="chartData"
-        [options]="chartOptions">
-        </canvas>
+    <div id="content" [@fadeAnimation]="frame">
+        <p>{{frame_object['text']}}</p>
     </div>
-    <div id="lines">
-        <!-- <div class="line" [style.background-color]="colors[0]" (click)="addLine('smooth_left', colors[0], 0, true)">{{reveal ? 'solar' : 'one'}}</div>
-        <div class="line" [style.background-color]="colors[1]" (click)="addLine('smooth_right', colors[1], 1)">{{reveal ? 'volcanic' : 'two'}}</div> -->
-        <slider (valueChange)="update_projection($event)"></slider>
-        <!-- <div class="line" [style.background-color]="colors[2]" (click)="update_projection(7)">{{reveal ? 'volcanic' : 'two'}}</div> -->
+    <div id="interactive">
+        <p id="x-label" class="label">Year</p>
+        <p id="y-label" [ngClass]="{'hide': y_label}" class="label">𝑥</p>
+        <p id="temp-label" [ngClass]="{'show': y_label}" class="label">Global Temperature Change</p>
+        <div id="chart">
+            <canvas baseChart
+            [type]="'line'"
+            [data]="chartData"
+            [options]="chartOptions">
+            </canvas>
+        </div>
+        <slider (valueChange)="update_projection($event)" [show]="show_slider"></slider>
+    </div>
+    <div id="next">
+        <next-button (clicked)="nextFrame()" [show]="advance"></next-button>
     </div>
 </div>

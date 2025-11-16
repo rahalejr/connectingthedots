@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ArrowComponent {
 
   @Input() label: string = 'Next';
+  @Input() show: boolean = true;
 
   @Output() clicked = new EventEmitter<void>();
 

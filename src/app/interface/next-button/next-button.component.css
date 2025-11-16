@@ -6,6 +6,8 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    transition: .2s opacity;
+    opacity: 1
 }
 
 #button {
@@ -33,4 +35,9 @@
     
     background-color: var(--content); 
 
+}
+
+.hide {
+    opacity: 0 !important;
+    pointer-events: none !important;
 }

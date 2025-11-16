@@ -2,14 +2,20 @@ import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartOptions, ChartData } from 'chart.js';
 import { isPlatformBrowser, NgIf } from '@angular/common';
-import { smooth_left, smooth_right, rough_left} from '../../data/climate_data.js';
+import { smooth_left, smooth_right, rough_left, rough_right} from '../../data/climate_data.js';
 import { SliderComponent } from '../../interface/slider/slider.component.js';
+import { NavigationService } from '../../services/navigation.service.js';
+import { graph_matching } from '../../content/slide_data';
+import { NextButtonComponent } from '../../interface/next-button/next-button.component.js';
+import { fadeAnimation } from '../../interface/animations.js';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'chart-matching',
-  imports: [BaseChartDirective, NgIf, SliderComponent],
+  imports: [BaseChartDirective, NgIf, SliderComponent, NextButtonComponent, NgClass],
   templateUrl: './chart_matching.component.html',
-  styleUrl: './chart_matching.component.css'
+  styleUrl: './chart_matching.component.css',
+  animations: [fadeAnimation]
 })
 export class ChartMatchingComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -17,18 +23,20 @@ export class ChartMatchingComponent {
   totalDuration = 2000;
   isBrowser = false;
   reveal = false;
-  slider_val = 3;
+  slider_val = 50;
+  y_label = false;
 
   initialized = [false, false, false, false];
-  names = ['smooth_left', 'smooth_right'];
+  names = ['smooth_left', 'smooth_right', 'rough_right'];
   colors = ['rgba(27,133,184,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)'];
   scales = [[-1, 1], [-1, 1]]
   current_scale = [-1, 1];
   projection = smooth_right.map(p => ({...p}));
 
+  
+
   ngAfterViewInit() {
-    this.addLine('smooth_left', this.colors[0], 0, true);
-    this.addLine('smooth_right', this.colors[1], 1)
+  
   }
 
   colors_rgb: Record<string, string> = {
@@ -42,11 +50,54 @@ export class ChartMatchingComponent {
     return `rgba(${this.colors_rgb[name]}, ${alpha})`;
   }
 
-  dataSetsMap: Record<string, {x:number;y:number}[]> = { smooth_left, smooth_right };
+  dataSetsMap: Record<string, {x:number;y:number}[]> = { smooth_left, smooth_right, rough_right };
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  frame: number = 0;
+  frame_object: Record<string, any> = {};
+  advance = true;
+  show_slider = false;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object, public nav: NavigationService) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.frame = 0;
+    this.nav.set_slide(graph_matching);
+    this.frame_object = graph_matching[this.frame];
   }
+
+  nextFrame() {
+    this.nav.nextFrame();
+  
+    this.frame = this.frame + 1;
+    this.frame_object = graph_matching[this.frame];
+
+    if (this.frame == 2) {
+      this.addLine('smooth_left', 0, true);
+      this.advance = false;
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else if (this.frame == 5) {
+      this.advance = false;
+      this.addLine('smooth_right', 1)
+      setTimeout(() => {this.show_slider = true}, 2800);
+      setTimeout(() => {this.advance = true}, 3800);
+    }
+    else if (this.frame == 6) {
+      this.show_slider = false;
+      this.advance = false;
+      setTimeout(() => {this.animate_shift(this.slider_val, 50)}, 1500);
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else if (this.frame == 7) {
+      this.advance = false;
+      this.add_right();
+      setTimeout(() => {this.animate_shift(this.slider_val, 100, this.colors[0])}, 1800);
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else if (this.frame == 9) {
+      this.y_label = true;
+    }
+  }
+  
 
   get delayBetweenPoints() {
     return this.totalDuration / Math.max(1, (this.chartData.datasets[0]?.data as any[])?.length ?? 1);
@@ -72,6 +123,11 @@ export class ChartMatchingComponent {
       duration: () => this.delayBetweenPoints,
       from: (ctx: any) => this.previousY(ctx),
       delay: (ctx: any) => (ctx.type !== 'data' || ctx.yStarted ? 0 : (ctx.yStarted = true, ctx.index * this.delayBetweenPoints))
+    },
+    borderColor: {
+      duration: 200,
+      easing: 'linear',
+      type: 'color'
     }
   };
 
@@ -85,18 +141,6 @@ export class ChartMatchingComponent {
     plugins: {
       legend: { display: false },
       tooltip: { enabled: false }
-      // tooltip: {
-      //   callbacks: {
-      //     title: items => {
-      //       const x = items[0].parsed.x as number;
-      //       return String(Math.round(x));
-      //     },
-      //     label: item => {
-      //       const y = item.parsed.y as number;
-      //       return `${item.dataset.label}: ${y.toFixed(2)}`;
-      //     }
-      //   }
-      // }
     },
     scales: {
       x: {
@@ -121,22 +165,20 @@ export class ChartMatchingComponent {
     }
   };
 
-  addLine(name: string, color: string, index: number, init=false) {
 
-    if (this.initialized[index]) {
-      // this.select_line(name, index)
-      // this.to_front(name);
-      return;
-    }
-    
+
+  addLine(name: string, index: number, init=false, color: string | null = null) {
 
     setTimeout(() => {
-      const data = this.dataSetsMap[name];
+      let data = this.dataSetsMap[name]
+      if (name == 'smooth_right') {
+        data = this.starting_vector()
+      }
 
       const ds = {
         label: name,
         data,
-        borderColor: this.rgba(name, 1),
+        borderColor: color? color : this.rgba(name, 1),
         borderWidth: 3,
         pointRadius: 0,
         pointHoverRadius: 0
@@ -161,11 +203,30 @@ export class ChartMatchingComponent {
       }
 
       this.chart?.update();
-      // this.select_line(name, index);
     }, 800)
   }
 
-  update_projection(value = 0) {
+  add_right() {
+    const points_ds = {
+      label: name + '_points',
+      data: rough_right,
+      type: 'line',
+      showLine: false,
+      pointRadius: 2,
+      pointHoverRadius: 3,
+      borderWidth: 0,
+      borderColor: 'gray',
+      pointBackgroundColor: 'gray'
+    };
+
+    (this.chartData.datasets as any).push(points_ds);
+    this.chart?.update();
+  }
+
+
+  update_projection(value = 0, animate = false, color: string | null = null) {
+    this.slider_val = value;
+    value = 100 - value;
     const factor = this.slider_conversion(value);
     const i = this.chartData.datasets.findIndex(ds => ds.label == 'smooth_right');
     const old = this.projection;
@@ -174,7 +235,14 @@ export class ChartMatchingComponent {
     for (let j = 0; j < target.length; j++) {
       target[j].y = modified[j].y;
     }
-    this.chart?.update('none');
+    if(color) {(this.chartData.datasets[i] as any).borderColor = color}
+    animate? this.chart?.update() : this.chart?.update('none');
+  }
+
+  starting_vector() {
+    const value = 50
+    const factor = this.slider_conversion(value);
+    return this.subtract_vector(this.projection, factor);
   }
 
   subtract_vector(data: {x:number; y:number}[], factor = 0) {
@@ -187,12 +255,25 @@ export class ChartMatchingComponent {
     }));
   }
 
+  animate_shift(from: number, to: number, color: null | string = null) {
+    const step = from < to ? 1 : -1;
+    let current = from;
+  
+    const tick = () => {
+      this.update_projection(current, false, color);
+  
+      if (current === to) return;
+      current += step;
+  
+      setTimeout(tick, 10);
+    };
+  
+    tick();
+  }
+
   slider_conversion(v: number): number {
     const bounded = ((v / 100) * 6) + 1;
     return Math.round(bounded * 100) / 100;
   }
-  
-  
 
-  
 }

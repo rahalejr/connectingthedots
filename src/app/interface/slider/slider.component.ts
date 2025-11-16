@@ -1,14 +1,18 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, input, Input, Output, ViewChild } from '@angular/core';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'slider',
-    imports: [],
+    imports: [NgClass],
     templateUrl: './slider.component.html',
     styleUrl: './slider.component.css'
 })
 export class SliderComponent {
 
   value = 50;
+
+  @Input() show = false;
+
   @Output() valueChange = new EventEmitter<number>();
 
   @ViewChild('track') track!: ElementRef;

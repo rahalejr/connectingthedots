@@ -80,7 +80,7 @@ export const farmers_data = [
         'template': 'm'
     }
 
-]
+];
 
 export const tides_data = [
     {
@@ -104,7 +104,7 @@ export const tides_data = [
 Guess what? This time, Newton’s universal law of gravitation explains why! Let’s think through this together with open-mindedness!`,
         'template': 'c'
     }
-]
+];
 
 export const tides_text: TideCap[] = [{
         texts: ['Imagine you are looking down at the rotating Earth from above the North Pole.'],
@@ -162,7 +162,7 @@ export const tides_text: TideCap[] = [{
         stage: 2
     },
 
-]
+];
 
 export const orbit_text = [
     {
@@ -200,6 +200,57 @@ export const orbit_text = [
         template: 'c',
         texts: ["So the Moon’s orbit is connected to how water behaves in everyone’s garden. Would you like to connect more dots in the next challenge?"],
         stage: 5
-    },
+    }
+];
     
+export const graph_matching = [
+    {
+        stage: 0,
+        text: "Let’s take a look at a graph showing the changing amount of something..."
+    },
+    {
+        stage: 1,
+        text: `Let’s call this something “𝑥”`
+    },
+    {
+        stage: 1,
+        text: "Here is the actual data for 𝑥 from the year 1880 to 1965."
+    },
+    {
+        stage: 1,
+        text: "The vertical axis indicates the quantity of 𝑥."
+    },
+    {
+        stage: 1,
+        text: "Without knowing what 𝑥 is, can you extrapolate this graph beyond the year 1965?" 
+    },
+    {
+        stage: 2,
+        text: "What do you think would be the most plausible projection based on the past measurement of 𝑥? Use the slider to change the projected line." 
+    },
+    {
+        stage: 3,
+        text: "It may be reasonable to think that 𝑥 should remain similar before and after 1965 if one assume no change in circumstances"
+    },
+    {
+        stage: 4,
+        text: "However, 𝑥 has actually risen sharply after 1965."
+    },
+    {
+        stage: 4,
+        text: "Do you have a guess what 𝑥 may be?"
+    },
+    {
+        stage: 5,
+        text: "𝑥 is the change of global temperature in °C (Celsius)."
+    },
+    {
+        stage: 5,
+        text: "The unusually rapid rise since 1965 suggests that some external cause led global temperature to deviate from past trends"
+    },
+    {
+        stage: 5,
+        text: "What do you think caused the rapid rise in global temperature since 1965? Let’s try to learn the answer in the next challenge!"
+
+    }
 ]

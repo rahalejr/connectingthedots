@@ -7,6 +7,9 @@
     border-radius: 8px;
     cursor: pointer;
     user-select: none;
+    pointer-events: none;
+    opacity: 0;
+    transition: .5s opacity;
   }
   
   .slider-handle {
@@ -20,4 +23,9 @@
     border-radius: 50%;
     border: 2px solid var(--content);
   }
+
+.show {
+    opacity: 1;
+    pointer-events: all;
+}
   

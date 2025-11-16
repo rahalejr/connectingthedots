@@ -1,4 +1,4 @@
-<div class="slider-container"
+<div class="slider-container" [ngClass]="{'show': show}"
      #track
      (mousedown)="onTrackClick($event)"
      (touchstart)="onTrackClick($event)">

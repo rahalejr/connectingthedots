@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+// import { RouterOutlet } from '@angular/router';
 import { LandingComponent } from './window/landing/landing.component';
 import { BorderComponent } from './window/border/border.component';
-import { ConnectionComponent } from './interface/connection/connection.component';
-import { ProgressBarComponent } from './interface/progress-bar/progress-bar.component';
 import { HoseComponent } from './interactive/hose/hose.component';
 import { TidesComponent } from './interactive/tides/tides.component';
 import { NavigationService } from './services/navigation.service';
@@ -15,9 +13,9 @@ import { ChartMatchingComponent } from './interactive/chart_matching/chart_match
 
 @Component({
     selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, LandingComponent, BorderComponent,
-        ProgressBarComponent, ConnectionComponent, HoseComponent, TidesComponent, ChartComponent,
-        FarmersComponent, TidesTextComponent, ChartMatchingComponent],
+    imports: [CommonModule, LandingComponent, BorderComponent,
+        HoseComponent, TidesComponent, ChartComponent, FarmersComponent,
+        TidesTextComponent, ChartMatchingComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })
