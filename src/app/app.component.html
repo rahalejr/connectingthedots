@@ -3,11 +3,11 @@
     <border></border>
     <landing *ngIf="navigation.current_slide == -1"></landing>
     <!-- <chart *ngIf="navigation.current_slide >= 0"></chart> -->
-    <chart-matching *ngIf="navigation.current_slide >= 0"></chart-matching>
+    <!-- <chart-matching *ngIf="navigation.current_slide >= 0"></chart-matching> -->
     <!-- <hose *ngIf="navigation.current_slide >= 0"></hose> -->
     <!-- <farmers *ngIf="navigation.current_slide == 0"></farmers> -->
-    <!-- <tides-text *ngIf="navigation.current_slide == 1"></tides-text> -->
-    <!-- <tides *ngIf="navigation.current_slide == 1"></tides> -->
+    <!-- <tides-text *ngIf="navigation.current_slide == 1 || navigation.current_slide == 2"></tides-text> -->
+    <tides *ngIf="navigation.current_slide == 0 || navigation.current_slide == 1"></tides>
   </div>
 
 </div>

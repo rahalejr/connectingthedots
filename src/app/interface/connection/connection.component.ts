@@ -126,7 +126,7 @@ export class ConnectionComponent {
         }
         if (this.open) {
           this.open = false;
-          this.playPew();
+          // this.playPew();
         }
       }, this.time_interval);
     });

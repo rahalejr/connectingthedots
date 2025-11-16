@@ -18,6 +18,7 @@ export class BorderComponent implements AfterViewInit {
   connections_array: ConnectionComponent[] = [];
   state: 'state1' | 'state2' = 'state1';
   started = false;
+  slide = -1;
 
 
   constructor(public navigation: NavigationService) {}
@@ -25,11 +26,11 @@ export class BorderComponent implements AfterViewInit {
   ngOnInit() {
 
     this.navigation.next_slide$.subscribe(value => {
-      let slide = value;
-      if (slide > 0) {
-        let current = this.connections_array[slide-1];
-        current.from = this.sections_array[slide-1];
-        current.to = this.sections_array[slide];
+      this.slide = value;
+      if (this.slide > 0) {
+        let current = this.connections_array[this.slide-1];
+        current.from = this.sections_array[this.slide-1];
+        current.to = this.sections_array[this.slide];
         current.container = this.bg;
         current.updateLine();
       }

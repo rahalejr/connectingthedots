@@ -4,16 +4,16 @@
 
         <!-- <path id="moon-orbit" d="M -35,0 a 35,33.4 0 1,1 70,0 a 35,33.4 0 1,1 -70,0" fill="none" stroke="black" /> -->
 
-    <path id="moon-orbit" 
-      d="M 0,-35 
-         a 35,33.4 0 1,1 0,66.8 
-         a 35,33.4 0 1,1 0,-66.8" 
-      fill="none"/>
+        <path id="moon-orbit"
+        d="M 0,-35
+           a 35,35 0 1,1 0,70
+           a 35,35 0 1,1 0,-70"
+        fill="none"/>
 
       <path id="trace" [ngClass]="{'reveal': start_drag}" 
       d="M 0,-35 
-         a 35,33.4 0 1,1 0,66.8 
-         a 35,33.4 0 0,1 -35,-33.4" 
+         a 35,35 0 1,1 0,70 
+         a 35,35 0 0,1 -35,-35" 
       fill="none" stroke="var(--content)"
       stroke-width="1" stroke-dasharray="3 6"/>
 
@@ -122,5 +122,6 @@
     <div id="bottom-text" [style.opacity]="bottom_text" [@fadeAnimation]="current_frame">
         <p>{{frame_object.texts[1]}}</p>
     </div>
-    <arrow (clicked)="nextFrame()" [style.opacity]="button_opacity"></arrow>
+    <!-- <next-button (clicked)="nextFrame()" [show]="button_opacity"></next-button> -->
+    <loading></loading>
 </div>

@@ -1,16 +1,17 @@
 import { ChangeDetectorRef, Component, ElementRef, Output, output, viewChild, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArrowComponent } from '../../interface/arrow/arrow.component';
+import { NextButtonComponent } from '../../interface/next-button/next-button.component';
 import { NavigationService } from '../../services/navigation.service';
 import { DragDirective } from '../../directives/drag.directive';
 import { Subscription } from 'rxjs';
-import { tides_text } from '../../content/slide_data';
+import { tides_text, orbit_text } from '../../content/slide_data';
 import { fadeAnimation } from '../../interface/animations';
 import { TideCap } from '../../content/models';
+import { LoadingComponent } from '../../interface/loading/loading.component';
 
 @Component({
     selector: 'tides',
-    imports: [CommonModule, ArrowComponent, DragDirective],
+    imports: [CommonModule, NextButtonComponent, DragDirective, LoadingComponent],
     templateUrl: './tides.component.html',
     styleUrl: './tides.component.css',
     animations: [fadeAnimation]
@@ -42,9 +43,11 @@ export class TidesComponent {
   drag_position: {x: number, y: number} = {x: 0, y: 0};
   projection_path = "M -35,-33 Q -35,-25 -35,0"
   stop_rotation = false;
-  button_opacity = 1;
+  button_opacity = true;
   window_opacity = 0;
   earth_shift = false;
+  slide_object = tides_text;
+  ladies_and_gentlemen_we_are_floating_in_space = false;
   private subscriptions = new Subscription();
 
   constructor(private nav: NavigationService, private cdr: ChangeDetectorRef) {}
@@ -59,9 +62,7 @@ export class TidesComponent {
       this.window_opacity = 1;
     }, 500);
 
-    console.log(this.current_frame);
     this.frame_object = tides_text[this.current_frame];
-
 
   }
 
@@ -80,14 +81,21 @@ export class TidesComponent {
   }
 
   nextFrame() {
+
+    let newFrameIndex = this.current_frame + 1;
+    if (!this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == tides_text.length) {
+      this.slide_object = orbit_text;
+      this.ladies_and_gentlemen_we_are_floating_in_space = true;
+      newFrameIndex = 0;
+    }
+
+    const d = this.slide_object;
+
     this.nav.nextFrame();
   
-    const newFrameIndex = this.current_frame + 1;
-    const newFrameObject = tides_text[newFrameIndex];
-  
+    const newFrameObject = d[newFrameIndex];
     this.frame_object = newFrameObject;
     this.bottom_text = newFrameObject.texts.length > 1
-  
     this.current_frame = newFrameIndex;
   
     if (newFrameObject.stage > this.stage) {
@@ -106,13 +114,13 @@ export class TidesComponent {
       this.earth_shift = true;
     }
     else if (this.stage == 3) {
-      this.button_opacity = 0;
+      this.button_opacity = false;
       this.track_cycle().then(() => {
         this.earth_shift = false;
         this.wrapper?.classList.remove('zoom');
         this.stop_rotation = true;
         this.tide_revert.nativeElement.beginElement(); 
-        this.button_opacity = 1;
+        this.button_opacity = true;
       });
     }
     else if (this.stage == 4) {
