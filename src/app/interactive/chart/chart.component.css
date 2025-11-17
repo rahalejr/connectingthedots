@@ -117,3 +117,56 @@ canvas {
     opacity: 0;
     pointer-events: none;
 }
+
+
+#container-text {
+    width: 100%;
+    height: 100%;
+    z-index: 4000;
+}
+
+#content-text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+img {
+    position: absolute;
+}
+
+.text-b {
+    top: 20%;
+    left: 20%;
+    width: 40%;
+}
+
+.img-b {
+    height: 70%;
+    top: 50%;
+    right: 15%;
+    transform: translate(-50%, -50%);
+}
+
+.text-c {
+    width: 50%;
+    top: 25%;
+    line-height: 40px;
+}
+
+.newline{
+    white-space: pre-line;
+    margin-bottom: 30px !important;
+}

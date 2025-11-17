@@ -7,12 +7,11 @@ import { graph_prediction } from '../../content/slide_data';
 import { NavigationService } from '../../services/navigation.service.js';
 import { NextButtonComponent } from '../../interface/next-button/next-button.component.js';
 import { fadeAnimation } from '../../interface/animations.js';
-import { NgClass } from '@angular/common';
-import { PassThrough } from 'stream';
+import { NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 
 @Component({
   selector: 'chart',
-  imports: [BaseChartDirective, NgIf, NextButtonComponent, NgClass],
+  imports: [BaseChartDirective, NgIf, NextButtonComponent, NgClass, NgSwitch, NgSwitchCase],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css',
   animations: [fadeAnimation]
@@ -252,6 +251,9 @@ export class ChartComponent {
     }
     else if (this.stage == 4) {
       this.select_line('human', 2);
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else {
       setTimeout(() => {this.advance = true}, 2800);
     }
   }

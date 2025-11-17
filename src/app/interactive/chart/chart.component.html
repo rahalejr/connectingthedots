@@ -1,4 +1,4 @@
-<div id="container" [ngClass]="{'disable': stage > 4}" *ngIf="isBrowser">
+<div id="container" [ngClass]="{'hide': stage > 4}" *ngIf="isBrowser">
     <div id="content" [@fadeAnimation]="frame">
         <p>{{frame_object['text']}}</p>
     </div>
@@ -22,5 +22,25 @@
     </div>
     <div id="next">
         <next-button (clicked)="nextFrame()" [show]="advance && all_selected"></next-button>
+    </div>
+</div>
+
+<div id="container" *ngIf="stage > 4">
+    <div id="content" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame_object['template'] == 'b'? null : frame">
+
+        <ng-container *ngSwitchCase="'b'">
+            <div class="text text-b">
+                <p class="newline">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+            <img src="assets/slide_images/graphs/hansen.png" class="img img-b">
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'c'">
+            <div class="text text-c">
+                <p class="newline">{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+        </ng-container>
     </div>
 </div>

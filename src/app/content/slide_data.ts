@@ -206,25 +206,70 @@ export const orbit_text = [
 export const graph_prediction = [
     {
         stage: 0,
-        text: ["This graph shows how global surface temperature has changed over time."]
+        text: "This graph shows how global surface temperature has changed over time.",
+        template: 'a'
     },
     {
         stage: 1,
         text: `What is the cause of the change? Click the buttons to see four potential factors.
-Which do you think is the most likely cause of the change in temperature?`
+Which do you think is the most likely cause of the change in temperature?`,
+        template: 'a'
     },
     {
         stage: 2,
         text: `It's this one!
-So, what are these factors?`
+So, what are these factors?`,
+        template: 'a'
     },
     {
         stage: 3,
-        text: `The four potential contributors are...`
+        text: `The four potential contributors are...`,
+        template: 'a'
     },
     {
         stage: 4,
-        text: `Changes in human activity across time best match changes in global surface temperature.`
+        text: `Changes in human activity across time best match changes in global surface temperature.`,
+        template: 'a'
+    },
+    {
+        stage: 5,
+        text: `Atmospheric physicist James Hansen, son of a tenant farmer in Iowa, predicted that the 21st century would see:`,
+        template: 'b'
+    },
+    {
+        stage: 5,
+        text: `1. more extreme droughts and floods as climate zones shift,
+        
+        2. the erosion of ice sheets resulting in worldwide rise in sea level, and
+        
+        3. the opening of the fabled Northwest Passage.`,
+        template: 'b'
+    },
+    {
+        stage: 5,
+        text: `All of these predicted impacts have since eerily become facts.`,
+        template: 'c'
+    },
+    {
+        stage: 5,
+        text: `What year do you think Hansen first made these predictions based on his research?`,
+        template: 'c'
+    },
+    {
+        stage: 5,
+        text: `1981!
+        …long before any of those changes and events appeared.`,
+        template: 'c'
+    },
+    {
+        stage: 5,
+        text: `James Hansen's paper titled 'Climate Impact of Increasing Atmospheric Carbon Dioxide' was published in 1981.`,
+        template: 'c'
+    },
+    {
+        stage: 5,
+        text: `In 1988, Hansen testified at the hearing hosted by the Senate Energy and Natural Resources Committee, where he stressed the causal influence of human activities on the climate.`,
+        template: 'c'
     }
 ]
     
