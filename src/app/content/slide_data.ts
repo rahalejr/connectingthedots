@@ -179,7 +179,7 @@ export const orbit_text = [
             "The Moon's path would be completely straight, at an angle tangential to the Moon's usual orbit!",
             "This path seems awfully similar to the water shooting out of a coiled garden hose, doesn’t it?"
         ],
-        stage: 4
+        stage: 5
     },
     {
         template: 'b',

@@ -37,12 +37,13 @@ export class TidesComponent {
     stage: 0,
     template: 'z'
   };
-  bottom_text = false;
+  bottom_text = 1;
   drag_point = -35;
   start_drag = false;
   loading = false;
   drag_position: {x: number, y: number} = {x: 0, y: 0};
-  projection_path = "M -35,-33 Q -35,-25 -35,0"
+  projection_path = "M -35,-33 Q -35,-25 -35,0";
+  actual_path = this.projection_path = `M -35,0 Q -35,-25 -35,-33`;
   stop_rotation = false;
   button_opacity = true;
   window_opacity = 0;
@@ -94,17 +95,23 @@ export class TidesComponent {
     const d = this.slide_object;
 
     this.nav.nextFrame();
+
   
     const newFrameObject = d[newFrameIndex];
+    if (newFrameObject.stage == 3 ) {
+      this.bottom_text = 0;
+    }
+    else {
+      this.bottom_text = (newFrameObject.texts.length > 1)? 1 : 0;
+    }
     this.frame_object = newFrameObject;
-    this.bottom_text = newFrameObject.texts.length > 1
     this.current_frame = newFrameIndex;
   
     if (newFrameObject.stage > this.stage) {
       this.advance();
     }
 
-    setTimeout(() => this.button_opacity = true, 1500)
+    if (this.stage != 3) {setTimeout(() => this.button_opacity = true, 1500)};
   }
 
   advance() {
@@ -119,19 +126,20 @@ export class TidesComponent {
     }
     else if (this.stage == 3) {
       this.loading = true;
-      this.button_opacity = false;
       this.track_cycle().then(() => {
         this.loading = false;
+        this.button_opacity = false;
         this.earth_shift = false;
         this.wrapper?.classList.remove('zoom');
         this.stop_rotation = true;
         this.tide_revert.nativeElement.beginElement(); 
-        this.button_opacity = true;
         this.earth_el.nativeElement.style.animationDuration = "0.5s";
+        setTimeout(() => this.advance(), 1500)
       });
     }
     else if (this.stage == 4) {
       this.moon_progress().then(() => {
+        this.bottom_text = 1;
         this.frame_el.nativeElement.pauseAnimations();
         this.stop_rotations();
         this.start_drag = true;
@@ -140,6 +148,7 @@ export class TidesComponent {
     }
     else if (this.stage == 5) {
       this.start_drag = false;
+      this.actual_path = `M -35,0 Q -35,-25 ${-35},-33`;
     }
 
   }
@@ -180,9 +189,11 @@ export class TidesComponent {
   }
 
   update_coord(val: number = -35) {
+    if (val != -35 && !this.button_opacity && this.start_drag) {
+      this.button_opacity = true;
+    }
     this.drag_point = val;
     this.projection_path = `M -35,0 Q -35,-25 ${val},-33`;
-    // this.projection_path = `M${val},-33 Q -35,-25 -35,0;
   }
 
   update_pixels(vals: {x: number, y: number}) {
@@ -209,7 +220,6 @@ export class TidesComponent {
     return new Promise(resolve => {
       const track_prog = setInterval(() => {
         let prog = this.moon_orbit.nativeElement.ownerSVGElement!.getCurrentTime() % 10 / 10;
-        console.log(prog);
         if (prog > .73 && prog < .75) {
           clearInterval(track_prog);
           resolve();

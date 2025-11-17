@@ -10,7 +10,7 @@
            a 35,35 0 1,1 0,-70"
         fill="none"/>
 
-      <path id="trace" [ngClass]="{'reveal': start_drag}" 
+      <path id="trace" [ngClass]="{'reveal': start_drag || stage > 4}" 
       d="M 0,-35 
          a 35,35 0 1,1 0,70 
          a 35,35 0 0,1 -35,-35" 
@@ -27,8 +27,8 @@
         marker-end="url(#arrow-end)"
       />
 
-      <path id="projection-actual" [ngClass]="{'reveal': stage==5}"
-        [attr.d]="projection_path"
+      <path id="projection-actual" [ngClass]="{'reveal': stage > 4}"
+        [attr.d]="actual_path"
         fill="none"
         stroke="var(--content)"
         stroke-dasharray="3 6"
@@ -141,9 +141,9 @@
     <div id="top-text" [@fadeAnimation]="current_frame">
         <p>{{frame_object.texts[0]}}</p>
     </div>
-    <div id="bottom-text" [style.opacity]="bottom_text" [@fadeAnimation]="current_frame">
+    <div id="bottom-text" [ngClass]="{'reveal': !loading && bottom_text}"  [@fadeAnimation]="current_frame">
         <p>{{frame_object.texts[1]}}</p>
     </div>
-    <next-button (clicked)="nextFrame()" [show]="button_opacity && !loading"></next-button>
+    <next-button (clicked)="nextFrame()" [label]="(this.current_frame == 5 && ladies_and_gentlemen_we_are_floating_in_space)? 'Connect away' : 'Next'" [show]="button_opacity && !loading"></next-button>
     <loading [show]="loading"></loading>
 </div>

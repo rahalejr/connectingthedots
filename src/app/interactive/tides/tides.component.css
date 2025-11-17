@@ -23,7 +23,8 @@ next-button {
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translateX(50%);    
+    /* transform: translateX(50%);     */
+    transform-origin: center;
     margin: 10%;
     z-index: 2000 !important;
     pointer-events: auto;
@@ -103,6 +104,10 @@ loading {
     opacity: 1;
 }
 
+#projection-actual.reveal {
+    opacity: 1;
+}
+
 #dialogue {
     top: 0;
     left: 0;
@@ -137,6 +142,12 @@ loading {
     align-items: center;
     width: 60%;
     height: 50%;
+    opacity: 0;
+    transition: .5s opacity;
+}
+
+#bottom-text.reveal {
+    opacity: 1;
 }
 
 
