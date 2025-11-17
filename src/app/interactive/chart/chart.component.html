@@ -1,4 +1,4 @@
-<div id="container" *ngIf="isBrowser">
+<div id="container" [ngClass]="{'disable': stage > 4}" *ngIf="isBrowser">
     <div id="content" [@fadeAnimation]="frame">
         <p>{{frame_object['text']}}</p>
     </div>
@@ -12,15 +12,15 @@
             [options]="chartOptions">
             </canvas>
         </div>
-        <div id="lines">
-            <div class="line" [style.background-color]="colors[4]" (click)="addLine('global', colors[4], 4)">Global</div>
-            <div class="line" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0], 0)">{{reveal ? 'solar' : 'one'}}</div>
-            <div class="line" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1], 1)">{{reveal ? 'volcanic' : 'two'}}</div>
-            <div class="line" [style.background-color]="colors[2]" (click)="addLine('human', colors[2], 2)">{{reveal ? 'human' : 'three'}}</div>
-            <div class="line" [style.background-color]="colors[3]" (click)="addLine('noise', colors[3], 3)">{{reveal ? 'other factors' : 'four'}}</div>
+        <div id="lines" [ngClass]="{'show': this.stage > 0, 'disable': disabled}">
+            <div class="line" [ngClass]="{'selected': this.selected == 'global'}" [style.background-color]="colors[4]" (click)="addLine('global', colors[4], 4)">Global</div>
+            <div class="line" [ngClass]="{'selected': this.selected == 'solar'}" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0], 0)">{{labels[0]}}</div>
+            <div class="line" [ngClass]="{'selected': this.selected == 'volcanic'}" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1], 1)">{{labels[1]}}</div>
+            <div class="line" [ngClass]="{'selected': this.selected == 'human'}" [style.background-color]="colors[2]" (click)="addLine('human', colors[2], 2)">{{labels[2]}}</div>
+            <div class="line" [ngClass]="{'selected': this.selected == 'noise'}" [style.background-color]="colors[3]" (click)="addLine('noise', colors[3], 3)">{{labels[3]}}</div>
         </div>
     </div>
     <div id="next">
-        <next-button (clicked)="nextFrame()" [show]="advance"></next-button>
+        <next-button (clicked)="nextFrame()" [show]="advance && all_selected"></next-button>
     </div>
 </div>

@@ -44,21 +44,29 @@ canvas {
 
 .line {
     width: 100%;
-    height: 50px;
+    height: 30px;
     font-family: "Exo", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     color: var(--white);
-    font-size: 23px;
+    font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
     cursor: pointer;
+    outline: 2px solid var(--background);
+    transition: .3s outline, .4s transform;
+}
+
+.selected {
+    outline: 2px solid black;
+    transform: scale(1.1);
 }
 
 .disable {
     pointer-events: none !important;
+    cursor: not-allowed;
 }
 
 #lines {
@@ -66,9 +74,11 @@ canvas {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    aspect-ratio: 1 / 3.5;
+    aspect-ratio: 1 / 3;
     text-align: center;
     height: 60%;
+    opacity: 0;
+    transition: 1s opacity;
 }
 
 #next {
@@ -105,4 +115,5 @@ canvas {
 
 .hide {
     opacity: 0;
+    pointer-events: none;
 }

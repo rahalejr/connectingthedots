@@ -7,10 +7,12 @@ import { graph_prediction } from '../../content/slide_data';
 import { NavigationService } from '../../services/navigation.service.js';
 import { NextButtonComponent } from '../../interface/next-button/next-button.component.js';
 import { fadeAnimation } from '../../interface/animations.js';
+import { NgClass } from '@angular/common';
+import { PassThrough } from 'stream';
 
 @Component({
   selector: 'chart',
-  imports: [BaseChartDirective, NgIf, NextButtonComponent],
+  imports: [BaseChartDirective, NgIf, NextButtonComponent, NgClass],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css',
   animations: [fadeAnimation]
@@ -21,12 +23,16 @@ export class ChartComponent {
   totalDuration = 2000;
   isBrowser = false;
   reveal = false;
+  disabled = true;
 
-  initialized = [false, false, false, false];
+  initialized = [false, false, false, false, false];
   names = ['solar', 'volcanic', 'human', 'noise', 'global'];
+  labels = ['one', 'two', 'three', 'four', 'global'];
   colors = ['rgba(205,139,98,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)', 'rgba(90,82,85,1)'];
   scales = [[-.25, .25], [-.25, .25], [-1, 1], [-.5, .5], [-1,1]]
   current_scale = [-1, 1];
+  all_selected = true;
+  selected = '';
 
   colors_rgb: Record<string, string> = {
     'solar': '205,139,98',
@@ -44,13 +50,15 @@ export class ChartComponent {
 
   frame: number = 0;
   frame_object: Record<string, any> = {};
-  advance = true;
+  advance = false;
   show_slider = false;
+  stage = 0;
 
   constructor(@Inject(PLATFORM_ID) platformId: Object, public nav: NavigationService) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.nav.set_slide(graph_prediction);
     this.frame_object = graph_prediction[this.frame];
+    setTimeout(() => {this.advance = true}, 2800);
   }
 
   ngAfterViewInit() {
@@ -58,6 +66,7 @@ export class ChartComponent {
       this.chart?.chart?.resize();
       this.chart?.update();
     }, 0);
+    this.addLine('global', this.colors[4], 4)
   }
 
 
@@ -98,18 +107,6 @@ export class ChartComponent {
     plugins: {
       legend: { display: false },
       tooltip: { enabled: false }
-      // tooltip: {
-      //   callbacks: {
-      //     title: items => {
-      //       const x = items[0].parsed.x as number;
-      //       return String(Math.round(x));
-      //     },
-      //     label: item => {
-      //       const y = item.parsed.y as number;
-      //       return `${item.dataset.label}: ${y.toFixed(2)}`;
-      //     }
-      //   }
-      // }
     },
     scales: {
       x: {
@@ -143,6 +140,16 @@ export class ChartComponent {
       this.to_front(name);
       return;
     }
+    else {
+      this.initialized[index] = true;
+      if (this.initialized.every(v => v == true)) {
+        setTimeout(()=>{this.all_selected = true}, 2800);
+      }
+      this.disabled = true;
+      setTimeout(() => {
+        this.disabled = false;
+      }, 2800);
+    }
     
 
     setTimeout(() => {
@@ -156,7 +163,6 @@ export class ChartComponent {
         pointRadius: 0,
         pointHoverRadius: 0
       };
-      this.initialized[index] = true;
       (this.chartData.datasets as any).push(ds);
       this.chart?.update();
       this.select_line(name, index);
@@ -189,7 +195,8 @@ export class ChartComponent {
     requestAnimationFrame(step);
   }
 
-  select_line(name: string, index: number) {
+  select_line(name: string, index: number, store=true) {
+    store? this.selected = name : false
     for (const ds of this.chartData.datasets) {
       const is_target = ds.label == name;
 
@@ -211,23 +218,41 @@ export class ChartComponent {
 
   nextFrame() {
     this.nav.nextFrame();
+    this.advance=false;
   
     this.frame = this.frame + 1;
     this.frame_object = graph_prediction[this.frame];
+    this.stage = this.frame_object['stage']
 
-    if (this.frame == 2) {
+    if (this.stage == 0) {
       setTimeout(() => {this.advance = true}, 2800);
     }
-    else if (this.frame == 5) {
-      setTimeout(() => {this.advance = true}, 3800);
-    }
-    else if (this.frame == 6) {
+    else if (this.stage == 1) {
+      this.disabled = false;
+      this.all_selected = false;
       setTimeout(() => {this.advance = true}, 2800);
     }
-    else if (this.frame == 7) {
-      setTimeout(() => {this.advance = true}, 2800);
+    else if (this.stage == 2) {
+      this.disabled = true;
+      this.change_range([-1,1]);
+      this.select_line('human', 2);
+      setTimeout(()=>{this.select_line('global',4,false)}, 1000)
+      setTimeout(()=>{this.select_line('human',2,false)}, 2000)
+      setTimeout(() => {this.advance = true}, 3500);
     }
-    else if (this.frame == 9) {
+
+    else if (this.stage == 3) {
+      for (let i = 0; i < this.labels.length-1; i++) {
+        setTimeout(()=>{
+            this.select_line(this.names[i],i);
+            this.labels[i] = this.names[i];
+          }, 2000 * (i + 1))
+      }
+      setTimeout(() => {this.advance = true}, 8500);
+    }
+    else if (this.stage == 4) {
+      this.select_line('human', 2);
+      setTimeout(() => {this.advance = true}, 2800);
     }
   }
   
