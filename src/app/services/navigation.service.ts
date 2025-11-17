@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class NavigationService {
 
-  slides: string[] = ['farmers', 'tides', 'orbit', 'prediction']
+  slides: string[] = ['farmers', 'tides', 'orbit', 'prediction', 'matching', 'beakers']
 
   refresh_animations!: Observable<boolean>;
   hidden!: boolean;
@@ -43,6 +43,7 @@ export class NavigationService {
   private started = new Subject<boolean>();
   started$ = this.started.asObservable();
   total_slides = 10;
+  tides_module = false;
 
   slide_delay = 1500;
 
@@ -51,6 +52,7 @@ export class NavigationService {
   }
 
   nextFrame(): void {
+    console.log(this.slide_object.length, this.current_frame);
     if (this.slide_object.length - 1 == this.current_frame){
       this.nextSlide();
       this.current_frame = 0;
@@ -67,6 +69,7 @@ export class NavigationService {
 
   slideTransition(): void {
     this.current_slide++;
+    console.log('welcome to the metaverse', this.current_slide);
     this.current_frame = 0;
     this.frame_sub.next(this.current_frame);
     this.slide_sub.next(this.current_slide);
@@ -80,6 +83,7 @@ export class NavigationService {
 
   set_slide(obj: {}[]) {
     this.slide_object = obj;
+    this.current_frame = 0;
   }
 
   getFrame(): number[] {return [this.current_slide, this.current_frame]}

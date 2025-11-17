@@ -21,23 +21,20 @@
 
 next-button {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    /* transform: translateX(50%);     */
+    bottom: 20%;
+    right: calc(25% + 40px);
+    transform: translate(-50%, 25%);    
     transform-origin: center;
-    margin: 10%;
     z-index: 2000 !important;
     pointer-events: auto;
 }
 
 loading {
     position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(50%);    
-    margin: 10%;
-    z-index: 2000 !important;
-    pointer-events: auto;
+    transform: translate();
+    transform-origin: center;
+    bottom: 25%;
+    right: calc(31% + 40px);
 }
 
 
@@ -135,6 +132,7 @@ loading {
 }
 
 #bottom-text {
+    position: relative;
     display: flex;
     box-sizing: border-box;
     padding: 40px;

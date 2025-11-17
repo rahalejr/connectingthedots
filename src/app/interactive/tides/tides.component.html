@@ -144,6 +144,6 @@
     <div id="bottom-text" [ngClass]="{'reveal': !loading && bottom_text}"  [@fadeAnimation]="current_frame">
         <p>{{frame_object.texts[1]}}</p>
     </div>
-    <next-button (clicked)="nextFrame()" [label]="(this.current_frame == 5 && ladies_and_gentlemen_we_are_floating_in_space)? 'Connect away' : 'Next'" [show]="button_opacity && !loading"></next-button>
     <loading [show]="loading"></loading>
+    <next-button (clicked)="nextFrame()" [label]="(this.current_frame == 5 && ladies_and_gentlemen_we_are_floating_in_space)? 'Connect away' : 'Next'" [show]="button_opacity && !loading"></next-button>
 </div>

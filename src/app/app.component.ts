@@ -25,11 +25,11 @@ export class AppComponent {
   current_frame = 0;
   current_slide = -1;
 
-  constructor(public navigation: NavigationService) {}
+  constructor(public nav: NavigationService) {}
 
   ngOnInit() {
-    this.navigation.current_frame$.subscribe(value => this.current_frame = value);
-    this.navigation.current_slide$.subscribe(value => this.current_slide = value);
+    this.nav.current_frame$.subscribe(value => this.current_frame = value);
+    this.nav.current_slide$.subscribe(value => this.current_slide = value);
   }
 
 }

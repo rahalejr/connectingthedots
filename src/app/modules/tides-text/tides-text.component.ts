@@ -32,8 +32,12 @@ export class TidesTextComponent extends SlideComponent {
   updateContent(): void {this.frame_object = this.all_frames[this.frame]}
 
   override nextFrame(): void {
-    this.navigation.nextFrame();
     this.frame += 1;
+    if (this.frame == tides_data.length - 1) {
+      this.navigation.tides_module = true;
+      return
+    } 
+    this.navigation.nextFrame();
     this.updateContent();
   }
 

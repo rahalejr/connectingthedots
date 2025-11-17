@@ -82,30 +82,49 @@ export class TidesComponent {
     });
   }
 
-  nextFrame() {
+  async nextFrame() {
     this.button_opacity = false;
 
     let newFrameIndex = this.current_frame + 1;
+    console.log(newFrameIndex);
     if (!this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == tides_text.length) {
+      this.nav.set_slide(orbit_text);
       this.slide_object = orbit_text;
+      this.nav.nextSlide();
       this.ladies_and_gentlemen_we_are_floating_in_space = true;
       newFrameIndex = 0;
+    }
+    else if (this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == 6) {
+      this.nav.nextFrame();
+      return
+    }
+    else {
+      this.nav.nextFrame();
+
     }
 
     const d = this.slide_object;
 
-    this.nav.nextFrame();
-
-  
     const newFrameObject = d[newFrameIndex];
     if (newFrameObject.stage == 3 ) {
       this.bottom_text = 0;
+      this.cdr.detectChanges();
     }
     else {
       this.bottom_text = (newFrameObject.texts.length > 1)? 1 : 0;
     }
-    this.frame_object = newFrameObject;
-    this.current_frame = newFrameIndex;
+
+
+    if (newFrameObject.stage == 3) {
+      setTimeout(() => {
+        this.current_frame = newFrameIndex;
+        this.frame_object = newFrameObject
+      }, 1000)
+    }
+    else {
+      this.frame_object = newFrameObject;
+      this.current_frame = newFrameIndex;
+    }
   
     if (newFrameObject.stage > this.stage) {
       this.advance();
@@ -144,6 +163,7 @@ export class TidesComponent {
         this.stop_rotations();
         this.start_drag = true;
         this.update_coord();
+        setTimeout(() => this.button_opacity = true, 6500)
       });
     }
     else if (this.stage == 5) {
@@ -230,5 +250,9 @@ export class TidesComponent {
 
   stop_animations() {
     return;
+  }
+
+  sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

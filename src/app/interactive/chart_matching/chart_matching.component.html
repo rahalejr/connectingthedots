@@ -1,5 +1,5 @@
 <div id="container" *ngIf="isBrowser">
-    <div id="content" [@fadeAnimation]="frame">
+    <div id="content" [@fadeAnimation]="frame < 11 ? frame : null">
         <p>{{frame_object['text']}}</p>
     </div>
     <div id="interactive">

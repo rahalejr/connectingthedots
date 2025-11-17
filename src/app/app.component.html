@@ -2,12 +2,13 @@
   <div id="content">
     <border></border>
     <landing *ngIf="current_slide == -1"></landing>
-    <chart *ngIf="current_slide == 0"></chart>
-    <!-- <chart-matching *ngIf="current_slide >= 0"></chart-matching> -->
+    <chart *ngIf="current_slide == 4"></chart>
+    <chart-matching *ngIf="current_slide >= 3"></chart-matching>
     <!-- <hose *ngIf="current_slide >= 0"></hose> -->
-    <!-- <farmers *ngIf="current_slide == 0"></farmers> -->
-    <!-- <tides-text *ngIf="current_slide == 1"></tides-text> -->
-    <!-- <tides *ngIf="current_slide == 2 || current_slide == 3"></tides> -->
+    <farmers *ngIf="current_slide == 0"></farmers>
+    <tides-text *ngIf="current_slide == 1 && !nav.tides_module"></tides-text>
+    <tides *ngIf="current_slide == 1 && nav.tides_module || current_slide == 2"></tides>
+    <div class="end" *ngIf="current_slide == 5"><p>END OF DEMO</p></div>
   </div>
 
 </div>
