@@ -2,13 +2,18 @@ import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartOptions, ChartData } from 'chart.js';
 import { isPlatformBrowser, NgIf } from '@angular/common';
-import { human, volcanic, solar, noise } from '../../data/climate_data.js';
+import { human, volcanic, solar, noise, global } from '../../data/climate_data.js';
+import { graph_prediction } from '../../content/slide_data';
+import { NavigationService } from '../../services/navigation.service.js';
+import { NextButtonComponent } from '../../interface/next-button/next-button.component.js';
+import { fadeAnimation } from '../../interface/animations.js';
 
 @Component({
   selector: 'chart',
-  imports: [BaseChartDirective, NgIf],
+  imports: [BaseChartDirective, NgIf, NextButtonComponent],
   templateUrl: './chart.component.html',
-  styleUrl: './chart.component.css'
+  styleUrl: './chart.component.css',
+  animations: [fadeAnimation]
 })
 export class ChartComponent {
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
@@ -18,27 +23,43 @@ export class ChartComponent {
   reveal = false;
 
   initialized = [false, false, false, false];
-  names = ['solar', 'volcanic', 'human', 'noise'];
-  colors = ['rgba(195,203,113,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)'];
-  scales = [[-.25, .25], [-.25, .25], [-1, 1], [-.5, .5]]
+  names = ['solar', 'volcanic', 'human', 'noise', 'global'];
+  colors = ['rgba(205,139,98,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)', 'rgba(90,82,85,1)'];
+  scales = [[-.25, .25], [-.25, .25], [-1, 1], [-.5, .5], [-1,1]]
   current_scale = [-1, 1];
 
   colors_rgb: Record<string, string> = {
-    'solar': '195,203,113',
+    'solar': '205,139,98',
     'volcanic': '174,90,65',
     'human': '27,133,184',
-    'noise': '85,158,131'
+    'noise': '85,158,131',
+    'global': '90,82,85'
   };
 
   rgba(name: string, alpha: number) {
     return `rgba(${this.colors_rgb[name]}, ${alpha})`;
   }
 
-  dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, noise };
+  dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, noise, global };
 
-  constructor(@Inject(PLATFORM_ID) platformId: Object) {
+  frame: number = 0;
+  frame_object: Record<string, any> = {};
+  advance = true;
+  show_slider = false;
+
+  constructor(@Inject(PLATFORM_ID) platformId: Object, public nav: NavigationService) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.nav.set_slide(graph_prediction);
+    this.frame_object = graph_prediction[this.frame];
   }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.chart?.chart?.resize();
+      this.chart?.update();
+    }, 0);
+  }
+
 
   get delayBetweenPoints() {
     return this.totalDuration / Math.max(1, (this.chartData.datasets[0]?.data as any[])?.length ?? 1);
@@ -113,7 +134,7 @@ export class ChartComponent {
     }
   };
 
-  addLine(name: 'human' | 'volcanic' | 'solar' | 'noise' | 'left_smooth' | 'right_smooth', color: string, index: number) {
+  addLine(name: 'human' | 'volcanic' | 'solar' | 'noise' | 'global', color: string, index: number) {
 
     this.change_range(this.scales[index]);
 
@@ -172,7 +193,7 @@ export class ChartComponent {
     for (const ds of this.chartData.datasets) {
       const is_target = ds.label == name;
 
-      (ds as any).borderColor = is_target ? this.rgba(ds.label as string, 1) : this.rgba(ds.label as string, .3);
+      (ds as any).borderColor = is_target ? this.rgba(ds.label as string, 1) : this.rgba(ds.label as string, .1);
       (ds as any).borderWidth = is_target ? 3 : 2;
     }
     this.chart?.update();
@@ -186,6 +207,28 @@ export class ChartComponent {
     this.chartData.datasets.splice(dsIndex, 1);
     this.chartData.datasets.push(ds);
     this.chart?.update();
+  }
+
+  nextFrame() {
+    this.nav.nextFrame();
+  
+    this.frame = this.frame + 1;
+    this.frame_object = graph_prediction[this.frame];
+
+    if (this.frame == 2) {
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else if (this.frame == 5) {
+      setTimeout(() => {this.advance = true}, 3800);
+    }
+    else if (this.frame == 6) {
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else if (this.frame == 7) {
+      setTimeout(() => {this.advance = true}, 2800);
+    }
+    else if (this.frame == 9) {
+    }
   }
   
 }

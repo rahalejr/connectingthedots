@@ -1,15 +1,26 @@
 <div id="container" *ngIf="isBrowser">
-    <div id="chart">
-        <canvas baseChart
-        [type]="'line'"
-        [data]="chartData"
-        [options]="chartOptions">
-        </canvas>
+    <div id="content" [@fadeAnimation]="frame">
+        <p>{{frame_object['text']}}</p>
     </div>
-    <div id="lines">
-        <div class="line" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0], 0)">{{reveal ? 'solar' : 'one'}}</div>
-        <div class="line" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1], 1)">{{reveal ? 'volcanic' : 'two'}}</div>
-        <div class="line" [style.background-color]="colors[2]" (click)="addLine('human', colors[2], 2)">{{reveal ? 'human' : 'three'}}</div>
-        <div class="line" [style.background-color]="colors[3]" (click)="addLine('noise', colors[3], 3)">{{reveal ? 'other factors' : 'four'}}</div>
+    <div id="interactive">
+        <p id="x-label" class="label">Year</p>
+        <p id="y-label" class="label">Temperature Anomaly (°C)</p>
+        <div id="chart">
+            <canvas baseChart
+            [type]="'line'"
+            [data]="chartData"
+            [options]="chartOptions">
+            </canvas>
+        </div>
+        <div id="lines">
+            <div class="line" [style.background-color]="colors[4]" (click)="addLine('global', colors[4], 4)">Global</div>
+            <div class="line" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0], 0)">{{reveal ? 'solar' : 'one'}}</div>
+            <div class="line" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1], 1)">{{reveal ? 'volcanic' : 'two'}}</div>
+            <div class="line" [style.background-color]="colors[2]" (click)="addLine('human', colors[2], 2)">{{reveal ? 'human' : 'three'}}</div>
+            <div class="line" [style.background-color]="colors[3]" (click)="addLine('noise', colors[3], 3)">{{reveal ? 'other factors' : 'four'}}</div>
+        </div>
+    </div>
+    <div id="next">
+        <next-button (clicked)="nextFrame()" [show]="advance"></next-button>
     </div>
 </div>

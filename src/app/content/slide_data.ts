@@ -202,6 +202,31 @@ export const orbit_text = [
         stage: 5
     }
 ];
+
+export const graph_prediction = [
+    {
+        stage: 0,
+        text: ["This graph shows how global surface temperature has changed over time."]
+    },
+    {
+        stage: 1,
+        text: `What is the cause of the change? Click the buttons to see four potential factors.
+Which do you think is the most likely cause of the change in temperature?`
+    },
+    {
+        stage: 2,
+        text: `It's this one!
+So, what are these factors?`
+    },
+    {
+        stage: 3,
+        text: `The four potential contributors are...`
+    },
+    {
+        stage: 4,
+        text: `Changes in human activity across time best match changes in global surface temperature.`
+    }
+]
     
 export const graph_matching = [
     {
