@@ -107,7 +107,7 @@ Guess what? This time, Newton’s universal law of gravitation explains why! Let
 ];
 
 export const tides_text: TideCap[] = [{
-        texts: ['Imagine you are looking down at the rotating Earth from above the North Pole.'],
+        texts: ['Imagine you are looking up at the rotating Earth from above the North Pole.'],
         template: 'd',
         stage: 0
     },
@@ -137,7 +137,7 @@ export const tides_text: TideCap[] = [{
         stage: 1
     },
     {
-        texts: ['But that’s a common mistake—caused by assuming that Earth’s rigid core is stationary, since we can’t feel it moving in our daily life.'],
+        texts: ['But that’s a common mistake—caused by our intuitive perception that Earth’s rigid body is stationary.'],
         template: 'd',
         stage: 1
     },
