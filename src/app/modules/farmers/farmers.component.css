@@ -139,8 +139,16 @@ img {
 
 .text-h {
     width: 50%;
-    top: 25%;
+    right: 20%;
+    top: 20%;
     line-height: 40px;
+}
+
+.img-h {
+    width: 10%;
+    bottom: 25%;
+    left: 20%;
+    transform: translate(-50%, -50%);
 }
 
 .text-i {

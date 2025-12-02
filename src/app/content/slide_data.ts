@@ -42,6 +42,7 @@ export const farmers_data = [
     },
     {
         'text': "Thank you Dr. Rosmann for getting back to me. I am desperate. The financial strains of the farm are hard to take. Everything is compounded by my emotions... I experienced a trauma two and a half years ago and I can’t get past it. My brother, with whom I worked on our family farm, committed suicide in front of me. My husband says I’m changing, and I know I am.",
+        'image': 'img/speaker.png',
         'template': 'h'
     },
     {

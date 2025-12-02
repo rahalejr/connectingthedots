@@ -2,11 +2,11 @@
     <div id="content" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
 
         <ng-container *ngSwitchCase="'a'">
-        <div class="text text-a">
-            <p>{{frame_object['text']}}</p>
-            <next-button (clicked)="nextFrame()"></next-button>
-        </div>
-        <img src="assets/slide_images/farmers/flood.png" class="img img-a">
+            <div class="text text-a">
+                <p>{{frame_object['text']}}</p>
+                <next-button (clicked)="nextFrame()"></next-button>
+            </div>
+            <img src="assets/slide_images/farmers/flood.png" class="img img-a">
         </ng-container>
     
         <ng-container *ngSwitchCase="'b'">
@@ -64,6 +64,7 @@
                 <p class="chilanka">{{frame_object['text']}}</p>
                 <next-button (clicked)="nextFrame()"></next-button>
             </div>
+            <img src="assets/slide_images/farmers/speaker.png" class="img img-h">
         </ng-container>
 
         <ng-container *ngSwitchCase="'i'">
