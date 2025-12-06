@@ -108,7 +108,7 @@ Guess what? This time, Newton’s universal law of gravitation explains why! Let
 ];
 
 export const tides_text: TideCap[] = [{
-        texts: ['Imagine you are looking up at the rotating Earth from above the North Pole.'],
+        texts: ['Imagine you are looking up at the rotating Earth from below the South Pole.'],
         template: 'd',
         stage: 0
     },
@@ -133,12 +133,12 @@ export const tides_text: TideCap[] = [{
         stage: 1
     },
     {
-        texts: ['The natural intuition is that water drained into the bulge causes a low tide on other side of the earth.'],
+        texts: ['A common intuition is that water drained into the bulge causes a low tide on other side of the earth.'],
         template: 'd',
         stage: 1
     },
     {
-        texts: ['But that’s a common mistake—caused by our intuitive perception that Earth’s rigid body is stationary.'],
+        texts: ['But that’s a mistake—caused by our intuitive perception that Earth’s rigid body is stationary.'],
         template: 'd',
         stage: 1
     },
