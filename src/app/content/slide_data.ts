@@ -64,7 +64,7 @@ export const farmers_data = [
               "Help organize a protest against government inaction to protect us from such devastation"
             ],
             horizontal: false,
-            multiple_selection: false,
+            multiple_selection: true,
             question: undefined,
             answer: undefined
           },

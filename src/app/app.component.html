@@ -3,7 +3,7 @@
     <border></border>
     <landing *ngIf="current_slide == -1"></landing>
     <chart *ngIf="current_slide == 4"></chart>
-    <chart-matching *ngIf="current_slide >= 3"></chart-matching>
+    <chart-matching *ngIf="current_slide == 3"></chart-matching>
     <!-- <hose *ngIf="current_slide >= 0"></hose> -->
     <farmers *ngIf="current_slide == 0"></farmers>
     <tides-text *ngIf="current_slide == 1 && !nav.tides_module"></tides-text>

@@ -1,32 +1,15 @@
 .loader {
-    opacity: 1;
-    width: 17px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: var(--content);
-    color: var(--content);
-    display: grid;
-    animation: l22-0 2s infinite linear;
-  }
-  .loader:before,
-  .loader:after {
-    content: "";
-    grid-area: 1/1;
-    margin: 15%;
-    border-radius: 50%;
-    background: inherit;
-    transform: rotate(0deg) translate(150%);
-    animation: l22 2s infinite;
-  }
-  .loader:after {
-    animation-delay: -.5s
-  }
-  @keyframes l22-0 {
-    100% {transform: rotate(1turn)}
-  }
-  @keyframes l22 {
-    100% {transform: rotate(1turn) translate(150%)}
-  }
+  width: 15px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+@keyframes l5 {
+    0%  {box-shadow: 20px 0 #000, -20px 0 #0002;background: #000 }
+    33% {box-shadow: 20px 0 #000, -20px 0 #0002;background: #0002}
+    66% {box-shadow: 20px 0 #0002,-20px 0 #000; background: #0002}
+    100%{box-shadow: 20px 0 #0002,-20px 0 #000; background: #000 }
+}
   
 .hide {
     opacity: 0 !important;

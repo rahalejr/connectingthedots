@@ -172,3 +172,7 @@
 .show {
     opacity: 1 !important;
 }
+
+.show-opaque {
+  opacity: .7 !important;
+}

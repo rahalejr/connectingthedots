@@ -180,3 +180,6 @@ multiple-choice {
     white-space: pre-line;
 }
 
+.disable {
+    pointer-events: none !important;
+}

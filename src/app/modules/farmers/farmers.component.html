@@ -1,5 +1,5 @@
 <div id="container">
-    <div id="content" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
+    <div id="content" [ngClass]="{'disable': disable}" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
 
         <ng-container *ngSwitchCase="'a'">
             <div class="text text-a">
@@ -100,7 +100,7 @@
         <ng-container *ngSwitchCase="'m'">
             <div class="text text-a">
                 <p>{{frame_object['text']}}</p>
-                <next-button [label]="'lets play a game to connect the dots'" (clicked)="nextFrame()"></next-button>
+                <next-button [label]="'lets play a game to connect the dots'" (clicked)="nextFrame(false)"></next-button>
             </div>
         </ng-container>
 
