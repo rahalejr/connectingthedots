@@ -24,12 +24,12 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private pVel: any;
 
   // Gravity control
-  private gravity = { x: 0, y: -10 };
+  private gravity = { x: -1, y: 5 };
 
   // Water stream
   private shootPoint = { x: 0, y: 1 };
   private shootDir = { x: 1, y: 0 };
-  private shootSpeed = 10;
+  private shootSpeed = 20;
 
   private tubeWalls: { cx: number; cy: number; hx: number; hy: number }[] = [];
 
@@ -85,11 +85,8 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     const bd = new M.b2BodyDef();
     bd.set_type(M.b2_staticBody);
     const tube = this.world.CreateBody(bd);
-
-    const offX = 0;
-    const offY = 0;
   
-    const w = .3, h = .1;
+    const w = .3, h = .06;
     const thickness = 0.01;
   
     const createWall = (cx: number, cy: number, hx: number, hy: number) => {
@@ -112,7 +109,7 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private initParticleSystem() {
     const M = this.mod;
     const psd = new M.b2ParticleSystemDef();
-    psd.radius = 0.03;
+    psd.radius = 0.006;
     psd.dampingStrength = 0.25;
     psd.viscousStrength = 0.25;
     this.particleSystem = this.world.CreateParticleSystem(psd);
@@ -126,10 +123,20 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     M.destroy(psd);
   }
 
+  private maxParticles = 3000;
+
   private emitWater() {
-    const particlesPerFrame = 6;
-    const jitter = 0.005;
+    const particlesPerFrame = 50;
+    const count = this.particleSystem.GetParticleCount();
+    const jitter = 0.05;
   
+    if (count > this.maxParticles) {
+      const overflow = count - this.maxParticles + particlesPerFrame; 
+      const safeDeleteCount = Math.min(overflow, count);
+  
+      for (let i = 0; i < safeDeleteCount; i++) {this.particleSystem.DestroyParticle(i)}
+    }
+
     for (let i = 0; i < particlesPerFrame; i++) {
       this.pPos.Set(
         this.shootPoint.x + (Math.random() - 0.5) * jitter,
