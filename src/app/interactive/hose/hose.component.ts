@@ -20,12 +20,14 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private pixelsPerMeter = 160;
 
   // Gravity control
-  private gravity = { x: -5, y: -2 };
+  private gravity = { x: 0, y: -10 };
 
   // Water stream
   private shootPoint = { x: 0, y: 1 };
-  private shootDir = { x: 1, y: 0 };
-  private shootSpeed = 5;
+  private shootDir = { x: -1, y: 0 };
+  private shootSpeed = 10;
+
+  private tubeWalls: { cx: number; cy: number; hx: number; hy: number }[] = [];
 
   constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -80,27 +82,33 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     bd.set_type(M.b2_staticBody);
     const tube = this.world.CreateBody(bd);
 
-    const w = 5, h = 2; // half-width/height
+    const offX = 0;
+    const offY = 0;
+  
+    const w = .3, h = .1;
+    const thickness = 0.01;
+  
     const createWall = (cx: number, cy: number, hx: number, hy: number) => {
       const shape = new M.b2PolygonShape();
-      shape.SetAsBox(hx, hy, new M.b2Vec2(cx, cy), 0);
+      shape.SetAsBox(hx, hy, new M.b2Vec2(cx + this.shootPoint.x, cy + this.shootPoint.y), 0);
       tube.CreateFixture(shape, 0);
       M.destroy(shape);
+      this.tubeWalls.push({cx: cx + this.shootPoint.x, cy: cy + this.shootPoint.y, hx, hy});
     };
-
-    createWall(0, -h, w, 0.05); // bottom
-    createWall(0, h, w, 0.05);  // top
-    createWall(-w, 0, 0.05, h); // left
-    createWall(w, 0, 0.05, h);  // right
-
+  
+    createWall(0, -h, w, thickness);
+    createWall(0, h, w, thickness);
+    createWall(-w, 0, thickness, h);
+  
     M.destroy(bd);
   }
 
-  // ---------- Particle system ----------
+
+
   private initParticleSystem() {
     const M = this.mod;
     const psd = new M.b2ParticleSystemDef();
-    psd.radius = 0.02;
+    psd.radius = 0.03;
     psd.dampingStrength = 0.25;
     psd.viscousStrength = 0.25;
     this.particleSystem = this.world.CreateParticleSystem(psd);
@@ -152,14 +160,14 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   //   }
   // }
 
-  // ---------- Change gravity dynamically ----------
+
   public setGravity(x: number, y: number) {
     this.gravity.x = x;
     this.gravity.y = y;
     this.world.SetGravity(new this.mod.b2Vec2(x, y));
   }
 
-  // ---------- Draw ----------
+
   private setWorldToCanvas() {
     const ctx = this.ctx;
     const w = this.canvasRef.nativeElement.width;
@@ -176,7 +184,19 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.setWorldToCanvas();
 
-    // Draw particles
+    // tube
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 0.01;
+
+    for (const wall of this.tubeWalls) {
+      ctx.beginPath();
+      ctx.rect(wall.cx - wall.hx, wall.cy - wall.hy, wall.hx * 2, wall.hy * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    // particles
     const M = this.mod;
     const posBuf = this.particleSystem.GetPositionBuffer();
     const basePtr = M.getPointer(posBuf);

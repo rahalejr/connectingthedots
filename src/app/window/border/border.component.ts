@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { NavigationService } from '../../services/navigation.service';
+import { ConfigService } from '../../services/config.service';
 import { CommonModule } from '@angular/common';
 import { ConnectionComponent } from '../../interface/connection/connection.component';
 
@@ -21,7 +22,7 @@ export class BorderComponent implements AfterViewInit {
   slide = -1;
 
 
-  constructor(public navigation: NavigationService) {}
+  constructor(public navigation: NavigationService, public config: ConfigService) {}
 
   ngOnInit() {
 
@@ -62,7 +63,7 @@ export class BorderComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.animate_wobble();
+    if (!this.config.debug_mode) {this.animate_wobble()}
     this.sections_array = this.sections.toArray();
     this.connections_array = this.connections.toArray();
   }
