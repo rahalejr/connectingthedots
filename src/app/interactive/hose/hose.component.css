@@ -21,8 +21,8 @@ canvas {
 
 img {
     position: absolute;
-    width: 35%;
+    width: 30%;
     top: 50%;
-    left: 8%;
-    transform: translateY(-45.5%);
+    left: 10%;
+    transform: translateY(-27%);
 }

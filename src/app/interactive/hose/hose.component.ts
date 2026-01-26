@@ -27,7 +27,7 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private gravity = { x: -1, y: -7 };
 
   // Water stream
-  private shootPoint = { x: -2, y: 1 };
+  private shootPoint = { x: -2, y: .3 };
   private shootDir = { x: 1, y: 0 };
   private shootSpeed = 20;
 
