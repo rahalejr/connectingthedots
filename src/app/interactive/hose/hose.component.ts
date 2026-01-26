@@ -19,12 +19,16 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private raf = 0;
   private pixelsPerMeter = 160;
 
+  private pd: any;
+  private pPos: any;
+  private pVel: any;
+
   // Gravity control
   private gravity = { x: 0, y: -10 };
 
   // Water stream
   private shootPoint = { x: 0, y: 1 };
-  private shootDir = { x: -1, y: 0 };
+  private shootDir = { x: 1, y: 0 };
   private shootSpeed = 10;
 
   private tubeWalls: { cx: number; cy: number; hx: number; hy: number }[] = [];
@@ -112,54 +116,35 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     psd.dampingStrength = 0.25;
     psd.viscousStrength = 0.25;
     this.particleSystem = this.world.CreateParticleSystem(psd);
+    this.pd = new this.mod.b2ParticleDef();
+    this.pPos = new this.mod.b2Vec2(0, 0);
+    this.pVel = new this.mod.b2Vec2(0, 0);
+
+    this.pd.position = this.pPos;
+    this.pd.velocity = this.pVel;
+    this.pd.flags = this.mod.b2_waterParticle;
     M.destroy(psd);
   }
 
-  // ---------- Emit water ----------
   private emitWater() {
-    const M = this.mod;
-    const pd = new M.b2ParticleDef();
-    pd.flags = M.b2_waterParticle;
-    pd.position = new M.b2Vec2(this.shootPoint.x, this.shootPoint.y);
-    pd.velocity = new M.b2Vec2(this.shootDir.x * this.shootSpeed, this.shootDir.y * this.shootSpeed);
-    this.particleSystem.CreateParticle(pd);
-
-    M.destroy(pd.position);
-    M.destroy(pd.velocity);
-    M.destroy(pd);
+    const particlesPerFrame = 6;
+    const jitter = 0.005;
+  
+    for (let i = 0; i < particlesPerFrame; i++) {
+      this.pPos.Set(
+        this.shootPoint.x + (Math.random() - 0.5) * jitter,
+        this.shootPoint.y + (Math.random() - 0.5) * jitter
+      );
+      this.pVel.Set(
+        this.shootDir.x * this.shootSpeed,
+        this.shootDir.y * this.shootSpeed
+      );
+  
+      this.pd.position = this.pPos;
+      this.pd.velocity = this.pVel;
+      this.particleSystem.CreateParticle(this.pd);
+    }
   }
-
-  // private emitWater() {
-  //   const M = this.mod;
-  //   const particlesPerFrame = 5;
-  //   const currentCount = this.particleSystem.GetParticleCount();
-  
-  //   // Remove oldest particles if we exceed maxParticles
-  //   if (currentCount + particlesPerFrame > this.maxParticles) {
-  //     const toRemove = currentCount + particlesPerFrame - this.maxParticles;
-  //     for (let i = 0; i < toRemove; i++) {
-  //       this.particleSystem.DestroyParticle(0); // remove oldest (index 0)
-  //     }
-  //   }
-  
-  //   for (let i = 0; i < particlesPerFrame; i++) {
-  //     const pd = new M.b2ParticleDef();
-  //     pd.flags = M.b2_waterParticle;
-  
-  //     const offsetX = (Math.random() - 0.5) * 0.05;
-  //     const offsetY = (Math.random() - 0.5) * 0.05;
-  
-  //     pd.position = new M.b2Vec2(this.shootPoint.x + offsetX, this.shootPoint.y + offsetY);
-  //     pd.velocity = new M.b2Vec2(this.shootDir.x * this.shootSpeed, this.shootDir.y * this.shootSpeed);
-  
-  //     this.particleSystem.CreateParticle(pd);
-  
-  //     M.destroy(pd.position);
-  //     M.destroy(pd.velocity);
-  //     M.destroy(pd);
-  //   }
-  // }
-
 
   public setGravity(x: number, y: number) {
     this.gravity.x = x;
