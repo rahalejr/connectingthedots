@@ -1,4 +1,5 @@
 <canvas #cv></canvas>
 <div id="overlay">
     <img src="assets/slide_images/hose/hose.png" alt="">
+    <slider (valueChange)="set_gravity(($event-50)/50)" [show]="true"></slider>
 </div>

@@ -2,10 +2,11 @@ import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, Inject, PLA
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../services/simulation.service';
+import { SliderComponent } from '../../interface/slider/slider.component';
 
 @Component({
     selector: 'hose',
-    imports: [CommonModule],
+    imports: [CommonModule, SliderComponent],
     templateUrl: './hose.component.html',
     styleUrl: './hose.component.css'
 })
@@ -22,11 +23,7 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private pd: any;
   private pPos: any;
   private pVel: any;
-
-  // Gravity control
-  private gravity = { x: -1, y: -7 };
-
-  // Water stream
+  private gravity: any;
   private shootPoint = { x: -2, y: .3 };
   private shootDir = { x: 1, y: 0 };
   private shootSpeed = 20;
@@ -43,17 +40,14 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     this.resizeCanvas(canvas);
     addEventListener('resize', () => this.resizeCanvas(canvas));
 
-    // Load LiquidFun
     this.mod = await this.sim.load();
+    this.gravity = new this.mod.b2Vec2(-1, 0);
+    this.world = new this.mod.b2World(this.gravity);
 
-    // Create world
-    this.world = new this.mod.b2World(new this.mod.b2Vec2(this.gravity.x, this.gravity.y));
-
-    // Initialize tube & particles
     this.createTube();
     this.initParticleSystem();
 
-    // Loop
+    // world loop
     let last = performance.now();
     const tick = (t: number) => {
       const dt = Math.min(0.033, Math.max(0.001, (t - last) / 1000));
@@ -82,21 +76,12 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
-  
-    // 3. Set the Scale Ratio
-    // "I want the visible area to always be 4 meters wide."
-    // If the parent is 400px wide, 1 meter = 100px.
-    // If the parent is 800px wide, 1 meter = 200px (Image doubles in size).
     const visibleWorldWidth = 10.0; 
     
     this.pixelsPerMeter = canvas.width / visibleWorldWidth;
   }
 
 
-  
-
-
-  // ---------- Tube (static enclosure) ----------
   private createTube() {
     const M = this.mod;
     const bd = new M.b2BodyDef();
@@ -122,7 +107,6 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   }
 
 
-
   private initParticleSystem() {
     const M = this.mod;
     const psd = new M.b2ParticleSystemDef();
@@ -140,7 +124,7 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     M.destroy(psd);
   }
 
-  private maxParticles = 3000;
+  private maxParticles = 2500;
 
   private emitWater() {
     const particlesPerFrame = 50;
@@ -223,4 +207,11 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     }
     ctx.fill();
   }
+
+  set_gravity(val: number) {
+    console.log(val);
+    this.gravity.Set(this.gravity.x, val * 10);
+    this.world.SetGravity(this.gravity);
+  }
+
 }

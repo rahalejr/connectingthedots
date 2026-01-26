@@ -48,4 +48,8 @@
     <connection #conn5></connection>
     <connection #conn6></connection>
 
+    <div id="sound-toggle">
+      <span (click)="config.toggle_sound()" class="material-icons">{{sound ? 'volume_up': 'volume_off'}}</span>
+    </div>
+
 </div>

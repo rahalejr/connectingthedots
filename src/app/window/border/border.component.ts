@@ -21,10 +21,14 @@ export class BorderComponent implements AfterViewInit {
   started = false;
   slide = -1;
 
+  sound = false;
+
 
   constructor(public navigation: NavigationService, public config: ConfigService) {}
 
   ngOnInit() {
+
+    this.config.sound$.subscribe(value => this.sound = value)
 
     this.navigation.next_slide$.subscribe(value => {
       this.slide = value;
