@@ -20,6 +20,9 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private raf = 0;
   private pixelsPerMeter = 160;
 
+  on = false;
+  spraying = false;
+
   private pd: any;
   private pPos: any;
   private pVel: any;
@@ -53,7 +56,7 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
       const dt = Math.min(0.033, Math.max(0.001, (t - last) / 1000));
       last = t;
 
-      this.emitWater();
+      if (this.spraying) {this.emitWater()}
       this.world.Step(dt, 8, 3, 5);
       this.draw();
 
@@ -212,6 +215,15 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     console.log(val);
     this.gravity.Set(this.gravity.x, val * 10);
     this.world.SetGravity(this.gravity);
+  }
+
+  start_hose() {
+    if (!this.on) {
+      this.on = true;
+      setTimeout(() => {
+        this.spraying = true;
+      }, 1000);
+    }
   }
 
 }
