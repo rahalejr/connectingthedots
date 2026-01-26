@@ -24,10 +24,10 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   private pVel: any;
 
   // Gravity control
-  private gravity = { x: -1, y: 5 };
+  private gravity = { x: -1, y: -7 };
 
   // Water stream
-  private shootPoint = { x: 0, y: 1 };
+  private shootPoint = { x: -2, y: 1 };
   private shootDir = { x: 1, y: 0 };
   private shootSpeed = 20;
 
@@ -73,11 +73,28 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   }
 
   private resizeCanvas(canvas: HTMLCanvasElement) {
+    const parent = canvas.parentElement; 
+    if (!parent) return;
+  
+    const width = parent.clientWidth;
+    const height = parent.clientHeight;
     const dpr = Math.max(1, window.devicePixelRatio || 1);
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = Math.round(rect.width * dpr);
-    canvas.height = Math.round(rect.height * dpr);
+  
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+  
+    // 3. Set the Scale Ratio
+    // "I want the visible area to always be 4 meters wide."
+    // If the parent is 400px wide, 1 meter = 100px.
+    // If the parent is 800px wide, 1 meter = 200px (Image doubles in size).
+    const visibleWorldWidth = 10.0; 
+    
+    this.pixelsPerMeter = canvas.width / visibleWorldWidth;
   }
+
+
+  
+
 
   // ---------- Tube (static enclosure) ----------
   private createTube() {
@@ -176,17 +193,17 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     this.setWorldToCanvas();
 
-    // tube
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 0.01;
+    // // tube
+    // ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+    // ctx.strokeStyle = '#ffffff';
+    // ctx.lineWidth = 0.01;
 
-    for (const wall of this.tubeWalls) {
-      ctx.beginPath();
-      ctx.rect(wall.cx - wall.hx, wall.cy - wall.hy, wall.hx * 2, wall.hy * 2);
-      ctx.fill();
-      ctx.stroke();
-    }
+    // for (const wall of this.tubeWalls) {
+    //   ctx.beginPath();
+    //   ctx.rect(wall.cx - wall.hx, wall.cy - wall.hy, wall.hx * 2, wall.hy * 2);
+    //   ctx.fill();
+    //   ctx.stroke();
+    // }
 
     // particles
     const M = this.mod;
