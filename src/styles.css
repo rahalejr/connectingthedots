@@ -85,8 +85,34 @@ li {
     font-size: 18px;
 }
 
+p.bubble {
+    font-family: "Hubballi", sans-serif;
+    font-weight: 400;
+    font-size: 23px;
+    font-style: normal;
+}
+
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.material-symbols-outlined {
+    font-size: 3.5vh;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    color: darkslategray;
+}
+
+.material-icons {
+    transition: color .5s;
+    color: darkslategray;
+    font-size: 3.5vh;
+    padding: 0 .4vw;
+    z-index: 100;
+    cursor: pointer;
 }

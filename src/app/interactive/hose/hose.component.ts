@@ -4,14 +4,20 @@ import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../services/simulation.service';
 import { SliderComponent } from '../../interface/slider/slider.component';
 import { ConfigService } from '../../services/config.service';
+import { fadeAnimation } from '../../interface/animations';
+import { NavigationService } from '../../services/navigation.service';
+import { hose_data } from '../../content/slide_data';
+import { SlideComponent } from '../../modules/slide.component';
+import { NextButtonComponent } from '../../interface/next-button/next-button.component';
 
 @Component({
     selector: 'hose',
-    imports: [CommonModule, SliderComponent],
+    imports: [CommonModule, SliderComponent, NextButtonComponent],
     templateUrl: './hose.component.html',
-    styleUrl: './hose.component.css'
+    styleUrl: './hose.component.css',
+    animations: [fadeAnimation]
 })
-export class HoseComponent implements AfterViewInit, OnDestroy {
+export class HoseComponent extends SlideComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cv', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   spray_sound : HTMLAudioElement | undefined;
@@ -27,6 +33,8 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   on = false;
   spraying = false;
 
+  disable = false;
+
   private pd: any;
   private pPos: any;
   private pVel: any;
@@ -37,7 +45,8 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
 
   private tubeWalls: { cx: number; cy: number; hx: number; hy: number }[] = [];
 
-  constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object, private config: ConfigService) {
+  constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object, private config: ConfigService, navigation: NavigationService) {
+    super(navigation);
     this.valve_sound = new Audio('assets/sound/new_valve.m4a');
     this.spray_sound = new Audio('assets/sound/hose_spray.m4a');
     this.valve_sound.load();
@@ -45,11 +54,28 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
     this.spray_sound.loop = true;
     this.spray_sound.volume = .2;
     this.valve_sound.volume = .5;
+
+    this.all_frames = hose_data;
+    this.navigation.set_slide(this.all_frames);
+    this.frame_object = this.all_frames[this.frame];
   }
 
   ngOnInit() {
     this.config.sound$.subscribe(value => this.mute_audio(!value))
   }
+
+  override nextFrame(update = true): void {
+    this.navigation.nextFrame();
+    if (update) {
+      this.frame += 1;
+      this.updateContent()
+    }
+    else {
+      this.disable = true;
+    }
+  }
+
+  updateContent(): void {this.frame_object = this.all_frames[this.frame]}
 
   async ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) return;
