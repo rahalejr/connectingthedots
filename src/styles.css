@@ -3,6 +3,7 @@
     --light: #DFD7CD;
     --content: #2E5C6E;
     --background: #bddcdf;
+    --dark: #336666;
 }
 
 .farmers {
@@ -17,12 +18,14 @@
     --background: #CACCE9;
     --content: #211E55;
     --light: #8E8CB8;
+    --dark: #336666;
 }
 
 .hose {
     --background: #D9CD90;
     --content: #6E552F;
     --light: #B68E55;
+    --dark: #336666;
 }
 
 .tides {

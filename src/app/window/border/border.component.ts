@@ -89,4 +89,8 @@ export class BorderComponent implements AfterViewInit {
       index++;
   }, 1000);}
 
+  toggle() {
+    console.log('yeah');
+  }
+
 }

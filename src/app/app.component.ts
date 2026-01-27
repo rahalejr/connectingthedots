@@ -10,6 +10,7 @@ import { ChartComponent } from './interactive/chart/chart.component';
 import { FarmersComponent } from './modules/farmers/farmers.component';
 import { TidesTextComponent } from './modules/tides-text/tides-text.component';
 import { ChartMatchingComponent } from './interactive/chart_matching/chart_matching.component';
+import { ConfigService } from './services/config.service';
 
 @Component({
     selector: 'app-root',
@@ -25,11 +26,14 @@ export class AppComponent {
   current_frame = 0;
   current_slide = -1;
 
-  constructor(public nav: NavigationService) {}
+  sound = true;
+
+  constructor(public nav: NavigationService, public config: ConfigService) {}
 
   ngOnInit() {
     this.nav.current_frame$.subscribe(value => this.current_frame = value);
     this.nav.current_slide$.subscribe(value => this.current_slide = value);
+    this.config.sound$.subscribe(value => this.sound = value)
   }
 
 }

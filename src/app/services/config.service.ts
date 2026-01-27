@@ -15,7 +15,8 @@ export class ConfigService {
 
   toggle_sound() {
     console.log('toggled');
-    this.sound.next(!this.sound);
+    this.sound.next(!this.sound.value);
+    console.log(this.sound.value);
     document.querySelectorAll('audio, video')
       .forEach(el => (el as HTMLMediaElement).muted = !this.sound.value);
   }

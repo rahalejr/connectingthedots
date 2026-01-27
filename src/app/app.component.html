@@ -10,5 +10,14 @@
     <tides *ngIf="current_slide == 1 && nav.tides_module || current_slide == 2"></tides>
     <div class="end" *ngIf="current_slide == 5"><p>END OF DEMO</p></div> -->
   </div>
+</div>
 
+<div id="sound-toggle">
+  <span (click)="config.toggle_sound()" class="material-icons">{{sound ? 'volume_up': 'volume_off'}}</span>
+  <a href="http://reasoninglab.psych.ucla.edu/publications/patricia-cheng-publications/"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="icon-link">
+  <span class="material-symbols-outlined material-icons">info</span>
+</a>
 </div>

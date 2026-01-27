@@ -22,8 +22,6 @@
 :host {
   position: fixed;
   inset: 0;
-  z-index: -1;
-  pointer-events: none;
 }
 
 
@@ -175,25 +173,4 @@
 
 .show-opaque {
   opacity: .7 !important;
-}
-
-#sound-toggle {
-  pointer-events: all;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100px;
-  margin: 10px;
-  padding: 5px 2px;
-  display: flex;
-  justify-content: flex-start;
-  border: solid 2px var(--dark);
-  border-radius: 10px;
-  transition: border .5s;
-}
-
-.material-icons {
-  transition: color .5s;
-  color: var(--content);
-  font-size: 25px;
 }
