@@ -61,6 +61,20 @@ canvas {
     transition: opacity .5s;
 }
 
+#hint {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 70%;
+    right: 20%;
+    transform: rotate(15deg) translateY(-110%);
+    transition: top .8s ease;
+}
+
+#hint.move-up {
+    top: 50%;
+}
+
 slider {
     position: absolute;
     height: 25%;
@@ -71,4 +85,9 @@ slider {
 
 .disappear {
     opacity: 0;
+}
+
+
+.material-symbols-outlined {
+    color: var(--content);
 }

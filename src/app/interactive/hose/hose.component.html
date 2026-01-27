@@ -2,9 +2,10 @@
 <div id="overlay">
     <img src="assets/slide_images/hose/hose.png" alt="" id="hose">
     <img (click)="start_hose()" [class.spinning]="on" src="assets/slide_images/hose/valve.png" alt="" id="valve">
-    <p class="bubble">Click to start hose!</p>
-    <p class="bubble">Slide to adjust the stream!</p>
-    <span class="material-symbols-outlined">arrow_forward</span>
+    <div id="hint" [ngClass]="{'move-up': on}">
+        <p class="bubble">{{spraying ? 'Slide to adjust the stream!' : 'Click to start hose!'}}</p>
+        <span class="material-symbols-outlined">arrow_forward</span>
+    </div>
     <slider (valueChange)="set_gravity(($event-50)/50)" [show]="true"></slider>
     <div id="dialogue" [ngClass]="{'disable': disable}" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
         <div id="top-text">
