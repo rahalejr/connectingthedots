@@ -37,6 +37,7 @@ export class BorderComponent implements AfterViewInit {
         current.from = this.sections_array[this.slide-1];
         current.to = this.sections_array[this.slide];
         current.container = this.bg;
+        console.log('in this');
         current.updateLine();
       }
       setTimeout(()=> {this.navigation.slideTransition()}, this.navigation.slide_delay);
@@ -67,7 +68,7 @@ export class BorderComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    if (!this.config.debug_mode) {this.animate_wobble()}
+    if (!this.config.debug) {this.animate_wobble()}
     this.sections_array = this.sections.toArray();
     this.connections_array = this.connections.toArray();
   }

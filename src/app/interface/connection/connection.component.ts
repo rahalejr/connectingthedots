@@ -44,15 +44,15 @@ export class ConnectionComponent {
     }
   }
 
-  ngOnInit() {
-    this.config.sound$.subscribe(value => this.mute_audio(!value))
-  }
+  // ngOnInit() {
+  //   this.config.sound$.subscribe(value => this.mute_audio(!value))
+  // }
 
-  private mute_audio(value: boolean) {
-    if (this.pop) this.pop.muted = value;
-    if (this.tick) this.tick.muted = value;
-    if (this.pew) this.pew.muted = value;
-  }
+  // private mute_audio(value: boolean) {
+  //   if (this.pop) this.pop.muted = value;
+  //   if (this.tick) this.tick.muted = value;
+  //   if (this.pew) this.pew.muted = value;
+  // }
 
   @HostListener('window:resize')
   onResize() {

@@ -9,6 +9,7 @@ import { NavigationService } from '../../services/navigation.service';
 import { hose_data } from '../../content/slide_data';
 import { SlideComponent } from '../../modules/slide.component';
 import { NextButtonComponent } from '../../interface/next-button/next-button.component';
+import { Slide, SlideCap } from '../../content/models';
 
 @Component({
     selector: 'hose',
@@ -30,6 +31,10 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
   private raf = 0;
   private pixelsPerMeter = 160;
 
+  override all_frames: SlideCap[];
+  override frame_object: SlideCap;
+
+  stage = 1;
   on = false;
   spraying = false;
 
@@ -62,6 +67,22 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
 
   ngOnInit() {
     this.config.sound$.subscribe(value => this.mute_audio(!value))
+  }
+
+  advance() {
+    this.stage += 1;
+    if (this.stage == 3) {
+      this.emitWater();
+      this.setGravity(1, 0);
+    }
+    if ([2, 3, 4, 5].includes(this.stage)) {
+      if (this.stage == 5) {
+        this.start_hose();
+        this.nextFrame(false);
+        return
+      }
+      this.nextFrame();
+    }
   }
 
   override nextFrame(update = true): void {

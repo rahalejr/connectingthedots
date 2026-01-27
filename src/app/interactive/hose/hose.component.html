@@ -1,16 +1,14 @@
 <canvas #cv></canvas>
 <div id="overlay">
     <img src="assets/slide_images/hose/hose.png" alt="" id="hose">
-    <img (click)="start_hose()" [class.spinning]="on" src="assets/slide_images/hose/valve.png" alt="" id="valve">
-    <div id="hint" [ngClass]="{'move-up': on}">
+    <img (click)="start_hose()" [ngClass]="{'hide': stage > 2}" [class.spinning]="on" src="assets/slide_images/hose/valve.png" alt="" id="valve">
+    <div id="hint" [ngClass]="{'move-up': on, 'hide': stage > 2}">
         <p class="bubble">{{spraying ? 'Slide to adjust the stream!' : 'Click to start hose!'}}</p>
         <span class="material-symbols-outlined">arrow_forward</span>
     </div>
-    <slider (valueChange)="set_gravity(($event-50)/50)" [show]="true"></slider>
+    <slider [ngClass]="{'hide': stage > 2}"(valueChange)="set_gravity(($event-50)/50)" [show]="true"></slider>
     <div id="dialogue" [ngClass]="{'disable': disable}" [ngSwitch]="frame_object['template']" [@fadeAnimation]="frame">
-        <div id="top-text">
-            <p>{{frame_object['text']}}</p>
-        </div>
-        <next-button (clicked)="nextFrame()"></next-button>
+        <p>{{frame_object.text}}</p>
+        <next-button [ngClass]="{'hide': !spraying}" (clicked)="advance()"></next-button>
     </div>
 </div>

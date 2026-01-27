@@ -65,6 +65,7 @@ export class ChartMatchingComponent {
   }
 
   nextFrame() {
+    console.log('hit');
     this.nav.nextFrame();
   
     this.frame = this.frame + 1;

@@ -56,7 +56,7 @@ canvas {
     position: absolute;
     width: 5%;
     top: 70%;
-    right: 15%;
+    right: 20%;
     transform: translate(50%, -50%);
     transition: opacity .5s;
 }
@@ -66,9 +66,9 @@ canvas {
     display: flex;
     align-items: center;
     top: 70%;
-    right: 20%;
+    right: 25%;
     transform: rotate(15deg) translateY(-110%);
-    transition: top .8s ease;
+    transition: top .8s ease, opacity .5s;
 }
 
 #hint.move-up {
@@ -79,7 +79,7 @@ slider {
     position: absolute;
     height: 25%;
     top: 50%;
-    right: 15%;
+    right: 20%;
     transform: translateY(-50%);
 }
 
@@ -87,7 +87,40 @@ slider {
     opacity: 0;
 }
 
+.disable {
+    pointer-events: none !important;
+}
+
 
 .material-symbols-outlined {
     color: var(--content);
+}
+
+#dialogue {
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10%;
+    pointer-events: none;
+    transition: opacity 1s ease;
+}
+
+next-button {
+    transform: translateX(50%);
+    z-index: 2000 !important;
+    pointer-events: auto;
+    margin-bottom: 5%;
+    transition: opacity .5s;
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
 }

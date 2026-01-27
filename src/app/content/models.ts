@@ -11,6 +11,12 @@ export interface TideCap {
     template: string
 }
 
+export interface SlideCap {
+    text: string,
+    stage: number,
+    template: string
+}
+
 export interface Frame {
     id: number
     type: string

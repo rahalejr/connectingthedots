@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ConfigService {
 
-  debug = true;
+  debug = false;
   
   private sound = new BehaviorSubject<boolean>(true);
   sound$ = this.sound.asObservable();
@@ -21,7 +21,5 @@ export class ConfigService {
     document.querySelectorAll('audio, video')
       .forEach(el => (el as HTMLMediaElement).muted = !newValue);
   }
-
-  debug_mode() {return this.debug}
 
 }
