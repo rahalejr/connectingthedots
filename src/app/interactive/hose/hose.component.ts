@@ -13,6 +13,9 @@ import { SliderComponent } from '../../interface/slider/slider.component';
 export class HoseComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cv', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
+  spray_sound : HTMLAudioElement | undefined;
+  valve_sound: HTMLAudioElement | undefined;
+
   private world: any;
   private particleSystem: any;
   private mod: any;
@@ -33,7 +36,15 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
 
   private tubeWalls: { cx: number; cy: number; hx: number; hy: number }[] = [];
 
-  constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.valve_sound = new Audio('assets/sound/valve_sound.m4a');
+    this.spray_sound = new Audio('assets/sound/hose_spray.m4a');
+    this.valve_sound.load();
+    this.spray_sound.load();
+    this.spray_sound.loop = true;
+    this.spray_sound.volume = .2;
+    this.valve_sound.volume = .5;
+  }
 
   async ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformId)) return;
@@ -219,11 +230,43 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
 
   start_hose() {
     if (!this.on) {
+      this.gravity.Set(-1, this.gravity.y)
+      this.world.SetGravity();
+      if (this.valve_sound) {this.valve_sound.play()}
       this.on = true;
       setTimeout(() => {
+        if(this.spray_sound) {this.spray_sound.play()}
         this.spraying = true;
-      }, 1000);
+      }, 500);
     }
+    else {
+      this.on = false;
+      if (this.valve_sound) {this.valve_sound.play()}
+
+      setTimeout(() => {
+        this.spraying = false;
+        if (this.spray_sound) {
+          this.spray_sound.pause();
+          this.spray_sound.currentTime = 0;
+          this.gravity.Set(1, this.gravity.y)
+          this.world.SetGravity();
+          // this.clear_water();
+        }
+      }, 200);
+    }
+  }
+
+  clear_water() {
+    if (!this.particleSystem) return;
+  
+    const count = this.particleSystem.GetParticleCount();
+    if (count === 0) return;
+  
+    // always destroy the last particle
+    this.particleSystem.DestroyParticle(count - 1);
+  
+    // recursively call with delay
+    setTimeout(() => this.clear_water(), 10);
   }
 
 }
