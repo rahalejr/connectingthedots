@@ -83,6 +83,23 @@ export const farmers_data = [
 
 ];
 
+export const hose_data = [
+    {
+        'text': "Here’s a hose coiled on the floor. If we turn on the water, which path will the water follow shooting out the hose?",
+        'template': 'a'
+    },
+    {
+        'text': `Water will shoot straight out.
+
+        According to Newton’s First Law of Motion, things continue their motion (i.e., straight, in the same direction with the same speed) unless an external force acts on it. Thus, without the confinement of the hose, the water shoots out in a straight line.`,
+        'template': 'b'
+    },
+    {
+        'text': "Now let’s see how we can connect garden hose to ocean tides.",
+        'template': 'c'
+    }
+]
+
 export const tides_data = [
     {
         'text': 'Gravitational force from the moon causes ocean tides. How many high tides and low tides does a coast experience a day?',

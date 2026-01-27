@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../services/simulation.service';
 import { SliderComponent } from '../../interface/slider/slider.component';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
     selector: 'hose',
@@ -36,14 +37,18 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
 
   private tubeWalls: { cx: number; cy: number; hx: number; hy: number }[] = [];
 
-  constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.valve_sound = new Audio('assets/sound/valve_sound.m4a');
+  constructor(private sim: SimulationService, @Inject(PLATFORM_ID) private platformId: Object, private config: ConfigService) {
+    this.valve_sound = new Audio('assets/sound/new_valve.m4a');
     this.spray_sound = new Audio('assets/sound/hose_spray.m4a');
     this.valve_sound.load();
     this.spray_sound.load();
     this.spray_sound.loop = true;
     this.spray_sound.volume = .2;
     this.valve_sound.volume = .5;
+  }
+
+  ngOnInit() {
+    this.config.sound$.subscribe(value => this.mute_audio(!value))
   }
 
   async ngAfterViewInit() {
@@ -257,16 +262,12 @@ export class HoseComponent implements AfterViewInit, OnDestroy {
   }
 
   clear_water() {
-    if (!this.particleSystem) return;
-  
-    const count = this.particleSystem.GetParticleCount();
-    if (count === 0) return;
-  
-    // always destroy the last particle
-    this.particleSystem.DestroyParticle(count - 1);
-  
-    // recursively call with delay
-    setTimeout(() => this.clear_water(), 10);
+    return
+  }
+
+  private mute_audio(value: boolean) {
+    if (this.spray_sound) this.spray_sound.muted = value;
+    if (this.valve_sound) this.valve_sound.muted = value;
   }
 
 }

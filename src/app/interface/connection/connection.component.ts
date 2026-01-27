@@ -1,6 +1,7 @@
 import { Component, Input, ElementRef, HostListener, Inject, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NavigationService } from '../../services/navigation.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
     selector: 'connection',
@@ -30,7 +31,7 @@ export class ConnectionComponent {
   p2 = { x: 0, y: 0 };
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private cd: ChangeDetectorRef, private nav: NavigationService) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private cd: ChangeDetectorRef, private nav: NavigationService, private config: ConfigService) {
     if (isPlatformBrowser(this.platformId)) {
       this.pop = new Audio('assets/sound/pop.mp3');
       this.tick = new Audio('assets/sound/tick.m4a');
@@ -43,6 +44,15 @@ export class ConnectionComponent {
     }
   }
 
+  ngOnInit() {
+    this.config.sound$.subscribe(value => this.mute_audio(!value))
+  }
+
+  private mute_audio(value: boolean) {
+    if (this.pop) this.pop.muted = value;
+    if (this.tick) this.tick.muted = value;
+    if (this.pew) this.pew.muted = value;
+  }
 
   @HostListener('window:resize')
   onResize() {
