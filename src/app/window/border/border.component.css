@@ -171,6 +171,6 @@
     opacity: 1 !important;
 }
 
-.show-opaque {
-  opacity: .7 !important;
+.brighten {
+  filter: brightness(1.4);
 }
