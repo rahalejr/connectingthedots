@@ -49,6 +49,9 @@
 .section {
     position: absolute;
     height: 65px;
+    max-height: 6.5dvh;
+    top: 50%;
+    left: 50%;
     /* transform: translate(-100%); */
     z-index: 10;
     background-color: #bddcdf;
@@ -174,3 +177,8 @@
 .brighten {
   filter: brightness(1.4);
 }
+
+.brighten2 {
+  filter: brightness(1.2);
+}
+
