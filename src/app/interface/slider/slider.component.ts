@@ -9,7 +9,7 @@ import { NgClass } from '@angular/common';
 })
 export class SliderComponent {
 
-  value = 50;
+  @Input() value = 50;
 
   @Input() show = false;
 

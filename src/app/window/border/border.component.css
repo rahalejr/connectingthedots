@@ -43,6 +43,7 @@
 
 .icon {
     position: absolute;
+    transform: rotate(0deg);
     transition: inset 2s ease, transform 2s ease;
 }
 

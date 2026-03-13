@@ -9,7 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:connectingthedots": "node dist/connectingthedots/server/server.mjs",
-    "aws-deploy": "aws s3 sync dist/connectingthedots/browser s3://connecting-the-dots"
+    "aws-deploy": "aws s3 sync dist/connectingthedots/browser s3://connecting-the-dots",
+    "cloudfront-invalidate": "aws cloudfront create-invalidation --distribution-id E1IARK3LNLVVKO --paths /*"
   },
   "private": true,
   "browser": {

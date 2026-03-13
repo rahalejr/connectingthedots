@@ -38,12 +38,12 @@ export class TidesComponent {
     template: 'z'
   };
   bottom_text = 1;
-  drag_point = -35;
+  drag_point = -10;
   start_drag = false;
   loading = false;
   drag_position: {x: number, y: number} = {x: 0, y: 0};
-  projection_path = "M -35,-33 Q -35,-25 -35,0";
-  actual_path = this.projection_path = `M -35,0 Q -35,-25 -35,-33`;
+  projection_path = `M -35,0 Q -35,-25 -10,-33`;
+  actual_path = `M -35,0 Q -35,-25 -35,-33`;
   stop_rotation = false;
   button_opacity = true;
   window_opacity = 0;
@@ -208,17 +208,19 @@ export class TidesComponent {
     this.tide_shift?.nativeElement.beginElement();
   }
 
-  update_coord(val: number = -35) {
-    if (val != -35 && !this.button_opacity && this.start_drag) {
+  update_coord(val: number = -10) {
+    if (val != -10 && !this.button_opacity && this.start_drag) {
       this.button_opacity = true;
     }
     this.drag_point = val;
     this.projection_path = `M -35,0 Q -35,-25 ${val},-33`;
+    console.log(this.projection_path);
   }
 
   update_pixels(vals: {x: number, y: number}) {
     setTimeout(() => {
       this.drag_position = vals;
+      console.log(this.drag_position);
     });
   }
 

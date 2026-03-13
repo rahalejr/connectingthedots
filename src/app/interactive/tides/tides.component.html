@@ -24,6 +24,7 @@
       <path id="projection" [ngClass]="{'reveal': start_drag}" [attr.d]="projection_path"
         fill="none"
         stroke="var(--content)"
+        stroke-dasharray="3 6"
         marker-end="url(#arrow-end)"
       />
 
@@ -31,7 +32,6 @@
         [attr.d]="actual_path"
         fill="none"
         stroke="var(--content)"
-        stroke-dasharray="3 6"
         marker-end="url(#arrow-end)"
       />
 
@@ -130,6 +130,7 @@
         [range]="[-60,-10]"
         direction="x"
         [axis_constant]="-33"
+        [initial]="-10"
         (coordinate)="update_coord($event)"
         (pixels)="update_pixels($event)">
         <img src="assets/ui/double-arrow.svg" alt="">

@@ -95,16 +95,19 @@ export const hose_data: SlideCap[] = [
         stage: 3
     },
     {
-        text: `Water will shoot straight out.
-
-        According to Newton’s First Law of Motion, things continue their motion (i.e., straight, in the same direction with the same speed) unless an external force acts on it. Thus, without the confinement of the hose, the water shoots out in a straight line.`,
+        text: `Water will shoot straight out.`,
         template: 'b',
         stage: 4
+    },
+        {
+        text: `According to Newton’s First Law of Motion, things continue their motion (i.e., straight, in the same direction with the same speed) unless an external force acts on it. Thus, without the confinement of the hose, the water shoots out in a straight line.`,
+        template: 'd',
+        stage: 5
     },
     {
         text: "Now let’s see how we can connect garden hose to ocean tides.",
         template: 'c',
-        stage: 4
+        stage: 6
     }
 ]
 

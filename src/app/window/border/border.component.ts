@@ -37,7 +37,6 @@ export class BorderComponent implements AfterViewInit {
         current.from = this.sections_array[this.slide-1];
         current.to = this.sections_array[this.slide];
         current.container = this.bg;
-        console.log('in this');
         current.updateLine();
       }
       setTimeout(()=> {this.navigation.slideTransition()}, this.navigation.slide_delay);
@@ -46,7 +45,7 @@ export class BorderComponent implements AfterViewInit {
     this.navigation.started$.subscribe(value => {
       this.started = value;
       this.state = this.state == 'state1' ? 'state2' : 'state1';
-      this.images?.forEach(img => img.nativeElement.style.animationPlayState = 'paused');
+      this.stop_wobble();
       this.navigation.nextSlide();
       console.log('first');
     });
@@ -90,8 +89,14 @@ export class BorderComponent implements AfterViewInit {
       index++;
   }, 1000);}
 
-  toggle() {
-    console.log('yeah');
+  stop_wobble(): void {
+    this.images?.forEach(img => {
+      const el = img.nativeElement as HTMLElement;
+      el.classList.remove('wobble', 'anti-wobble');
+      el.style.transform = 'rotate(0deg)';
+    });
   }
+
+  toggle() {}
 
 }

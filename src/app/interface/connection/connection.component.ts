@@ -41,6 +41,7 @@ export class ConnectionComponent {
       this.pew.load();
       this.pew.loop = true;
       this.pop.volume = 1;
+      // this.config.sound$.subscribe(value => this.mute_audio(value))
     }
   }
 
@@ -48,11 +49,11 @@ export class ConnectionComponent {
   //   this.config.sound$.subscribe(value => this.mute_audio(!value))
   // }
 
-  // private mute_audio(value: boolean) {
-  //   if (this.pop) this.pop.muted = value;
-  //   if (this.tick) this.tick.muted = value;
-  //   if (this.pew) this.pew.muted = value;
-  // }
+  private mute_audio(value: boolean) {
+    if (this.pop) this.pop.muted = value;
+    if (this.tick) this.tick.muted = value;
+    if (this.pew) this.pew.muted = value;
+  }
 
   @HostListener('window:resize')
   onResize() {
@@ -64,17 +65,20 @@ export class ConnectionComponent {
 
   private buildDots() {
     this.dots = [];
+    console.log('here');
 
     const dx = this.p2.x - this.p1.x;
     const dy = this.p2.y - this.p1.y;
     const distance = Math.hypot(dx, dy);
 
+    // problem is HERE
     if (distance < 1) return;
 
     const count = Math.floor(distance / this.spacingPx);
     this.nav.setDelay(count * this.time_interval);
 
     for (let i = 1; i <= count-1; i++) {
+      console.log('dot', i);
       const distAlong = i * this.spacingPx;
       const t = Math.min(1, distAlong / distance);
       const x = this.p1.x + dx * t;

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ConfigService {
 
-  debug = true;
+  debug = false;
   
   private sound = new BehaviorSubject<boolean>(true);
   sound$ = this.sound.asObservable();

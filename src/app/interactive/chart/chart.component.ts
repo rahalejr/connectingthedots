@@ -25,7 +25,7 @@ export class ChartComponent {
   disabled = true;
 
   initialized = [false, false, false, false, false];
-  names = ['solar', 'volcanic', 'human', 'noise', 'global'];
+  names = ['solar', 'volcanic', 'human', 'other', 'global'];
   labels = ['one', 'two', 'three', 'four', 'global'];
   colors = ['rgba(205,139,98,1)', 'rgba(174,90,65,1)', 'rgba(27,133,184,1)', 'rgba(85,158,131,1)', 'rgba(90,82,85,1)'];
   scales = [[-.25, .25], [-.25, .25], [-1, 1], [-.5, .5], [-1,1]]
