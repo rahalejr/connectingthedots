@@ -23,7 +23,6 @@ import { ConfigService } from './services/config.service';
 export class AppComponent {
   title = 'Connecting The Dots';
 
-  current_frame = 0;
   current_slide = -1;
 
   sound = true;
@@ -31,7 +30,6 @@ export class AppComponent {
   constructor(public nav: NavigationService, public config: ConfigService) {}
 
   ngOnInit() {
-    this.nav.current_frame$.subscribe(value => this.current_frame = value);
     this.nav.current_slide$.subscribe(value => this.current_slide = value);
     this.config.sound$.subscribe(value => this.sound = value)
   }

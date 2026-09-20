@@ -23,22 +23,15 @@ export class FarmersComponent extends SlideComponent {
   constructor(navigation: NavigationService) {
     super(navigation);
     this.all_frames = farmers_data;
-    this.navigation.set_slide(this.all_frames);
     this.frame_object = this.all_frames[this.frame];
   }
 
 
   updateContent(): void {this.frame_object = this.all_frames[this.frame]}
 
-  override nextFrame(update = true): void {
-    this.navigation.nextFrame();
-    if (update) {
-      this.frame += 1;
-      this.updateContent()
-    }
-    else {
-      this.disable = true;
-    }
+  protected override endSlide(): void {
+    this.disable = true;
+    this.navigation.nextSlide();
   }
 
 

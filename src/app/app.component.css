@@ -49,7 +49,7 @@ slides {
     margin: .5vw;
     padding: .5vh 0;
     display: flex;
-    justify-content: space-betweend;
+    justify-content: space-between;
     border: solid .2vh darkslategray;
     background-color: whitesmoke;
     border-radius: .7vw;

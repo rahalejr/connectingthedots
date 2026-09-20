@@ -37,9 +37,11 @@ export class BorderComponent implements AfterViewInit {
         current.from = this.sections_array[this.slide-1];
         current.to = this.sections_array[this.slide];
         current.container = this.bg;
-        current.updateLine();
+        // transition once the dots have actually finished drawing, not on a parallel timer
+        current.updateLine().then(() => this.navigation.slideTransition());
+      } else {
+        setTimeout(()=> {this.navigation.slideTransition()}, this.navigation.slide_delay);
       }
-      setTimeout(()=> {this.navigation.slideTransition()}, this.navigation.slide_delay);
     })
 
     this.navigation.started$.subscribe(value => {
@@ -47,22 +49,7 @@ export class BorderComponent implements AfterViewInit {
       this.state = this.state == 'state1' ? 'state2' : 'state1';
       this.stop_wobble();
       this.navigation.nextSlide();
-      console.log('first');
     });
-
-    // this.navigation.current_slide$.subscribe(value => {
-    //   let slide = value;
-    //   if (slide > 0) {
-    //     let current = this.connections_array[slide-1];
-    //     current.from = this.sections_array[slide-1];
-    //     current.to = this.sections_array[slide];
-    //     current.container = this.bg;
-    //     current.updateLine();
-    //   }
-      // current.updateLine().then(() => {
-      //   this.navigation.nextSlide();
-      // });
-    // })
   }
 
 
@@ -96,7 +83,5 @@ export class BorderComponent implements AfterViewInit {
       el.style.transform = 'rotate(0deg)';
     });
   }
-
-  toggle() {}
 
 }

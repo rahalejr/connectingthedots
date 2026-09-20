@@ -5333,7 +5333,7 @@ export const solar = [
     "y": 0.00676666666666664
   }
 ];
-export const noise = [
+export const other = [
   {
     "x": 1870,
     "y": -0.095553260869565

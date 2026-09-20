@@ -17,7 +17,7 @@
             <div class="line" [ngClass]="{'selected': this.selected == 'solar'}" [style.background-color]="colors[0]" (click)="addLine('solar', colors[0], 0)">{{labels[0]}}</div>
             <div class="line" [ngClass]="{'selected': this.selected == 'volcanic'}" [style.background-color]="colors[1]" (click)="addLine('volcanic', colors[1], 1)">{{labels[1]}}</div>
             <div class="line" [ngClass]="{'selected': this.selected == 'human'}" [style.background-color]="colors[2]" (click)="addLine('human', colors[2], 2)">{{labels[2]}}</div>
-            <div class="line" [ngClass]="{'selected': this.selected == 'noise'}" [style.background-color]="colors[3]" (click)="addLine('noise', colors[3], 3)">{{labels[3]}}</div>
+            <div class="line" [ngClass]="{'selected': this.selected == 'other'}" [style.background-color]="colors[3]" (click)="addLine('other', colors[3], 3)">{{labels[3]}}</div>
         </div>
     </div>
     <div id="next">

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NextButtonComponent } from '../../interface/next-button/next-button.component';
 import { NavigationService } from '../../services/navigation.service';
 import { DragDirective } from '../../directives/drag.directive';
-import { Subscription } from 'rxjs';
 import { tides_text, orbit_text } from '../../content/slide_data';
 import { fadeAnimation } from '../../interface/animations';
 import { TideCap } from '../../content/models';
@@ -50,16 +49,10 @@ export class TidesComponent {
   earth_shift = false;
   slide_object = tides_text;
   ladies_and_gentlemen_we_are_floating_in_space = false;
-  private subscriptions = new Subscription();
 
   constructor(private nav: NavigationService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.nav.set_slide(tides_text);
-    // this.nav.refresh_animations.subscribe(() => this.restart_animations())
-    this.nav.refresh_animations.subscribe(() => {
-      // this.restart_animations();
-    })
     setTimeout(() => {
       this.window_opacity = 1;
     }, 500);
@@ -69,7 +62,6 @@ export class TidesComponent {
   }
 
   ngAfterViewInit() {
-    console.log(this.frame);
     this.wrapper = document.getElementById('wrapper');
     window.addEventListener("load", () => {
       const svg = this.frame_el.nativeElement;
@@ -86,21 +78,15 @@ export class TidesComponent {
     this.button_opacity = false;
 
     let newFrameIndex = this.current_frame + 1;
-    console.log(newFrameIndex);
     if (!this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == tides_text.length) {
-      this.nav.set_slide(orbit_text);
       this.slide_object = orbit_text;
       this.nav.nextSlide();
       this.ladies_and_gentlemen_we_are_floating_in_space = true;
       newFrameIndex = 0;
     }
-    else if (this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == 6) {
-      this.nav.nextFrame();
+    else if (this.ladies_and_gentlemen_we_are_floating_in_space && newFrameIndex == orbit_text.length) {
+      this.nav.nextSlide();
       return
-    }
-    else {
-      this.nav.nextFrame();
-
     }
 
     const d = this.slide_object;
@@ -214,13 +200,11 @@ export class TidesComponent {
     }
     this.drag_point = val;
     this.projection_path = `M -35,0 Q -35,-25 ${val},-33`;
-    console.log(this.projection_path);
   }
 
   update_pixels(vals: {x: number, y: number}) {
     setTimeout(() => {
       this.drag_position = vals;
-      console.log(this.drag_position);
     });
   }
 
@@ -250,11 +234,4 @@ export class TidesComponent {
     });
   }
 
-  stop_animations() {
-    return;
-  }
-
-  sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 }

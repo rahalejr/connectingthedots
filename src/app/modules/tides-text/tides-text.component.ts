@@ -20,12 +20,7 @@ export class TidesTextComponent extends SlideComponent {
   constructor(navigation: NavigationService) {
     super(navigation);
     this.all_frames = tides_data;
-    this.navigation.set_slide(this.all_frames);
     this.frame_object = this.all_frames[this.frame];
-  }
-
-  ngOnInit() {
-    this.navigation.set_slide(this.all_frames);
   }
 
 
@@ -33,11 +28,10 @@ export class TidesTextComponent extends SlideComponent {
 
   override nextFrame(): void {
     this.frame += 1;
-    if (this.frame == tides_data.length - 1) {
+    if (this.frame >= this.all_frames.length - 1) {
       this.navigation.tides_module = true;
       return
-    } 
-    this.navigation.nextFrame();
+    }
     this.updateContent();
   }
 

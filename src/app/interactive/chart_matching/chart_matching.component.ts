@@ -1,6 +1,7 @@
 import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartOptions, ChartData } from 'chart.js';
+import { ChartData } from 'chart.js';
+import { point_animation, climate_chart_options } from '../chart-util';
 import { isPlatformBrowser, NgIf } from '@angular/common';
 import { smooth_left, smooth_right, rough_left, rough_right} from '../../data/climate_data.js';
 import { SliderComponent } from '../../interface/slider/slider.component.js';
@@ -35,10 +36,6 @@ export class ChartMatchingComponent {
 
   
 
-  ngAfterViewInit() {
-  
-  }
-
   colors_rgb: Record<string, string> = {
     'smooth_left': '27,133,184',
     'smooth_right': '174,90,65',
@@ -60,14 +57,15 @@ export class ChartMatchingComponent {
   constructor(@Inject(PLATFORM_ID) platformId: Object, public nav: NavigationService) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.frame = 0;
-    this.nav.set_slide(graph_matching);
     this.frame_object = graph_matching[this.frame];
   }
 
   nextFrame() {
-    console.log('hit');
-    this.nav.nextFrame();
-  
+    if (this.frame >= graph_matching.length - 1) {
+      this.nav.nextSlide();
+      return;
+    }
+
     this.frame = this.frame + 1;
     this.frame_object = graph_matching[this.frame];
 
@@ -104,67 +102,12 @@ export class ChartMatchingComponent {
     return this.totalDuration / Math.max(1, (this.chartData.datasets[0]?.data as any[])?.length ?? 1);
   }
 
-  private previousY = (ctx: any) =>
-    ctx.index === 0
-      ? ctx.chart.scales.y.getPixelForValue(0)
-      : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1]
-          .getProps(['y'], true).y;
-
-  animation = {
-    x: {
-      type: 'number',
-      easing: 'linear',
-      duration: () => this.delayBetweenPoints,
-      from: NaN,
-      delay: (ctx: any) => (ctx.type !== 'data' || ctx.xStarted ? 0 : (ctx.xStarted = true, ctx.index * this.delayBetweenPoints))
-    },
-    y: {
-      type: 'number',
-      easing: 'linear',
-      duration: () => this.delayBetweenPoints,
-      from: (ctx: any) => this.previousY(ctx),
-      delay: (ctx: any) => (ctx.type !== 'data' || ctx.yStarted ? 0 : (ctx.yStarted = true, ctx.index * this.delayBetweenPoints))
-    },
-    borderColor: {
-      duration: 200,
-      easing: 'linear',
-      type: 'color'
-    }
-  };
-
   chartData: ChartData<'line'> = { datasets: [] };
-
-  chartOptions: ChartOptions<'line'> = {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: this.animation as any,
-    interaction: { intersect: false },
-    plugins: {
-      legend: { display: false },
-      tooltip: { enabled: false }
-    },
-    scales: {
-      x: {
-        type: 'linear',
-        min: 1880,
-        max: 2020,
-        ticks: {
-          callback: v => String(v),
-          stepSize: 35,
-          font: { size: 14 }
-        }
-      },
-      y: {
-        min: -1,
-        max: 1,
-        ticks: {
-          maxTicksLimit: 4,
-          font: { size: 14 },
-          callback: v => Number(v).toFixed(1)
-        }
-      }
-    }
+  animation = {
+    ...point_animation(() => this.delayBetweenPoints),
+    borderColor: { duration: 200, easing: 'linear', type: 'color' }
   };
+  chartOptions = climate_chart_options(this.animation, { min: 1880, max: 2020, stepSize: 35 });
 
 
 

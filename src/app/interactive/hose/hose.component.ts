@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { SimulationService } from '../../services/simulation.service';
@@ -18,7 +18,7 @@ import { Slide, SlideCap } from '../../content/models';
   styleUrl: './hose.component.css',
   animations: [fadeAnimation]
 })
-export class HoseComponent extends SlideComponent implements AfterViewInit, OnDestroy {
+export class HoseComponent extends SlideComponent implements AfterViewInit {
   @ViewChild('cv', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   spray_sound: HTMLAudioElement | undefined;
@@ -85,7 +85,6 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
     }
 
     this.all_frames = hose_data;
-    this.navigation.set_slide(this.all_frames);
     this.frame_object = this.all_frames[this.frame];
   }
 
@@ -94,7 +93,6 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
   }
 
   advance() {
-    console.log('advance called, stage:', this.stage);
     this.stage += 1;
 
     if (this.stage === 3) {
@@ -112,21 +110,16 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
     if ([2, 3, 4, 5, 6].includes(this.stage)) {
       if (this.stage === 6) {
         this.start_hose();
-        this.nextFrame(false);
+        this.nextFrame();
         return;
       }
       this.nextFrame();
     }
   }
 
-  override nextFrame(update = true): void {
-    this.navigation.nextFrame();
-    if (update) {
-      this.frame += 1;
-      this.updateContent();
-    } else {
-      this.disable = true;
-    }
+  protected override endSlide(): void {
+    this.disable = true;
+    this.navigation.nextSlide();
   }
 
   updateContent(): void {
@@ -177,9 +170,6 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
     };
 
     this.raf = requestAnimationFrame(tick);
-  }
-
-  ngOnDestroy() {
   }
 
   private stepSimulation(dt: number) {
@@ -342,7 +332,6 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
   set_gravity(val: number) {
     this.gravity.Set(this.gravity.x, val * 10);
     this.world.SetGravity(this.gravity);
-    console.log('Gravity set to:', this.gravity.x, this.gravity.y);
   }
 
   start_hose() {
@@ -385,10 +374,6 @@ export class HoseComponent extends SlideComponent implements AfterViewInit, OnDe
         this.world.SetGravity(this.gravity);
       }, 200);
     }
-  }
-
-  clear_water() {
-    return;
   }
 
   private mute_audio(value: boolean) {

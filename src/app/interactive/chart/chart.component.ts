@@ -1,8 +1,9 @@
 import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
-import { ChartOptions, ChartData } from 'chart.js';
+import { ChartData } from 'chart.js';
+import { point_animation, climate_chart_options } from '../chart-util';
 import { isPlatformBrowser, NgIf } from '@angular/common';
-import { human, volcanic, solar, noise, global } from '../../data/climate_data.js';
+import { human, volcanic, solar, other, global } from '../../data/climate_data.js';
 import { graph_prediction } from '../../content/slide_data';
 import { NavigationService } from '../../services/navigation.service.js';
 import { NextButtonComponent } from '../../interface/next-button/next-button.component.js';
@@ -37,7 +38,7 @@ export class ChartComponent {
     'solar': '205,139,98',
     'volcanic': '174,90,65',
     'human': '27,133,184',
-    'noise': '85,158,131',
+    'other': '85,158,131',
     'global': '90,82,85'
   };
 
@@ -45,7 +46,7 @@ export class ChartComponent {
     return `rgba(${this.colors_rgb[name]}, ${alpha})`;
   }
 
-  dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, noise, global };
+  dataSetsMap: Record<string, {x:number;y:number}[]> = { human, volcanic, solar, other, global };
 
   frame: number = 0;
   frame_object: Record<string, any> = {};
@@ -55,7 +56,6 @@ export class ChartComponent {
 
   constructor(@Inject(PLATFORM_ID) platformId: Object, public nav: NavigationService) {
     this.isBrowser = isPlatformBrowser(platformId);
-    this.nav.set_slide(graph_prediction);
     this.frame_object = graph_prediction[this.frame];
     setTimeout(() => {this.advance = true}, 2800);
   }
@@ -73,64 +73,11 @@ export class ChartComponent {
     return this.totalDuration / Math.max(1, (this.chartData.datasets[0]?.data as any[])?.length ?? 1);
   }
 
-  private previousY = (ctx: any) =>
-    ctx.index === 0
-      ? ctx.chart.scales.y.getPixelForValue(0)
-      : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1]
-          .getProps(['y'], true).y;
-
-  animation = {
-    x: {
-      type: 'number',
-      easing: 'linear',
-      duration: () => this.delayBetweenPoints,
-      from: NaN,
-      delay: (ctx: any) => (ctx.type !== 'data' || ctx.xStarted ? 0 : (ctx.xStarted = true, ctx.index * this.delayBetweenPoints))
-    },
-    y: {
-      type: 'number',
-      easing: 'linear',
-      duration: () => this.delayBetweenPoints,
-      from: (ctx: any) => this.previousY(ctx),
-      delay: (ctx: any) => (ctx.type !== 'data' || ctx.yStarted ? 0 : (ctx.yStarted = true, ctx.index * this.delayBetweenPoints))
-    }
-  };
-
   chartData: ChartData<'line'> = { datasets: [] };
+  animation = point_animation(() => this.delayBetweenPoints);
+  chartOptions = climate_chart_options(this.animation, { min: 1870, max: 2010, stepSize: 30 });
 
-  chartOptions: ChartOptions<'line'> = {
-    responsive: true,
-    maintainAspectRatio: false,
-    animation: this.animation as any,
-    interaction: { intersect: false },
-    plugins: {
-      legend: { display: false },
-      tooltip: { enabled: false }
-    },
-    scales: {
-      x: {
-        type: 'linear',
-        min: 1870,
-        max: 2010,
-        ticks: {
-          callback: v => String(v),
-          stepSize: 30,
-          font: { size: 14 }
-        }
-      },
-      y: {
-        min: -1,
-        max: 1,
-        ticks: {
-          maxTicksLimit: 4,
-          font: { size: 14 },
-          callback: v => Number(v).toFixed(1)
-        }
-      }
-    }
-  };
-
-  addLine(name: 'human' | 'volcanic' | 'solar' | 'noise' | 'global', color: string, index: number) {
+  addLine(name: 'human' | 'volcanic' | 'solar' | 'other' | 'global', color: string, index: number) {
 
     this.change_range(this.scales[index]);
 
@@ -216,9 +163,12 @@ export class ChartComponent {
   }
 
   nextFrame() {
-    this.nav.nextFrame();
+    if (this.frame >= graph_prediction.length - 1) {
+      this.nav.nextSlide();
+      return;
+    }
     this.advance=false;
-  
+
     this.frame = this.frame + 1;
     this.frame_object = graph_prediction[this.frame];
     this.stage = this.frame_object['stage']
